@@ -1,0 +1,1 @@
+mongodb+srv://firstforgestudio_db_user:First2548@wad-01.mf9fjvj.mongodb.net/
