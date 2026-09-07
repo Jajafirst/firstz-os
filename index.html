@@ -1,29 +1,32 @@
-<title>Life OS Dashboard</title>
+<title>Firstz OS</title>
 <meta name="color-scheme" content="dark">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
 
 <style>
   :root{
-    --bg:#0f172a;
-    --surface:#131f36;
-    --surface-2:#0b1424;
-    --raised:#1e293b;
-    --border:#2b3a54;
-    --border-soft:#22304a;
+    --bg:#09090b;
+    --surface:#18181b;
+    --surface-2:#101012;
+    --card:#1f1f23;
+    --border:#27272a;
+    --border-2:#34343b;
     --text:#f8fafc;
-    --text-dim:#94a3b8;
-    --text-faint:#5f7292;
-    --accent:#4ade80;
-    --accent-dim:#2f7d4f;
-    --eng:#38bdf8;
-    --ath:#fb923c;
-    --wealth:#facc15;
-    --downtime:#c084fc;
-    --danger:#f87171;
-    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-    --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --text-2:#a1a1aa;
+    --text-3:#52525b;
+    --sys:#f59e0b;
+    --eng:#3b82f6;
+    --ath:#ef4444;
+    --wealth:#22c55e;
+    --down:#a855f7;
+    --good:#22c55e;
+    --warn:#f59e0b;
+    --bad:#ef4444;
+    --hm0:#161619;
+    --hm1:#0e4429;
+    --hm2:#006d32;
+    --hm3:#26a641;
+    --hm4:#39d353;
+    --mono:"Consolas","Monaco","Courier New",ui-monospace,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
 
   *,*::before,*::after{box-sizing:border-box}
@@ -32,337 +35,568 @@
   body{
     margin:0;background:var(--bg);color:var(--text);
     font-family:var(--sans);font-size:14px;line-height:1.5;
-    display:flex;flex-direction:column;overflow:hidden;
-    -webkit-font-smoothing:antialiased;
+    overflow:hidden;-webkit-font-smoothing:antialiased;
   }
-  @media (max-width:900px){ body{overflow:auto} }
+  button{font-family:inherit}
+  ::selection{background:rgba(245,158,11,.32)}
 
-  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
-    outline:2px solid var(--accent);outline-offset:1px;
+  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{
+    outline:2px solid var(--sys);outline-offset:2px;
   }
   input[type=number]::-webkit-outer-spin-button,
   input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 
-  /* ---- Topbar ---- */
-  .topbar{
-    flex:0 0 auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
-    padding:11px 18px;background:var(--surface-2);border-bottom:1px solid var(--border);
+  /* ---------- shell ---------- */
+  .os{height:100vh;display:grid;grid-template-columns:212px 1fr}
+
+  .nav{
+    background:var(--surface-2);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;gap:2px;padding:14px 10px;overflow-y:auto;
   }
-  .brand{
-    font-family:var(--mono);font-weight:700;font-size:13px;
-    letter-spacing:.16em;text-transform:uppercase;
+  .nav__brand{
+    font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.18em;
+    text-transform:uppercase;padding:6px 8px 14px;color:var(--text);
   }
-  .brand__caret{color:var(--accent)}
-  .brand__v{color:var(--text-faint);font-weight:400;font-size:11px;margin-left:6px}
-  .build{
-    font-family:var(--mono);font-size:11px;color:var(--text-dim);
-    letter-spacing:.06em;text-transform:uppercase;
+  .nav__brand b{color:var(--sys)}
+  .nav__item{
+    display:flex;align-items:center;gap:9px;width:100%;text-align:left;
+    background:transparent;border:0;border-left:2px solid transparent;
+    color:var(--text-2);font-size:12.5px;padding:9px 8px;cursor:pointer;
+    transition:background .15s ease-in-out,color .15s ease-in-out,border-color .15s ease-in-out;
   }
-  .build b{color:var(--accent);font-weight:700}
-  .topbar__actions{margin-left:auto;display:flex;gap:8px}
+  .nav__item span:first-child{width:18px;text-align:center;font-size:13px}
+  .nav__item:hover{background:var(--surface);color:var(--text)}
+  .nav__item.active{
+    background:var(--surface);color:var(--text);border-left-color:var(--sys);
+  }
+  .nav__foot{
+    margin-top:auto;padding:10px 8px 4px;font-family:var(--mono);
+    font-size:10px;letter-spacing:.06em;color:var(--text-3);
+  }
+  .nav__foot .dot{color:var(--good)}
+
+  .workspace{overflow-y:auto;padding:22px 26px 40px}
+
+  .tab{display:none}
+  .tab.active{display:block;animation:tabIn .15s ease-in-out}
+  @keyframes tabIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+  .tab__head{margin-bottom:18px}
+  .tab__head h1{margin:0;font-size:17px;letter-spacing:.01em}
+  .tab__head p{margin:4px 0 0;font-size:12px;color:var(--text-3);font-family:var(--mono)}
+
+  /* ---------- generic bits ---------- */
+  .lbl{
+    font-size:10px;font-family:var(--mono);letter-spacing:.1em;
+    text-transform:uppercase;color:var(--text-3);
+  }
+  .card{background:var(--surface);border:1px solid var(--border);padding:16px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
   .btn{
-    font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-    background:transparent;color:var(--text-dim);border:1px solid var(--border);
-    padding:6px 12px;cursor:pointer;transition:color .15s,border-color .15s;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    background:transparent;color:var(--text-2);border:1px solid var(--border-2);
+    padding:8px 13px;cursor:pointer;transition:color .15s,border-color .15s,background .15s;
   }
-  .btn:hover{color:var(--text);border-color:var(--text-faint)}
+  .btn:hover{color:var(--text);border-color:var(--text-3)}
+  .btn--go{background:var(--sys);color:#0b0b0c;border-color:var(--sys);font-weight:700}
+  .btn--go:hover{filter:brightness(1.08)}
 
-  /* ---- Grid ---- */
-  .grid{
-    flex:1;min-height:0;display:grid;
-    grid-template-columns:minmax(230px,1fr) minmax(0,2fr) minmax(255px,1fr);
-  }
-  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
-
-  .pane{
-    min-height:0;display:flex;flex-direction:column;gap:11px;
-    padding:16px;overflow-y:auto;border-right:1px solid var(--border);
-  }
-  .pane:last-child{border-right:none}
-  @media (max-width:900px){
-    .pane{border-right:none;border-bottom:1px solid var(--border);overflow:visible}
-  }
-  .pane__title{
-    margin:0;font-family:var(--mono);font-size:12px;font-weight:500;
-    color:var(--text-faint);letter-spacing:.1em;
-  }
-  .pane__hint{margin:-4px 0 0;font-size:11px;color:var(--text-faint)}
-
-  /* ---- Scratchpad ---- */
-  #scratchpad{
-    flex:1;min-height:240px;width:100%;resize:none;
+  input,select,textarea{
     background:var(--surface-2);border:1px solid var(--border);color:var(--text);
-    font-family:var(--mono);font-size:13px;line-height:1.75;padding:14px;
+    font-family:var(--mono);font-size:13px;padding:9px 11px;
   }
-  #scratchpad:focus{outline:2px solid var(--accent-dim);outline-offset:-1px;border-color:var(--accent-dim)}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--sys);outline-offset:-1px;border-color:var(--sys)}
+  select{cursor:pointer}
 
-  /* ---- Execution engine ---- */
-  .composer{display:flex;gap:8px}
-  #task-input{
-    flex:1;min-width:0;background:var(--surface-2);border:1px solid var(--border);
-    color:var(--text);font-family:var(--sans);font-size:13px;padding:9px 11px;
+  /* ---------- command line ---------- */
+  .cmd{
+    display:flex;align-items:center;gap:12px;background:var(--surface);
+    border:1px solid var(--border-2);padding:4px 4px 4px 16px;margin-bottom:8px;
   }
-  #task-input:focus{outline:2px solid var(--accent-dim);outline-offset:-1px;border-color:var(--accent-dim)}
-  select{
-    background:var(--surface-2);border:1px solid var(--border);color:var(--text);
-    font-family:var(--mono);font-size:12px;padding:9px 8px;cursor:pointer;
+  .cmd__caret{font-family:var(--mono);color:var(--sys);font-size:16px}
+  .cmd input{
+    flex:1;background:transparent;border:0;padding:16px 4px;font-size:15px;
   }
-  select:focus{outline:2px solid var(--accent-dim);outline-offset:-1px;border-color:var(--accent-dim)}
+  .cmd input:focus{outline:0}
+  .cmd .btn--go{align-self:stretch;padding-inline:20px}
+  .cmd__hint{
+    margin:0 0 22px;font-family:var(--mono);font-size:11px;color:var(--text-3);
+    display:flex;gap:16px;flex-wrap:wrap;
+  }
+  .cmd__hint code{background:var(--surface);border:1px solid var(--border);padding:2px 6px;color:var(--text-2)}
 
-  .board{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  @media (max-width:900px){ .board{grid-template-columns:1fr} }
-
-  .column{
-    display:flex;flex-direction:column;min-height:0;
-    background:var(--surface);border:1px solid var(--border-soft);
-  }
+  /* ---------- kanban ---------- */
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+  .column{background:var(--surface);border:1px solid var(--border)}
   .column__head{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:10px 12px;border-bottom:1px solid var(--border-soft);
-    font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-dim);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:11px 13px;border-bottom:1px solid var(--border);
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-2);
   }
-  .column__tag{color:var(--text-faint);text-transform:lowercase;letter-spacing:.04em}
+  .column__count{color:var(--text-3)}
   .column__body{
-    flex:1;min-height:90px;padding:10px;display:flex;flex-direction:column;gap:8px;
-    overflow-y:auto;transition:background .15s;
+    min-height:120px;padding:11px;display:flex;flex-direction:column;gap:9px;
+    transition:background .15s ease-in-out;
   }
-  .column__body.drop{
-    background:color-mix(in srgb,var(--accent) 10%,transparent);
-    outline:1px dashed var(--accent-dim);outline-offset:-5px;
-  }
+  .column__body.drop{background:rgba(245,158,11,.08);outline:1px dashed var(--sys);outline-offset:-5px}
 
   .task{
-    background:var(--raised);border:1px solid var(--border);border-left:3px solid var(--border);
-    padding:10px 11px;cursor:grab;display:flex;flex-direction:column;gap:9px;
+    background:var(--card);border:1px solid var(--border-2);border-left:3px solid var(--border-2);
+    padding:11px;display:flex;flex-direction:column;gap:10px;cursor:grab;
+    transition:transform .15s ease-in-out,border-color .15s ease-in-out;
   }
+  .task:hover{transform:translateY(-1px);border-color:var(--text-3)}
   .task:active{cursor:grabbing}
   .task.dragging{opacity:.35}
   .task.dom-Engineering{border-left-color:var(--eng)}
   .task.dom-Athletics{border-left-color:var(--ath)}
   .task.dom-Wealth{border-left-color:var(--wealth)}
-  .task.dom-Downtime{border-left-color:var(--downtime)}
+  .task.dom-Downtime{border-left-color:var(--down)}
   .task__text{font-size:13px;line-height:1.45;word-break:break-word}
   .task__meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
-  .task__del{
-    background:transparent;border:none;color:var(--text-faint);
-    font-size:16px;line-height:1;cursor:pointer;padding:2px 5px;
+  .task__actions{display:flex;gap:2px}
+  .task__btn{
+    background:transparent;border:0;color:var(--text-3);font-family:var(--mono);
+    font-size:13px;line-height:1;cursor:pointer;padding:3px 6px;
   }
-  .task__del:hover{color:var(--danger)}
+  .task__btn:hover{color:var(--text)}
+  .task__btn--del:hover{color:var(--bad)}
 
   .tag{
     font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-    padding:3px 7px;border:1px solid transparent;
+    padding:3px 7px;border:1px solid transparent;white-space:nowrap;
   }
-  .tag--Engineering{color:var(--eng);border-color:color-mix(in srgb,var(--eng) 45%,transparent);background:color-mix(in srgb,var(--eng) 12%,transparent)}
-  .tag--Athletics{color:var(--ath);border-color:color-mix(in srgb,var(--ath) 45%,transparent);background:color-mix(in srgb,var(--ath) 12%,transparent)}
-  .tag--Wealth{color:var(--wealth);border-color:color-mix(in srgb,var(--wealth) 45%,transparent);background:color-mix(in srgb,var(--wealth) 12%,transparent)}
-  .tag--Downtime{color:var(--downtime);border-color:color-mix(in srgb,var(--downtime) 45%,transparent);background:color-mix(in srgb,var(--downtime) 12%,transparent)}
+  .tag--Engineering{color:var(--eng);border-color:color-mix(in srgb,var(--eng) 45%,transparent);background:color-mix(in srgb,var(--eng) 13%,transparent)}
+  .tag--Athletics{color:var(--ath);border-color:color-mix(in srgb,var(--ath) 45%,transparent);background:color-mix(in srgb,var(--ath) 13%,transparent)}
+  .tag--Wealth{color:var(--wealth);border-color:color-mix(in srgb,var(--wealth) 45%,transparent);background:color-mix(in srgb,var(--wealth) 13%,transparent)}
+  .tag--Downtime{color:var(--down);border-color:color-mix(in srgb,var(--down) 45%,transparent);background:color-mix(in srgb,var(--down) 13%,transparent)}
 
-  /* ---- Telemetry ---- */
-  .module{
-    background:var(--surface);border:1px solid var(--border-soft);padding:13px;
-    display:flex;flex-direction:column;gap:11px;
+  /* ---------- pomodoro ---------- */
+  .pom{
+    padding:12px 13px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
   }
-  .module__title{
-    margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--text-dim);
+  .pom__time{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+  .pom__time.done{color:var(--good)}
+  .pom__ctrls{display:flex;gap:5px}
+  .pom__btn{
+    background:transparent;border:1px solid var(--border-2);color:var(--text-2);
+    font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 9px;cursor:pointer;transition:color .15s,border-color .15s;
   }
-  .macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .wealth{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .fieldset{display:flex;flex-direction:column;gap:5px}
-  .lbl{
-    font-size:10px;font-family:var(--mono);letter-spacing:.08em;
-    text-transform:uppercase;color:var(--text-faint);
-  }
-  input[type=number]{
-    background:var(--surface-2);border:1px solid var(--border);color:var(--text);
-    font-family:var(--mono);font-size:13px;padding:8px 9px;width:100%;
-    -moz-appearance:textfield;font-variant-numeric:tabular-nums;
-  }
-  input[type=number]:focus{outline:2px solid var(--accent-dim);outline-offset:-1px;border-color:var(--accent-dim)}
-  .fieldset select{width:100%}
+  .pom__btn:hover{color:var(--text);border-color:var(--text-3)}
+  .pom__sessions{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em}
 
-  .readout{
-    display:flex;justify-content:space-between;align-items:baseline;
-    padding-top:9px;border-top:1px solid var(--border-soft);
-    font-family:var(--mono);font-size:10px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--text-faint);
-  }
-  .readout b{color:var(--text);font-size:14px;font-variant-numeric:tabular-nums;letter-spacing:0}
-  .readout--sub{border-top:none;padding-top:2px;text-transform:none}
-  .readout--sub #w-thb{color:var(--wealth)}
+  /* ---------- lab ---------- */
+  .lab-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start}
+  #scratch{width:100%;min-height:420px;resize:vertical;line-height:1.7;background:var(--surface-2)}
+  .lab-side{display:flex;flex-direction:column;gap:16px}
+  .proj-grid{display:grid;gap:10px}
+  .proj-card{background:var(--card);border:1px solid var(--border-2);padding:13px;display:flex;flex-direction:column;gap:9px}
+  .proj-card h4{margin:0;font-size:13px;font-family:var(--mono);letter-spacing:.04em}
+  .proj-card .row{gap:8px;align-items:center}
+  .proj-card select{padding:6px 8px;font-size:11px;flex:1}
+  .proj-card input[type=number]{width:64px;padding:6px 8px;font-size:11px;text-align:right}
+  .proj-card input[type=text]{width:100%;padding:6px 8px;font-size:11px}
+  .bar{height:6px;background:var(--surface-2);border:1px solid var(--border);overflow:hidden}
+  .bar > i{display:block;height:100%;background:var(--eng);transition:width .3s ease-in-out}
 
-  .velo-top{display:flex;gap:10px}
-  .velo-stat{
-    flex:1;background:var(--surface-2);border:1px solid var(--border-soft);
-    padding:9px 10px;display:flex;flex-direction:column;gap:3px;
+  /* ---------- gym ---------- */
+  .gym-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
+  .macro{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  .macro__top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px}
+  .macro__top b{font-size:14px}
+  .macro__bar{height:12px;background:var(--surface-2);border:1px solid var(--border)}
+  .macro__bar > i{display:block;height:100%;transition:width .3s ease-in-out}
+  .macro--p .macro__bar > i{background:var(--ath)}
+  .macro--c .macro__bar > i{background:var(--sys)}
+  .macro--f .macro__bar > i{background:var(--down)}
+  .macro__edit{display:flex;gap:6px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text-3)}
+  .macro__edit input{width:70px;padding:5px 7px;font-size:11px;text-align:right}
+  .bio{display:flex;align-items:baseline;gap:10px;padding:18px;background:var(--card);border:1px solid var(--border-2)}
+  .bio b{font-family:var(--mono);font-size:34px;font-weight:700;color:var(--ath);line-height:1}
+  .bio span{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.06em}
+  .bio .lock{margin-left:auto;font-size:11px;color:var(--text-3)}
+  .train{display:flex;flex-direction:column;gap:12px}
+  .train select{width:100%}
+  .train__log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+  .train__log li{
+    display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;
+    color:var(--text-2);border-bottom:1px solid var(--border);padding-bottom:6px;
   }
-  .velo-stat b{
-    font-family:var(--mono);font-size:22px;color:var(--accent);line-height:1;
-    font-variant-numeric:tabular-nums;
-  }
-  .velo-stat span{
-    font-size:9px;font-family:var(--mono);letter-spacing:.1em;
-    text-transform:uppercase;color:var(--text-faint);
-  }
-  .velo-bar{height:8px;background:var(--surface-2);border:1px solid var(--border-soft);overflow:hidden}
-  .velo-bar__fill{height:100%;background:var(--accent);width:0;transition:width .3s}
-  .velo-hist{display:flex;align-items:flex-end;gap:6px;padding-top:6px}
-  .velo-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
-  .velo-col__bar{
-    width:100%;min-height:3px;
-    background:color-mix(in srgb,var(--accent) 32%,var(--surface-2));
-    transition:height .3s;
-  }
-  .velo-col--today .velo-col__bar{background:var(--accent)}
-  .velo-col__day{font-family:var(--mono);font-size:9px;color:var(--text-faint);letter-spacing:.02em}
-  .velo-col__n{font-family:var(--mono);font-size:9px;color:var(--text-dim)}
-  .velo-cap{margin:0;font-family:var(--mono);font-size:10px;color:var(--text-faint);letter-spacing:.06em}
+  .train__log li span:last-child{color:var(--text-3)}
 
-  /* ---- Promote button ---- */
-  .promote{
-    position:fixed;z-index:60;transform:translate(-50%,0);
-    background:var(--accent);color:#04240f;border:none;
-    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.04em;
-    padding:7px 11px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.5);
+  /* ---------- vault ---------- */
+  .vault{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px}
+  .vault label{display:flex;flex-direction:column;gap:6px}
+  .vault input{text-align:right;font-size:15px;padding:11px 12px}
+  .networth{
+    margin-top:22px;padding:20px;background:var(--card);border:1px solid var(--border-2);
+    display:flex;flex-direction:column;gap:6px;max-width:520px;
   }
-  .promote:hover{filter:brightness(1.08)}
+  .networth .lbl{color:var(--text-3)}
+  .networth b{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--wealth);font-variant-numeric:tabular-nums}
+  .networth .thb{font-family:var(--mono);font-size:12px;color:var(--text-3)}
+  .alloc{display:flex;height:10px;margin-top:14px;max-width:520px;border:1px solid var(--border)}
+  .alloc > i{display:block;height:100%;transition:width .3s ease-in-out}
+  .alloc-key{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--text-3)}
+  .alloc-key i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:middle}
 
-  /* ---- Modal ---- */
-  .modal{
-    position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
-    background:rgba(2,6,18,.72);padding:20px;
+  /* ---------- drive ---------- */
+  .drive-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}
+  .protocol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+  .protocol li{display:flex}
+  .protocol label{
+    display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;cursor:pointer;
+    border:1px solid var(--border);border-bottom:0;font-size:12.5px;
+    transition:background .15s ease-in-out;
   }
-  .modal__card{
-    width:min(560px,100%);max-height:82vh;background:var(--surface);
-    border:1px solid var(--border);display:flex;flex-direction:column;
-  }
-  .modal__head{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:12px 14px;border-bottom:1px solid var(--border);
-    font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-  }
-  .modal__head button{background:none;border:none;color:var(--text-dim);font-size:18px;cursor:pointer;line-height:1}
-  #modal-text{
-    flex:1;min-height:260px;margin:14px;background:var(--surface-2);
-    border:1px solid var(--border);color:var(--text);
-    font-family:var(--mono);font-size:12px;line-height:1.5;padding:12px;resize:none;
-  }
-  .modal__actions{display:flex;gap:8px;justify-content:flex-end;padding:0 14px 14px}
+  .protocol li:last-child label{border-bottom:1px solid var(--border)}
+  .protocol label:hover{background:var(--surface)}
+  .protocol input{width:15px;height:15px;accent-color:var(--sys);flex:0 0 auto}
+  .protocol label.done{color:var(--text-3);text-decoration:line-through}
+  .protocol__meta{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-top:12px}
 
-  /* ---- Toast ---- */
+  .media-group{margin-bottom:16px}
+  .media-group h4{
+    margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--text-3);
+  }
+  .media-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .media-card{
+    display:flex;flex-direction:column;gap:5px;padding:14px;text-decoration:none;
+    background:var(--card);border:1px solid var(--border-2);color:var(--text);
+    transition:transform .15s ease-in-out,border-color .15s ease-in-out;
+  }
+  .media-card:hover{transform:translateY(-1px);border-color:var(--sys)}
+  .media-card b{font-size:13px}
+  .media-card span{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.04em}
+  .media-card span::before{content:"▶ "}
+
+  /* ---------- radar ---------- */
+  .hm{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:560px;margin-bottom:10px}
+  .hm-cell{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .hm-cell .box{
+    width:100%;aspect-ratio:1/1;border:1px solid var(--border);background:var(--hm0);
+    transition:background .3s ease-in-out;
+  }
+  .hm-cell[data-level="1"] .box{background:var(--hm1)}
+  .hm-cell[data-level="2"] .box{background:var(--hm2)}
+  .hm-cell[data-level="3"] .box{background:var(--hm3)}
+  .hm-cell[data-level="4"] .box{background:var(--hm4)}
+  .hm-cell .d,.hm-cell .n{font-family:var(--mono);font-size:10px;color:var(--text-3)}
+  .hm-cell .n{color:var(--text-2)}
+  .legend{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--text-3);margin-bottom:26px}
+  .legend i{width:12px;height:12px;border:1px solid var(--border);display:inline-block}
+  .legend i:nth-child(2){background:var(--hm0)}
+  .legend i:nth-child(3){background:var(--hm1)}
+  .legend i:nth-child(4){background:var(--hm2)}
+  .legend i:nth-child(5){background:var(--hm3)}
+  .legend i:nth-child(6){background:var(--hm4)}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin-bottom:28px}
+  .stat{background:var(--card);border:1px solid var(--border-2);padding:14px}
+  .stat b{display:block;font-family:var(--mono);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+  .stat span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+
+  .load{display:flex;height:14px;max-width:560px;border:1px solid var(--border)}
+  .load > i{display:block;height:100%;transition:width .3s ease-in-out}
+  .load-key{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--text-3)}
+  .load-key i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:middle}
+
+  /* ---------- toast ---------- */
   .toast{
     position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;
-    background:var(--raised);border:1px solid var(--border);color:var(--text);
-    font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:9px 14px;
-    box-shadow:0 10px 26px rgba(0,0,0,.45);
+    background:var(--card);border:1px solid var(--border-2);color:var(--text);
+    font-family:var(--mono);font-size:11px;letter-spacing:.03em;padding:10px 15px;
+    box-shadow:0 12px 30px rgba(0,0,0,.5);
   }
 
-  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    body{overflow:auto}
+    .os{grid-template-columns:1fr;height:auto}
+    .nav{
+      flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);
+      position:sticky;top:0;z-index:50;
+    }
+    .nav__brand{display:none}
+    .nav__item{border-left:0;border-bottom:2px solid transparent;white-space:nowrap}
+    .nav__item.active{border-left:0;border-bottom-color:var(--sys)}
+    .nav__foot{display:none}
+    .workspace{padding:18px 16px 60px}
+    .board{grid-template-columns:1fr}
+    .lab-grid,.gym-grid,.drive-grid{grid-template-columns:1fr}
+    .stat-grid{grid-template-columns:1fr 1fr}
+    .vault{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-<header class="topbar">
-  <div class="brand"><span class="brand__caret">&#9656;</span> life_os <span class="brand__v">v1.0</span></div>
-  <div class="build" id="build-status"></div>
-  <div class="topbar__actions">
-    <button class="btn" type="button" id="btn-export">export</button>
-    <button class="btn" type="button" id="btn-import">import</button>
-  </div>
-</header>
+<div class="os">
+  <nav class="nav">
+    <div class="nav__brand"><b>&#9656;</b> firstz_os</div>
+    <button class="nav__item active" data-tab="cmd"><span>&#9889;</span><span>Command Center</span></button>
+    <button class="nav__item" data-tab="lab"><span>&#128187;</span><span>Engineering</span></button>
+    <button class="nav__item" data-tab="gym"><span>&#127947;</span><span>Athletic Engine</span></button>
+    <button class="nav__item" data-tab="vault"><span>&#127974;</span><span>Wealth &amp; Assets</span></button>
+    <button class="nav__item" data-tab="drive"><span>&#128267;</span><span>Drive &amp; Recovery</span></button>
+    <button class="nav__item" data-tab="radar"><span>&#128202;</span><span>Analytics</span></button>
+    <div class="nav__foot"><span class="dot">&#9679;</span> online &middot; local store</div>
+  </nav>
 
-<main class="grid">
-  <!-- Pane 1 -->
-  <section class="pane">
-    <h2 class="pane__title">// scratchpad</h2>
-    <p class="pane__hint">select a phrase &rarr; &#9889; promote it straight to the inbox</p>
-    <textarea id="scratchpad" spellcheck="false" placeholder="raw notes, half-thoughts, TODOs before they earn a card&hellip;"></textarea>
-  </section>
+  <main class="workspace">
 
-  <!-- Pane 2 -->
-  <section class="pane">
-    <h2 class="pane__title">// execution engine</h2>
-    <div class="composer">
-      <input type="text" id="task-input" autocomplete="off" placeholder="new task&hellip;  &#9166; commits to inbox">
-      <select id="domain-select" aria-label="Domain tag">
-        <option value="Engineering">Engineering</option>
-        <option value="Athletics">Athletics</option>
-        <option value="Wealth">Wealth</option>
-        <option value="Downtime">Downtime</option>
-      </select>
-    </div>
-    <div class="board">
-      <div class="column">
-        <header class="column__head"><span>TODO</span><span class="column__tag">inbox</span></header>
-        <div class="column__body" data-status="todo"></div>
+    <!-- ============ TAB 1 : COMMAND CENTER ============ -->
+    <section class="tab active" id="tab-cmd">
+      <div class="tab__head">
+        <h1>&#9889; Command Center</h1>
+        <p>parse it, queue it, ship it</p>
       </div>
-      <div class="column">
-        <header class="column__head"><span>DOING</span><span class="column__tag">active</span></header>
-        <div class="column__body" data-status="doing"></div>
-      </div>
-      <div class="column">
-        <header class="column__head"><span>DONE</span><span class="column__tag">shipped</span></header>
-        <div class="column__body" data-status="done"></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Pane 3 -->
-  <section class="pane">
-    <h2 class="pane__title">// telemetry</h2>
-
-    <div class="module">
-      <h3 class="module__title">athletics</h3>
-      <div class="macros">
-        <div class="fieldset"><span class="lbl">Protein g</span><input type="number" id="m-protein" min="0" step="1"></div>
-        <div class="fieldset"><span class="lbl">Carb g</span><input type="number" id="m-carb" min="0" step="1"></div>
-        <div class="fieldset"><span class="lbl">Fat g</span><input type="number" id="m-fat" min="0" step="1"></div>
+      <div class="cmd">
+        <span class="cmd__caret">&gt;_</span>
+        <input type="text" id="cmd-input" autocomplete="off" spellcheck="false"
+               placeholder="/eng Fix Jenkins CI   ·   +40p +30c   ·   /log Hyrox   ·   or just type a task">
+        <button class="btn btn--go" id="cmd-run">Run</button>
       </div>
-      <div class="readout"><span>intake</span><b id="kcal">&mdash;</b></div>
-      <div class="readout"><span>body fat</span><b id="bodyfat">25%</b></div>
-      <div class="fieldset">
-        <span class="lbl">workout type</span>
-        <select id="workout">
-          <option>CrossFit</option>
-          <option>Hyrox</option>
-          <option>Weightlifting</option>
-          <option>Running</option>
-        </select>
+      <p class="cmd__hint">
+        <span><code>/eng</code> <code>/ath</code> <code>/wealth</code> <code>/down</code> &nbsp;new task by domain</span>
+        <span><code>+40p</code> <code>+30c</code> <code>+15f</code> &nbsp;log macros (g)</span>
+        <span><code>/log Hyrox</code> &nbsp;log training</span>
+      </p>
+
+      <div class="board">
+        <div class="column">
+          <div class="column__head"><span>TODO &middot; INBOX</span><span class="column__count" data-count="todo">0</span></div>
+          <div class="column__body" data-status="todo"></div>
+        </div>
+        <div class="column">
+          <div class="column__head"><span>DOING &middot; ACTIVE</span><span class="column__count" data-count="doing">0</span></div>
+          <div class="pom">
+            <span class="pom__time" id="pom-time">25:00</span>
+            <span class="pom__ctrls">
+              <button class="pom__btn" id="pom-start">Start</button>
+              <button class="pom__btn" id="pom-pause">Pause</button>
+              <button class="pom__btn" id="pom-reset">Reset</button>
+            </span>
+            <span class="pom__sessions" id="pom-sessions">0 sessions</span>
+          </div>
+          <div class="column__body" data-status="doing"></div>
+        </div>
+        <div class="column">
+          <div class="column__head"><span>DONE &middot; SHIPPED</span><span class="column__count" data-count="done">0</span></div>
+          <div class="column__body" data-status="done"></div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="module">
-      <h3 class="module__title">wealth</h3>
-      <div class="wealth">
-        <div class="fieldset"><span class="lbl">US Tech $</span><input type="number" id="w-ustech" min="0" step="1"></div>
-        <div class="fieldset"><span class="lbl">S&amp;P 500 $</span><input type="number" id="w-sp500" min="0" step="1"></div>
-        <div class="fieldset"><span class="lbl">Gold $</span><input type="number" id="w-gold" min="0" step="1"></div>
-        <div class="fieldset"><span class="lbl">Crypto $</span><input type="number" id="w-crypto" min="0" step="1"></div>
+    <!-- ============ TAB 2 : ENGINEERING / LAB ============ -->
+    <section class="tab" id="tab-lab">
+      <div class="tab__head">
+        <h1>&#128187; Engineering &amp; Career &mdash; The Lab</h1>
+        <p>architecture notes, lesson plans, backlog capture</p>
       </div>
-      <div class="readout"><span>total exposure</span><b id="w-total">$0</b></div>
-      <div class="readout readout--sub"><span id="w-thb">&asymp; &#3647;0</span><span>@ &#3647;32.5 / $</span></div>
-    </div>
 
-    <div class="module">
-      <h3 class="module__title">deploy velocity</h3>
-      <div class="velo-top">
-        <div class="velo-stat"><b id="v-done">0</b><span>in DONE</span></div>
-        <div class="velo-stat"><b id="v-today">0</b><span>shipped today</span></div>
+      <div class="lab-grid">
+        <div>
+          <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span class="lbl">Smart Scratchpad</span>
+            <button class="btn btn--go" id="parse-btn">Parse &ldquo;[ ]&rdquo; &rarr; Inbox</button>
+          </div>
+          <textarea id="scratch" spellcheck="false"
+            placeholder="Dump architecture, lesson plans, half-thoughts. Lines like  [ ] do the thing  become Engineering tasks."></textarea>
+        </div>
+
+        <div class="lab-side">
+          <div>
+            <span class="lbl">Project Status</span>
+            <div class="proj-grid" id="proj-grid" style="margin-top:8px"></div>
+          </div>
+        </div>
       </div>
-      <div class="velo-bar"><div class="velo-bar__fill" id="v-fill"></div></div>
-      <div class="velo-hist" id="v-hist"></div>
-      <p class="velo-cap">completions &middot; last 7 days</p>
-    </div>
-  </section>
-</main>
+    </section>
 
-<button id="promote" class="promote" type="button" hidden>&#9889; Promote to Task</button>
+    <!-- ============ TAB 3 : ATHLETIC ENGINE ============ -->
+    <section class="tab" id="tab-gym">
+      <div class="tab__head">
+        <h1>&#127947; Athletic Engine &mdash; The Gym</h1>
+        <p>hybrid conditioning &middot; fuel &middot; biometrics</p>
+      </div>
 
-<div class="modal" id="modal" hidden>
-  <div class="modal__card">
-    <header class="modal__head"><b id="modal-title">Export state</b><button type="button" id="modal-close" aria-label="Close">&times;</button></header>
-    <textarea id="modal-text" spellcheck="false"></textarea>
-    <div class="modal__actions" id="modal-actions"></div>
-  </div>
+      <div class="gym-grid">
+        <div class="card">
+          <span class="lbl">Macro Tracker &mdash; today vs goal</span>
+          <div style="margin-top:16px">
+            <div class="macro macro--p">
+              <div class="macro__top"><span>Protein</span><b><span data-macro-cur="protein">0</span> / <span data-macro-goal="protein">0</span> g</b></div>
+              <div class="macro__bar"><i data-macro-fill="protein"></i></div>
+              <div class="macro__edit">
+                today <input type="number" id="m-cur-protein" min="0" step="1">
+                goal <input type="number" id="m-goal-protein" min="0" step="1">
+              </div>
+            </div>
+            <div class="macro macro--c">
+              <div class="macro__top"><span>Carbs</span><b><span data-macro-cur="carb">0</span> / <span data-macro-goal="carb">0</span> g</b></div>
+              <div class="macro__bar"><i data-macro-fill="carb"></i></div>
+              <div class="macro__edit">
+                today <input type="number" id="m-cur-carb" min="0" step="1">
+                goal <input type="number" id="m-goal-carb" min="0" step="1">
+              </div>
+            </div>
+            <div class="macro macro--f">
+              <div class="macro__top"><span>Fats</span><b><span data-macro-cur="fat">0</span> / <span data-macro-goal="fat">0</span> g</b></div>
+              <div class="macro__bar"><i data-macro-fill="fat"></i></div>
+              <div class="macro__edit">
+                today <input type="number" id="m-cur-fat" min="0" step="1">
+                goal <input type="number" id="m-goal-fat" min="0" step="1">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div>
+            <span class="lbl">Bio-Metrics</span>
+            <div class="bio" style="margin-top:8px">
+              <b>25.0<span style="font-size:16px">%</span></b>
+              <span>InBody body&nbsp;fat<br>baseline</span>
+              <span class="lock">&#128274; locked</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="lbl">Training Log</span>
+            <div class="train" style="margin-top:10px">
+              <select id="train-type">
+                <option>Hyrox</option>
+                <option>CrossFit</option>
+                <option>Weightlifting</option>
+                <option>Running</option>
+              </select>
+              <button class="btn btn--go" id="train-log-btn">Log today</button>
+              <ul class="train__log" id="train-log"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TAB 4 : WEALTH & ASSETS ============ -->
+    <section class="tab" id="tab-vault">
+      <div class="tab__head">
+        <h1>&#127974; Wealth &amp; Assets &mdash; The Vault</h1>
+        <p>current balances &middot; USD &middot; &#3647; at 32.5/$</p>
+      </div>
+
+      <span class="lbl">Portfolio &mdash; current balance (USD)</span>
+      <div class="vault" style="margin-top:10px">
+        <label><span class="lbl">US Tech</span><input type="number" id="w-ustech" min="0" step="1"></label>
+        <label><span class="lbl">S&amp;P 500</span><input type="number" id="w-sp500" min="0" step="1"></label>
+        <label><span class="lbl">Gold</span><input type="number" id="w-gold" min="0" step="1"></label>
+        <label><span class="lbl">Crypto</span><input type="number" id="w-crypto" min="0" step="1"></label>
+      </div>
+
+      <div class="networth">
+        <span class="lbl">Net worth</span>
+        <b id="nw-usd">$0</b>
+        <span class="thb" id="nw-thb">&asymp; &#3647;0</span>
+      </div>
+
+      <div class="alloc" id="alloc" style="margin-top:16px"></div>
+      <div class="alloc-key">
+        <span><i style="background:var(--eng)"></i>US Tech</span>
+        <span><i style="background:var(--sys)"></i>S&amp;P 500</span>
+        <span><i style="background:var(--wealth)"></i>Gold</span>
+        <span><i style="background:var(--down)"></i>Crypto</span>
+      </div>
+    </section>
+
+    <!-- ============ TAB 5 : DRIVE & RECOVERY ============ -->
+    <section class="tab" id="tab-drive">
+      <div class="tab__head">
+        <h1>&#128267; Drive &amp; Recovery &mdash; The Reset Protocol</h1>
+        <p>when the tank hits zero, run the checklist</p>
+      </div>
+
+      <div class="drive-grid">
+        <div>
+          <span class="lbl">The &ldquo;Zero Motivation&rdquo; Protocol</span>
+          <ul class="protocol" id="protocol" style="margin-top:10px"></ul>
+          <p class="protocol__meta" id="protocol-meta">0 / 0 cleared</p>
+          <button class="btn" id="protocol-reset" style="margin-top:10px">Reset protocol</button>
+        </div>
+
+        <div>
+          <span class="lbl">Focus &amp; Drive &mdash; media</span>
+          <div style="margin-top:10px">
+            <div class="media-group">
+              <h4>Deep Work</h4>
+              <div class="media-grid">
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=lofi+coding+beats">
+                   <b>Lo-Fi Coding Beats</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=cyberpunk+ambient+music+mix">
+                   <b>Cyberpunk Ambient</b><span>YouTube search</span></a>
+              </div>
+            </div>
+            <div class="media-group">
+              <h4>Athletic Discipline</h4>
+              <div class="media-grid">
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=david+goggins+jocko+willink+motivation">
+                   <b>Goggins / Jocko</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=hyrox+race+day+hype">
+                   <b>Hyrox Race Hype</b><span>YouTube search</span></a>
+              </div>
+            </div>
+            <div class="media-group">
+              <h4>Cinematic Focus</h4>
+              <div class="media-grid">
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=hans+zimmer+interstellar+full+score">
+                   <b>Interstellar Score</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer"
+                   href="https://www.youtube.com/results?search_query=hans+zimmer+deep+focus+mix">
+                   <b>Zimmer Deep Focus</b><span>YouTube search</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TAB 6 : ANALYTICS ============ -->
+    <section class="tab" id="tab-radar">
+      <div class="tab__head">
+        <h1>&#128202; Analytics &mdash; The Radar</h1>
+        <p>throughput over the last 7 days</p>
+      </div>
+
+      <span class="lbl">Velocity heatmap &mdash; tasks moved to DONE</span>
+      <div class="hm" id="hm" style="margin-top:12px"></div>
+      <div class="legend"><span>Less</span><i></i><i></i><i></i><i></i><i></i><span>More</span></div>
+
+      <div class="stat-grid">
+        <div class="stat"><b id="s-week">0</b><span>shipped / 7d</span></div>
+        <div class="stat"><b id="s-peak">&mdash;</b><span>peak day</span></div>
+        <div class="stat"><b id="s-streak">0</b><span>day streak</span></div>
+        <div class="stat"><b id="s-avg">0.0</b><span>daily avg</span></div>
+      </div>
+
+      <span class="lbl">Domain load &mdash; all live tasks</span>
+      <div class="load" id="load" style="margin-top:10px"></div>
+      <div class="load-key">
+        <span><i style="background:var(--eng)"></i>Engineering</span>
+        <span><i style="background:var(--ath)"></i>Athletics</span>
+        <span><i style="background:var(--wealth)"></i>Wealth</span>
+        <span><i style="background:var(--down)"></i>Downtime</span>
+      </div>
+    </section>
+
+  </main>
 </div>
 
 <div class="toast" id="toast" hidden></div>
@@ -371,446 +605,703 @@
 (function(){
   "use strict";
 
-  var KEY="lifeos.v1";
-  var RATE=32.5;
-  var DOMAINS=["Engineering","Athletics","Wealth","Downtime"];
-  var STATUSES=["todo","doing","done"];
-  var DAY=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  /* ======================================================================
+   *  Firstz OS  —  single-file Life OS dashboard
+   *  vanilla HTML + CSS + ES6, offline, localStorage-backed
+   * ==================================================================== */
 
-  function $(sel,root){ return (root||document).querySelector(sel); }
-  function uid(){ return "task-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,7); }
-  function dkey(d){ return d.toISOString().slice(0,10); }
-  function addDays(d,n){ var x=new Date(d); x.setDate(x.getDate()+n); return x; }
-  function num(v){ var n=parseFloat(v); return isFinite(n)?n:0; }
+  var DOMAINS  = ["Engineering","Athletics","Wealth","Downtime"];
+  var STATUSES = ["todo","doing","done"];
+  var WORKOUTS = ["Hyrox","CrossFit","Weightlifting","Running"];
+  var DAYS     = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var POM_LEN  = 25 * 60;
+  var THB_RATE = 32.5;
 
-  /* ---------- state ---------- */
-  var state;
+  var $  = function(s,r){ return (r||document).querySelector(s); };
+  var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+  var uid = function(){ return "t-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,7); };
+  var clamp = function(n,lo,hi){ return Math.max(lo, Math.min(hi, n)); };
+  var num = function(v){ var n = parseFloat(v); return isFinite(n) ? n : 0; };
+  var pad2 = function(n){ return (n<10?"0":"") + n; };
+  var dateKey = function(d){ return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate()); };
+  var addDays = function(d,n){ var x = new Date(d); x.setDate(x.getDate()+n); return x; };
+
+  /* ----------------------------------------------------------------------
+   *  State store
+   * -------------------------------------------------------------------- */
+  var PROTOCOL_STEPS = [
+    "Step away from the MacBook",
+    "Drink 500 ml of water",
+    "No screens, no code for 15 minutes",
+    "Walk or stretch — move some blood",
+    "Say the one thing that's blocking you out loud",
+    "Cut today's remaining scope in half"
+  ];
 
   function seed(){
-    var h={};
-    [[-6,2],[-5,1],[-4,4],[-3,0],[-2,3],[-1,2],[0,1]].forEach(function(p){
-      h[dkey(addDays(new Date(),p[0]))]=p[1];
+    var hist = {};
+    [[-6,1],[-5,3],[-4,2],[-3,4],[-2,1],[-1,2],[0,3]].forEach(function(p){
+      hist[dateKey(addDays(new Date(), p[0]))] = p[1];
     });
     return {
-      scratchpad:
-        "Ideas parking lot\n\n"+
-        "- AUDScan: test UV-reactive ink detection on 1000-baht notes\n"+
-        "- AUDScan: retrain classifier on the blurred-serial edge cases\n"+
-        "- CodeKids: Turtle spiral challenge for N'Pattern's class\n"+
-        "- Muze: request access to the current sprint board\n"+
-        "- Hyrox: book a sled push + wall-ball session this week\n"+
-        "- Wealth: rebalance gold if it breaks 2100/oz\n",
-      tasks:[
-        {id:uid(),text:"Finalize AUDScan computer vision logic for banknote verification",domain:"Engineering",status:"todo"},
-        {id:uid(),text:"Prep CodeKids Python Turtle lesson for N'Pattern",domain:"Engineering",status:"todo"},
-        {id:uid(),text:"Hyrox running interval training",domain:"Athletics",status:"doing"},
-        {id:uid(),text:"Log S&P 500 dividend",domain:"Wealth",status:"done"}
+      tasks: [
+        mk("Prep CodeKids Python Turtle lesson for N'Pattern", "Engineering", "todo"),
+        mk("Draft Muze PO onboarding questions for the eng leads", "Engineering", "todo"),
+        mk("Rebalance gold allocation if it breaks 2100/oz", "Wealth", "todo"),
+        mk("AUDScan: wire TF.js model into the React Native camera preview", "Engineering", "doing"),
+        mk("Hyrox conditioning block — sled push + wall balls", "Athletics", "doing"),
+        mk("Log S&P 500 dividend", "Wealth", "done"),
+        mk("AUDScan: collect 200-note sample dataset", "Engineering", "done"),
+        mk("CrossFit AMRAP 20", "Athletics", "done")
       ],
-      telemetry:{
-        macros:{protein:180,carb:220,fat:70},
-        bodyFat:25,
-        workout:"Hyrox",
-        wealth:{ustech:4200,sp500:6800,gold:1500,crypto:900}
+      scratchpad:
+        "AUDScan — architecture\n" +
+        "- RN camera -> frame capture -> TF.js MobileNet features -> small classifier head\n" +
+        "- cache verified note hashes locally, sync when online\n" +
+        "[ ] Benchmark inference latency on a mid-tier Android\n" +
+        "[ ] Write a fallback path for low-light frames\n\n" +
+        "CodeKids / N'Pattern\n" +
+        "- Turtle: spiral, then a star loop, then free draw\n" +
+        "[ ] Prepare 3 warm-up exercises\n\n" +
+        "Muze — PO prep\n" +
+        "- Read the current sprint board, list open questions\n" +
+        "[ ] Book intro 1:1s with the engineering leads\n",
+      projects: [
+        { name:"AUDScan Pipeline", status:"In Progress", progress:55, note:"Model integration into RN camera" },
+        { name:"Muze PO Prep",     status:"On Track",    progress:30, note:"Onboarding + backlog review" }
+      ],
+      macros: {
+        goal:    { protein:180, carb:240, fat:70 },
+        current: { protein:120, carb:150, fat:45 }
       },
-      velocityHistory:h
+      training: {
+        today: "Hyrox",
+        log: [
+          { date: dateKey(new Date()),            type:"Hyrox" },
+          { date: dateKey(addDays(new Date(),-1)), type:"CrossFit" },
+          { date: dateKey(addDays(new Date(),-2)), type:"Weightlifting" }
+        ]
+      },
+      wealth: { ustech:4200, sp500:6800, gold:1500, crypto:900 },
+      protocol: [false,false,false,false,false,false],
+      velocityHistory: hist,
+      pomodoro: { remaining: POM_LEN, running:false, sessions:0, lastResume:0 }
     };
   }
+  function mk(text, domain, status){ return { id:uid(), text:text, domain:domain, status:status }; }
 
-  function normalize(){
-    if(!state||typeof state!=="object") state=seed();
-    if(typeof state.scratchpad!=="string") state.scratchpad="";
-    if(!Array.isArray(state.tasks)) state.tasks=[];
-    state.tasks=state.tasks
-      .filter(function(t){ return t && t.id!=null && typeof t.text==="string"; })
-      .map(function(t){
-        return {
-          id:String(t.id),
-          text:t.text,
-          domain:DOMAINS.indexOf(t.domain)>=0?t.domain:"Engineering",
-          status:STATUSES.indexOf(t.status)>=0?t.status:"todo"
-        };
+  var Store = {
+    KEY: "firstz-os.v2",
+    state: null,
+    subs: [],
+    load: function(){
+      try{
+        var raw = localStorage.getItem(this.KEY);
+        if(raw){ this.state = JSON.parse(raw); }
+      }catch(e){ this.state = null; }
+      if(!this.state || typeof this.state !== "object") this.state = seed();
+      this.normalize();
+      this.save();
+    },
+    normalize: function(){
+      var s = this.state;
+      if(!Array.isArray(s.tasks)) s.tasks = [];
+      s.tasks = s.tasks
+        .filter(function(t){ return t && t.id != null && typeof t.text === "string"; })
+        .map(function(t){
+          return {
+            id: String(t.id),
+            text: t.text,
+            domain: DOMAINS.indexOf(t.domain) >= 0 ? t.domain : "Engineering",
+            status: STATUSES.indexOf(t.status) >= 0 ? t.status : "todo"
+          };
+        });
+      if(typeof s.scratchpad !== "string") s.scratchpad = "";
+      if(!Array.isArray(s.projects)) s.projects = seed().projects;
+      if(!s.macros || !s.macros.goal || !s.macros.current) s.macros = seed().macros;
+      ["protein","carb","fat"].forEach(function(k){
+        s.macros.goal[k] = num(s.macros.goal[k]);
+        s.macros.current[k] = num(s.macros.current[k]);
       });
-    if(!state.telemetry||typeof state.telemetry!=="object") state.telemetry={};
-    var tm=state.telemetry;
-    if(!tm.macros||typeof tm.macros!=="object") tm.macros={protein:0,carb:0,fat:0};
-    tm.macros.protein=num(tm.macros.protein);
-    tm.macros.carb=num(tm.macros.carb);
-    tm.macros.fat=num(tm.macros.fat);
-    if(typeof tm.bodyFat!=="number") tm.bodyFat=25;
-    if(["CrossFit","Hyrox","Weightlifting","Running"].indexOf(tm.workout)<0) tm.workout="Hyrox";
-    if(!tm.wealth||typeof tm.wealth!=="object") tm.wealth={ustech:0,sp500:0,gold:0,crypto:0};
-    ["ustech","sp500","gold","crypto"].forEach(function(k){ tm.wealth[k]=num(tm.wealth[k]); });
-    if(!state.velocityHistory||typeof state.velocityHistory!=="object") state.velocityHistory={};
+      if(!s.training || !Array.isArray(s.training.log)) s.training = seed().training;
+      if(WORKOUTS.indexOf(s.training.today) < 0) s.training.today = "Hyrox";
+      if(!s.wealth) s.wealth = seed().wealth;
+      ["ustech","sp500","gold","crypto"].forEach(function(k){ s.wealth[k] = num(s.wealth[k]); });
+      if(!Array.isArray(s.protocol) || s.protocol.length !== PROTOCOL_STEPS.length){
+        s.protocol = PROTOCOL_STEPS.map(function(){ return false; });
+      }
+      if(!s.velocityHistory || typeof s.velocityHistory !== "object") s.velocityHistory = {};
+      if(!s.pomodoro || typeof s.pomodoro !== "object") s.pomodoro = seed().pomodoro;
+      s.pomodoro.remaining = clamp(num(s.pomodoro.remaining) || POM_LEN, 0, POM_LEN);
+      s.pomodoro.sessions = num(s.pomodoro.sessions);
+      s.pomodoro.running = !!s.pomodoro.running;
+    },
+    save: function(){
+      try{ localStorage.setItem(this.KEY, JSON.stringify(this.state)); }catch(e){}
+    },
+    subscribe: function(fn){ this.subs.push(fn); },
+    /* every mutation flows through here → immediate persistence + re-render */
+    update: function(mutator){
+      mutator(this.state);
+      this.save();
+      this.emit();
+    },
+    emit: function(){
+      var s = this.state;
+      this.subs.forEach(function(fn){ fn(s); });
+    }
+  };
+
+  /* ----------------------------------------------------------------------
+   *  Task helpers
+   * -------------------------------------------------------------------- */
+  function addTask(text, domain){
+    text = (text || "").trim();
+    if(!text) return;
+    Store.update(function(s){ s.tasks.unshift(mk(text, domain, "todo")); });
   }
-
-  function load(){
-    try{
-      var raw=localStorage.getItem(KEY);
-      if(raw){ state=JSON.parse(raw); normalize(); return; }
-    }catch(e){}
-    state=seed();
-    normalize();
-    save();
+  function deleteTask(id){
+    Store.update(function(s){ s.tasks = s.tasks.filter(function(t){ return t.id !== id; }); });
   }
-
-  function save(){
-    try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){}
-  }
-
-  /* ---------- drag + drop ---------- */
-  var draggedId=null;
-
-  function taskCard(t){
-    var el=document.createElement("div");
-    el.className="task dom-"+t.domain;
-    el.id=t.id;
-    el.dataset.id=t.id;
-    el.setAttribute("draggable","true");
-
-    var txt=document.createElement("div");
-    txt.className="task__text";
-    txt.textContent=t.text;
-
-    var meta=document.createElement("div");
-    meta.className="task__meta";
-
-    var tag=document.createElement("span");
-    tag.className="tag tag--"+t.domain;
-    tag.textContent=t.domain;
-
-    var del=document.createElement("button");
-    del.className="task__del";
-    del.type="button";
-    del.setAttribute("aria-label","Delete task");
-    del.textContent="×";
-    del.addEventListener("click",function(){
-      state.tasks=state.tasks.filter(function(x){ return x.id!==t.id; });
-      save(); render(); toast("task deleted");
+  function moveTask(id, target){
+    Store.update(function(s){
+      var task = null, i;
+      for(i=0;i<s.tasks.length;i++){ if(s.tasks[i].id === id){ task = s.tasks[i]; break; } }
+      if(!task || task.status === target) {
+        if(task){ s.tasks = [task].concat(s.tasks.filter(function(t){ return t.id !== id; })); }
+        return;
+      }
+      var wasDone = task.status === "done";
+      task.status = target;
+      if(target === "done" && !wasDone) bump(s, 1);
+      if(wasDone && target !== "done") bump(s, -1);
+      s.tasks = [task].concat(s.tasks.filter(function(t){ return t.id !== id; }));
     });
+  }
+  function bump(s, n){
+    var k = dateKey(new Date());
+    s.velocityHistory[k] = Math.max(0, (s.velocityHistory[k] || 0) + n);
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Command line parser
+   * -------------------------------------------------------------------- */
+  var MACRO_TOKEN = /^([+-]\d+(?:\.\d+)?)([pcf])$/i;
+  var DOMAIN_CMD  = /^\/(eng|ath|wealth|down|dt|task)\s+(.+)$/i;
+  var LOG_CMD     = /^\/log\s+(hyrox|crossfit|weightlifting|running)\s*$/i;
+
+  function runCommand(raw){
+    var t = (raw || "").trim();
+    if(!t) return;
+
+    var parts = t.split(/\s+/);
+    if(parts.length && parts.every(function(p){ return MACRO_TOKEN.test(p); })){
+      Store.update(function(s){
+        parts.forEach(function(p){
+          var m = p.match(MACRO_TOKEN);
+          var key = { p:"protein", c:"carb", f:"fat" }[m[2].toLowerCase()];
+          s.macros.current[key] = Math.max(0, s.macros.current[key] + parseFloat(m[1]));
+        });
+      });
+      hydrateMacros();
+      toast("macros updated");
+      return;
+    }
+
+    var lg = t.match(LOG_CMD);
+    if(lg){
+      var type = WORKOUTS.filter(function(w){ return w.toLowerCase() === lg[1].toLowerCase(); })[0];
+      logTraining(type);
+      toast("logged " + type);
+      return;
+    }
+
+    var dc = t.match(DOMAIN_CMD);
+    if(dc){
+      var map = { eng:"Engineering", ath:"Athletics", wealth:"Wealth", down:"Downtime", dt:"Downtime", task:"Engineering" };
+      addTask(dc[2], map[dc[1].toLowerCase()]);
+      toast(map[dc[1].toLowerCase()] + " task queued");
+      return;
+    }
+
+    addTask(t, "Engineering");
+    toast("task queued");
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Scratchpad parser
+   * -------------------------------------------------------------------- */
+  function parseScratch(){
+    var ta = $("#scratch");
+    var lines = ta.value.split("\n");
+    var fresh = [];
+    var out = lines.map(function(line){
+      var m = line.match(/^(\s*)\[\s?\]\s+(.+?)\s*$/);
+      if(m){ fresh.push(mk(m[2].trim(), "Engineering", "todo")); return m[1] + "[x] " + m[2]; }
+      return line;
+    });
+    if(!fresh.length){ toast("no “[ ]” lines found"); return; }
+    var text = out.join("\n");
+    Store.update(function(s){
+      s.tasks = fresh.concat(s.tasks);
+      s.scratchpad = text;
+    });
+    ta.value = text;
+    toast(fresh.length + " task" + (fresh.length > 1 ? "s" : "") + " → inbox");
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Training
+   * -------------------------------------------------------------------- */
+  function logTraining(type){
+    var today = dateKey(new Date());
+    Store.update(function(s){
+      s.training.today = type;
+      s.training.log = s.training.log.filter(function(e){ return e.date !== today; });
+      s.training.log.unshift({ date: today, type: type });
+      s.training.log = s.training.log.slice(0, 8);
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Pomodoro
+   * -------------------------------------------------------------------- */
+  var pomLoop = null;
+  function pomStartLoop(){ if(!pomLoop) pomLoop = setInterval(pomTick, 1000); }
+  function pomStopLoop(){ clearInterval(pomLoop); pomLoop = null; }
+  function pomTick(){
+    Store.update(function(s){
+      var p = s.pomodoro;
+      if(!p.running){ return; }
+      p.remaining = Math.max(0, p.remaining - 1);
+      p.lastResume = Date.now();
+      if(p.remaining === 0){ p.running = false; p.sessions += 1; }
+    });
+    if(!Store.state.pomodoro.running) pomStopLoop();
+  }
+  function pomCatchUp(){
+    var p = Store.state.pomodoro;
+    if(p.running && p.lastResume){
+      var elapsed = Math.floor((Date.now() - p.lastResume) / 1000);
+      if(elapsed > 0){
+        Store.update(function(s){
+          var q = s.pomodoro;
+          q.remaining = Math.max(0, q.remaining - elapsed);
+          q.lastResume = Date.now();
+          if(q.remaining === 0){ q.running = false; q.sessions += 1; }
+        });
+      }
+    }
+    if(Store.state.pomodoro.running) pomStartLoop();
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Drag & drop  (rebuilt from state on every drop → no dupes / no loss)
+   * -------------------------------------------------------------------- */
+  var draggedId = null;
+
+  function makeCard(t){
+    var el = document.createElement("div");
+    el.className = "task dom-" + t.domain;
+    el.id = t.id;
+    el.dataset.id = t.id;
+    el.setAttribute("draggable", "true");
+
+    var text = document.createElement("div");
+    text.className = "task__text";
+    text.textContent = t.text;
+
+    var meta = document.createElement("div");
+    meta.className = "task__meta";
+
+    var tag = document.createElement("span");
+    tag.className = "tag tag--" + t.domain;
+    tag.textContent = t.domain;
+
+    var actions = document.createElement("div");
+    actions.className = "task__actions";
+
+    if(t.status !== "done"){
+      var fwd = document.createElement("button");
+      fwd.className = "task__btn";
+      fwd.type = "button";
+      fwd.textContent = "▸";
+      fwd.title = "Advance";
+      fwd.setAttribute("aria-label", "Advance task");
+      fwd.addEventListener("click", function(){
+        moveTask(t.id, t.status === "todo" ? "doing" : "done");
+      });
+      actions.appendChild(fwd);
+    }
+
+    var del = document.createElement("button");
+    del.className = "task__btn task__btn--del";
+    del.type = "button";
+    del.textContent = "×";
+    del.title = "Delete";
+    del.setAttribute("aria-label", "Delete task");
+    del.addEventListener("click", function(){ deleteTask(t.id); toast("task deleted"); });
+    actions.appendChild(del);
 
     meta.appendChild(tag);
-    meta.appendChild(del);
-    el.appendChild(txt);
+    meta.appendChild(actions);
+    el.appendChild(text);
     el.appendChild(meta);
 
-    el.addEventListener("dragstart",function(e){
-      draggedId=t.id;
-      e.dataTransfer.effectAllowed="move";
-      try{ e.dataTransfer.setData("text/plain",t.id); }catch(err){}
+    el.addEventListener("dragstart", function(e){
+      draggedId = t.id;
+      e.dataTransfer.effectAllowed = "move";
+      try{ e.dataTransfer.setData("text/plain", t.id); }catch(err){}
       el.classList.add("dragging");
     });
-    el.addEventListener("dragend",function(){
+    el.addEventListener("dragend", function(){
       el.classList.remove("dragging");
-      draggedId=null;
+      draggedId = null;
     });
-
     return el;
   }
 
-  function wireColumn(body){
-    body.addEventListener("dragover",function(e){
-      e.preventDefault();
-      e.dataTransfer.dropEffect="move";
-      body.classList.add("drop");
-    });
-    body.addEventListener("dragenter",function(e){
-      e.preventDefault();
-      body.classList.add("drop");
-    });
-    body.addEventListener("dragleave",function(e){
-      if(e.target===body) body.classList.remove("drop");
-    });
-    body.addEventListener("drop",function(e){
-      e.preventDefault();
-      body.classList.remove("drop");
-
-      var id="";
-      try{ id=e.dataTransfer.getData("text/plain"); }catch(err){}
-      id=id||draggedId;
-
-      var task=null;
-      for(var i=0;i<state.tasks.length;i++){
-        if(state.tasks[i].id===id){ task=state.tasks[i]; break; }
-      }
-      if(!task) return;
-
-      var target=body.dataset.status;
-      if(task.status!==target){
-        var wasDone=task.status==="done";
-        task.status=target;
-        if(target==="done" && !wasDone) bumpVelocity(1);
-        if(wasDone && target!=="done") bumpVelocity(-1);
-      }
-      // rebuild array so the moved card lands on top of its new column
-      state.tasks=[task].concat(state.tasks.filter(function(x){ return x.id!==task.id; }));
-      save(); render();
-    });
-  }
-
-  function bumpVelocity(n){
-    var k=dkey(new Date());
-    state.velocityHistory[k]=Math.max(0,(state.velocityHistory[k]||0)+n);
-    save();
-  }
-
-  /* ---------- render ---------- */
-  function render(){
-    STATUSES.forEach(function(st){
-      var body=document.querySelector('.column__body[data-status="'+st+'"]');
-      body.innerHTML="";
-      state.tasks
-        .filter(function(t){ return t.status===st; })
-        .forEach(function(t){ body.appendChild(taskCard(t)); });
-    });
-    renderVelocity();
-    renderReadouts();
-  }
-
-  function renderVelocity(){
-    var doneCount=state.tasks.filter(function(t){ return t.status==="done"; }).length;
-    var today=state.velocityHistory[dkey(new Date())]||0;
-
-    $("#v-done").textContent=doneCount;
-    $("#v-today").textContent=today;
-    $("#v-fill").style.width=Math.min(100,(doneCount/8)*100)+"%";
-    $("#build-status").innerHTML="build: <b>passing</b> &middot; <b>"+today+"</b> shipped today &middot; <b>"+doneCount+"</b> in done";
-
-    var host=$("#v-hist");
-    host.innerHTML="";
-    var days=[];
-    for(var i=6;i>=0;i--) days.push(addDays(new Date(),-i));
-    var counts=days.map(function(d){ return state.velocityHistory[dkey(d)]||0; });
-    var max=Math.max.apply(null,counts.concat([1]));
-
-    days.forEach(function(d,idx){
-      var c=counts[idx];
-      var col=document.createElement("div");
-      col.className="velo-col"+(idx===6?" velo-col--today":"");
-
-      var n=document.createElement("div");
-      n.className="velo-col__n";
-      n.textContent=c;
-
-      var bar=document.createElement("div");
-      bar.className="velo-col__bar";
-      bar.style.height=Math.max(3,Math.round((c/max)*54))+"px";
-
-      var day=document.createElement("div");
-      day.className="velo-col__day";
-      day.textContent=DAY[d.getDay()];
-
-      col.appendChild(n);
-      col.appendChild(bar);
-      col.appendChild(day);
-      host.appendChild(col);
-    });
-  }
-
-  function renderReadouts(){
-    var m=state.telemetry.macros;
-    var kcal=num(m.protein)*4+num(m.carb)*4+num(m.fat)*9;
-    $("#kcal").textContent=Math.round(kcal).toLocaleString()+" kcal";
-    $("#bodyfat").textContent=(state.telemetry.bodyFat||25)+"%";
-
-    var w=state.telemetry.wealth;
-    var total=num(w.ustech)+num(w.sp500)+num(w.gold)+num(w.crypto);
-    $("#w-total").textContent="$"+total.toLocaleString(undefined,{maximumFractionDigits:0});
-    $("#w-thb").textContent="≈ ฿"+(total*RATE).toLocaleString(undefined,{maximumFractionDigits:0});
-  }
-
-  function syncInputs(){
-    $("#scratchpad").value=state.scratchpad;
-    $("#m-protein").value=state.telemetry.macros.protein;
-    $("#m-carb").value=state.telemetry.macros.carb;
-    $("#m-fat").value=state.telemetry.macros.fat;
-    $("#w-ustech").value=state.telemetry.wealth.ustech;
-    $("#w-sp500").value=state.telemetry.wealth.sp500;
-    $("#w-gold").value=state.telemetry.wealth.gold;
-    $("#w-crypto").value=state.telemetry.wealth.crypto;
-    $("#workout").value=state.telemetry.workout;
-  }
-
-  /* ---------- scratchpad -> promote ---------- */
-  var pending="";
-
-  function handleSelect(e){
-    var sp=$("#scratchpad");
-    var raw=sp.value.substring(sp.selectionStart,sp.selectionEnd);
-    var clean=raw.replace(/^[\s\-•*]+/,"").replace(/\s+/g," ").trim();
-    var btn=$("#promote");
-    if(clean.length>1){
-      pending=clean;
-      var x,y;
-      if(e && typeof e.clientX==="number" && e.clientX>0){ x=e.clientX; y=e.clientY; }
-      else{ var r=sp.getBoundingClientRect(); x=r.left+r.width/2; y=r.top+44; }
-      btn.style.left=x+"px";
-      btn.style.top=(y+14)+"px";
-      btn.hidden=false;
-    }else{
-      btn.hidden=true;
-    }
-  }
-
-  function hidePromote(){ $("#promote").hidden=true; }
-
-  function promote(){
-    if(!pending) return;
-    var domain=$("#domain-select").value;
-    state.tasks.unshift({id:uid(),text:pending,domain:domain,status:"todo"});
-    save(); render();
-    hidePromote();
-    toast("promoted to inbox → "+domain);
-    pending="";
-  }
-
-  /* ---------- export / import ---------- */
-  function mkBtn(label,fn){
-    var b=document.createElement("button");
-    b.className="btn";
-    b.type="button";
-    b.textContent=label;
-    b.addEventListener("click",fn);
-    return b;
-  }
-
-  function openExport(){
-    $("#modal-title").textContent="Export state";
-    var ta=$("#modal-text");
-    ta.value=JSON.stringify(state,null,2);
-    ta.readOnly=true;
-    var acts=$("#modal-actions");
-    acts.innerHTML="";
-    acts.appendChild(mkBtn("Copy to clipboard",function(){
-      ta.focus(); ta.select();
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(ta.value).then(
-          function(){ toast("copied to clipboard"); },
-          function(){ legacyCopy(ta); }
-        );
-      }else{
-        legacyCopy(ta);
-      }
-    }));
-    $("#modal").hidden=false;
-  }
-
-  function legacyCopy(ta){
-    try{
-      ta.focus(); ta.select();
-      document.execCommand("copy");
-      toast("copied to clipboard");
-    }catch(e){
-      toast("press ⌘/Ctrl+C to copy");
-    }
-  }
-
-  function openImport(){
-    $("#modal-title").textContent="Import state";
-    var ta=$("#modal-text");
-    ta.value="";
-    ta.readOnly=false;
-    ta.placeholder="paste a previously exported Life OS JSON blob, then Import & rebuild…";
-    var acts=$("#modal-actions");
-    acts.innerHTML="";
-    acts.appendChild(mkBtn("Import & rebuild",function(){
-      var parsed;
-      try{ parsed=JSON.parse(ta.value); }
-      catch(e){ toast("invalid JSON"); return; }
-      if(!parsed || !Array.isArray(parsed.tasks)){ toast("not a Life OS export"); return; }
-      state=parsed;
-      normalize();
-      save();
-      syncInputs();
-      render();
-      closeModal();
-      toast("state rebuilt from import");
-    }));
-    $("#modal").hidden=false;
-  }
-
-  function closeModal(){ $("#modal").hidden=true; }
-
-  /* ---------- toast ---------- */
-  var toastTimer;
-  function toast(msg){
-    var el=$("#toast");
-    el.textContent=msg;
-    el.hidden=false;
-    clearTimeout(toastTimer);
-    toastTimer=setTimeout(function(){ el.hidden=true; },1900);
-  }
-
-  /* ---------- init ---------- */
-  function init(){
-    load();
-    syncInputs();
-
-    // scratchpad
-    var sp=$("#scratchpad");
-    sp.addEventListener("input",function(){ state.scratchpad=sp.value; save(); });
-    sp.addEventListener("mouseup",handleSelect);
-    sp.addEventListener("keyup",function(e){
-      if(e.shiftKey || e.key==="Shift" || (e.key&&e.key.indexOf("Arrow")===0)) handleSelect(e);
-    });
-    sp.addEventListener("scroll",hidePromote);
-    sp.addEventListener("blur",function(){ setTimeout(hidePromote,150); });
-
-    // composer
-    var ti=$("#task-input"), ds=$("#domain-select");
-    ti.addEventListener("keydown",function(e){
-      if(e.key==="Enter"){
+  function wireColumns(){
+    $$(".column__body").forEach(function(body){
+      body.addEventListener("dragover", function(e){
         e.preventDefault();
-        var v=ti.value.trim();
-        if(!v) return;
-        state.tasks.unshift({id:uid(),text:v,domain:ds.value,status:"todo"});
-        ti.value="";
-        save(); render();
-        toast("committed to inbox");
-      }
-    });
-
-    // kanban columns
-    document.querySelectorAll(".column__body").forEach(wireColumn);
-
-    // telemetry: macros + wealth
-    bindNumber("#m-protein",function(v){ state.telemetry.macros.protein=v; });
-    bindNumber("#m-carb",function(v){ state.telemetry.macros.carb=v; });
-    bindNumber("#m-fat",function(v){ state.telemetry.macros.fat=v; });
-    bindNumber("#w-ustech",function(v){ state.telemetry.wealth.ustech=v; });
-    bindNumber("#w-sp500",function(v){ state.telemetry.wealth.sp500=v; });
-    bindNumber("#w-gold",function(v){ state.telemetry.wealth.gold=v; });
-    bindNumber("#w-crypto",function(v){ state.telemetry.wealth.crypto=v; });
-
-    var wk=$("#workout");
-    wk.addEventListener("change",function(){ state.telemetry.workout=wk.value; save(); });
-
-    // promote button
-    $("#promote").addEventListener("click",promote);
-    document.addEventListener("mousedown",function(e){
-      if(e.target.id!=="promote" && e.target.id!=="scratchpad") hidePromote();
-    });
-    window.addEventListener("resize",hidePromote);
-
-    // export / import
-    $("#btn-export").addEventListener("click",openExport);
-    $("#btn-import").addEventListener("click",openImport);
-    $("#modal-close").addEventListener("click",closeModal);
-    $("#modal").addEventListener("mousedown",function(e){ if(e.target===$("#modal")) closeModal(); });
-    document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeModal(); });
-
-    render();
-  }
-
-  function bindNumber(sel,setter){
-    var el=$(sel);
-    el.addEventListener("input",function(){
-      setter(num(el.value));
-      save();
-      renderReadouts();
+        e.dataTransfer.dropEffect = "move";
+        body.classList.add("drop");
+      });
+      body.addEventListener("dragenter", function(e){ e.preventDefault(); body.classList.add("drop"); });
+      body.addEventListener("dragleave", function(e){ if(e.target === body) body.classList.remove("drop"); });
+      body.addEventListener("drop", function(e){
+        e.preventDefault();
+        body.classList.remove("drop");
+        var id = "";
+        try{ id = e.dataTransfer.getData("text/plain"); }catch(err){}
+        id = id || draggedId;
+        if(id) moveTask(id, body.dataset.status);
+      });
     });
   }
 
-  if(document.readyState==="complete") init();
-  else window.addEventListener("load",init);
+  /* ----------------------------------------------------------------------
+   *  Render layer  (idempotent, driven from state; never touches focused inputs)
+   * -------------------------------------------------------------------- */
+  function renderKanban(s){
+    STATUSES.forEach(function(st){
+      var body = document.querySelector('.column__body[data-status="' + st + '"]');
+      body.innerHTML = "";
+      var list = s.tasks.filter(function(t){ return t.status === st; });
+      list.forEach(function(t){ body.appendChild(makeCard(t)); });
+      document.querySelector('[data-count="' + st + '"]').textContent = list.length;
+    });
+  }
+
+  function renderPomodoro(s){
+    var p = s.pomodoro;
+    var mm = Math.floor(p.remaining / 60), ss = p.remaining % 60;
+    var el = $("#pom-time");
+    el.textContent = pad2(mm) + ":" + pad2(ss);
+    el.classList.toggle("done", p.remaining === 0);
+    $("#pom-sessions").textContent = p.sessions + " session" + (p.sessions === 1 ? "" : "s");
+    $("#pom-start").textContent = p.running ? "Running" : "Start";
+  }
+
+  function renderProjects(s){
+    var host = $("#proj-grid");
+    if(host.childElementCount !== s.projects.length){
+      host.innerHTML = "";
+      s.projects.forEach(function(pr, idx){
+        var card = document.createElement("div");
+        card.className = "proj-card";
+        card.innerHTML =
+          '<h4></h4>' +
+          '<div class="row">' +
+            '<select data-pi="' + idx + '" data-pk="status">' +
+              ['On Track','In Progress','Blocked','Shipped'].map(function(o){ return '<option>' + o + '</option>'; }).join('') +
+            '</select>' +
+            '<input type="number" min="0" max="100" step="5" data-pi="' + idx + '" data-pk="progress">' +
+          '</div>' +
+          '<div class="bar"><i data-pbar="' + idx + '"></i></div>' +
+          '<input type="text" data-pi="' + idx + '" data-pk="note" placeholder="one-line status">';
+        host.appendChild(card);
+      });
+      host.querySelectorAll("[data-pi]").forEach(function(inp){
+        var handler = function(){
+          var i = +inp.dataset.pi, k = inp.dataset.pk;
+          Store.update(function(st){
+            st.projects[i][k] = (k === "progress") ? clamp(num(inp.value), 0, 100) : inp.value;
+          });
+        };
+        inp.addEventListener(inp.tagName === "SELECT" ? "change" : "input", handler);
+      });
+    }
+    s.projects.forEach(function(pr, idx){
+      var card = host.children[idx];
+      card.querySelector("h4").textContent = pr.name;
+      var sel = card.querySelector('[data-pk="status"]');
+      var np  = card.querySelector('[data-pk="progress"]');
+      var nt  = card.querySelector('[data-pk="note"]');
+      if(document.activeElement !== sel) sel.value = pr.status;
+      if(document.activeElement !== np)  np.value  = pr.progress;
+      if(document.activeElement !== nt)  nt.value  = pr.note;
+      card.querySelector('[data-pbar="' + idx + '"]').style.width = clamp(pr.progress, 0, 100) + "%";
+    });
+  }
+
+  function renderMacros(s){
+    ["protein","carb","fat"].forEach(function(k){
+      var cur = s.macros.current[k], goal = s.macros.goal[k] || 1;
+      document.querySelector('[data-macro-cur="' + k + '"]').textContent = Math.round(cur);
+      document.querySelector('[data-macro-goal="' + k + '"]').textContent = Math.round(s.macros.goal[k]);
+      document.querySelector('[data-macro-fill="' + k + '"]').style.width = clamp((cur / goal) * 100, 0, 100) + "%";
+    });
+  }
+
+  function renderTraining(s){
+    var ul = $("#train-log");
+    ul.innerHTML = "";
+    s.training.log.forEach(function(e){
+      var li = document.createElement("li");
+      var a = document.createElement("span"); a.textContent = e.type;
+      var b = document.createElement("span"); b.textContent = e.date;
+      li.appendChild(a); li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  function renderWealth(s){
+    var w = s.wealth;
+    var total = w.ustech + w.sp500 + w.gold + w.crypto;
+    $("#nw-usd").textContent = "$" + total.toLocaleString(undefined, { maximumFractionDigits:0 });
+    $("#nw-thb").textContent = "≈ ฿" + (total * THB_RATE).toLocaleString(undefined, { maximumFractionDigits:0 });
+    var alloc = $("#alloc");
+    alloc.innerHTML = "";
+    var segs = [["ustech","var(--eng)"],["sp500","var(--sys)"],["gold","var(--wealth)"],["crypto","var(--down)"]];
+    segs.forEach(function(seg){
+      var i = document.createElement("i");
+      i.style.width = (total ? (w[seg[0]] / total) * 100 : 0) + "%";
+      i.style.background = seg[1];
+      alloc.appendChild(i);
+    });
+  }
+
+  function renderProtocol(s){
+    var ul = $("#protocol");
+    if(ul.childElementCount !== PROTOCOL_STEPS.length){
+      ul.innerHTML = "";
+      PROTOCOL_STEPS.forEach(function(step, idx){
+        var li = document.createElement("li");
+        var label = document.createElement("label");
+        var box = document.createElement("input");
+        box.type = "checkbox";
+        box.dataset.step = idx;
+        box.addEventListener("change", function(){
+          Store.update(function(st){ st.protocol[idx] = box.checked; });
+        });
+        var span = document.createElement("span");
+        span.textContent = step;
+        label.appendChild(box);
+        label.appendChild(span);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+    }
+    var done = 0;
+    $$('#protocol input[type="checkbox"]').forEach(function(box, idx){
+      box.checked = !!s.protocol[idx];
+      box.parentNode.classList.toggle("done", !!s.protocol[idx]);
+      if(s.protocol[idx]) done++;
+    });
+    $("#protocol-meta").textContent = done + " / " + PROTOCOL_STEPS.length + " cleared";
+  }
+
+  function renderAnalytics(s){
+    var days = [];
+    for(var i = 6; i >= 0; i--) days.push(addDays(new Date(), -i));
+    var counts = days.map(function(d){ return s.velocityHistory[dateKey(d)] || 0; });
+
+    var hm = $("#hm");
+    hm.innerHTML = "";
+    days.forEach(function(d, idx){
+      var c = counts[idx];
+      var lvl = c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 5 ? 3 : 4;
+      var cell = document.createElement("div");
+      cell.className = "hm-cell";
+      cell.dataset.level = lvl;
+      cell.title = DAYS[d.getDay()] + " " + d.getDate() + " · " + c + " shipped";
+      var dd = document.createElement("span"); dd.className = "d"; dd.textContent = DAYS[d.getDay()][0];
+      var bx = document.createElement("div"); bx.className = "box";
+      var nn = document.createElement("span"); nn.className = "n"; nn.textContent = c;
+      cell.appendChild(dd); cell.appendChild(bx); cell.appendChild(nn);
+      hm.appendChild(cell);
+    });
+
+    var week = counts.reduce(function(a,b){ return a + b; }, 0);
+    var peakIdx = counts.indexOf(Math.max.apply(null, counts));
+    var streak = 0;
+    for(var j = counts.length - 1; j >= 0; j--){ if(counts[j] > 0) streak++; else break; }
+    $("#s-week").textContent = week;
+    $("#s-peak").textContent = week ? DAYS[days[peakIdx].getDay()] : "—";
+    $("#s-streak").textContent = streak;
+    $("#s-avg").textContent = (week / 7).toFixed(1);
+
+    var load = $("#load");
+    load.innerHTML = "";
+    var byDom = { Engineering:0, Athletics:0, Wealth:0, Downtime:0 };
+    s.tasks.forEach(function(t){ byDom[t.domain]++; });
+    var tot = s.tasks.length || 1;
+    [["Engineering","var(--eng)"],["Athletics","var(--ath)"],["Wealth","var(--wealth)"],["Downtime","var(--down)"]].forEach(function(seg){
+      var i = document.createElement("i");
+      i.style.width = (byDom[seg[0]] / tot) * 100 + "%";
+      i.style.background = seg[1];
+      load.appendChild(i);
+    });
+  }
+
+  /* single subscriber → keeps every derived view in sync */
+  function renderAll(s){
+    renderKanban(s);
+    renderPomodoro(s);
+    renderProjects(s);
+    renderMacros(s);
+    renderTraining(s);
+    renderWealth(s);
+    renderProtocol(s);
+    renderAnalytics(s);
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Hydrate form controls from state  (run once, and after import/reset)
+   * -------------------------------------------------------------------- */
+  function hydrateMacros(){
+    var s = Store.state;
+    [["protein","m-cur-protein","m-goal-protein"],
+     ["carb","m-cur-carb","m-goal-carb"],
+     ["fat","m-cur-fat","m-goal-fat"]].forEach(function(row){
+      var cur = document.getElementById(row[1]);
+      var goal = document.getElementById(row[2]);
+      if(document.activeElement !== cur)  cur.value  = s.macros.current[row[0]];
+      if(document.activeElement !== goal) goal.value = s.macros.goal[row[0]];
+    });
+  }
+  function hydrate(){
+    var s = Store.state;
+    $("#scratch").value = s.scratchpad;
+    hydrateMacros();
+    $("#train-type").value = s.training.today;
+    ["ustech","sp500","gold","crypto"].forEach(function(k){
+      $("#w-" + k).value = s.wealth[k];
+    });
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Tabs
+   * -------------------------------------------------------------------- */
+  function switchTab(name){
+    $$(".nav__item").forEach(function(b){ b.classList.toggle("active", b.dataset.tab === name); });
+    $$(".tab").forEach(function(t){ t.classList.toggle("active", t.id === "tab-" + name); });
+    try{ localStorage.setItem("firstz-os.tab", name); }catch(e){}
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Toast
+   * -------------------------------------------------------------------- */
+  var toastT;
+  function toast(msg){
+    var el = $("#toast");
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ el.hidden = true; }, 1800);
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Init
+   * -------------------------------------------------------------------- */
+  function init(){
+    Store.load();
+    Store.subscribe(renderAll);
+
+    hydrate();
+    wireColumns();
+
+    /* nav */
+    $$(".nav__item").forEach(function(b){
+      b.addEventListener("click", function(){ switchTab(b.dataset.tab); });
+    });
+    try{
+      var saved = localStorage.getItem("firstz-os.tab");
+      if(saved) switchTab(saved);
+    }catch(e){}
+
+    /* command line */
+    var cmd = $("#cmd-input");
+    function fire(){ if(cmd.value.trim()){ runCommand(cmd.value); cmd.value = ""; } }
+    cmd.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); fire(); } });
+    $("#cmd-run").addEventListener("click", fire);
+
+    /* pomodoro */
+    $("#pom-start").addEventListener("click", function(){
+      Store.update(function(s){
+        var p = s.pomodoro;
+        if(p.remaining === 0) p.remaining = POM_LEN;
+        p.running = true;
+        p.lastResume = Date.now();
+      });
+      pomStartLoop();
+    });
+    $("#pom-pause").addEventListener("click", function(){
+      Store.update(function(s){ s.pomodoro.running = false; });
+      pomStopLoop();
+    });
+    $("#pom-reset").addEventListener("click", function(){
+      Store.update(function(s){ s.pomodoro.running = false; s.pomodoro.remaining = POM_LEN; });
+      pomStopLoop();
+    });
+
+    /* scratchpad */
+    $("#scratch").addEventListener("input", function(){
+      Store.update(function(s){ s.scratchpad = $("#scratch").value; });
+    });
+    $("#parse-btn").addEventListener("click", parseScratch);
+
+    /* macros */
+    [["protein","m-cur-protein","m-goal-protein"],
+     ["carb","m-cur-carb","m-goal-carb"],
+     ["fat","m-cur-fat","m-goal-fat"]].forEach(function(row){
+      document.getElementById(row[1]).addEventListener("input", function(e){
+        Store.update(function(s){ s.macros.current[row[0]] = Math.max(0, num(e.target.value)); });
+      });
+      document.getElementById(row[2]).addEventListener("input", function(e){
+        Store.update(function(s){ s.macros.goal[row[0]] = Math.max(0, num(e.target.value)); });
+      });
+    });
+
+    /* training */
+    $("#train-type").addEventListener("change", function(e){
+      Store.update(function(s){ s.training.today = e.target.value; });
+    });
+    $("#train-log-btn").addEventListener("click", function(){
+      logTraining($("#train-type").value);
+      toast("logged " + $("#train-type").value);
+    });
+
+    /* wealth */
+    ["ustech","sp500","gold","crypto"].forEach(function(k){
+      $("#w-" + k).addEventListener("input", function(e){
+        Store.update(function(s){ s.wealth[k] = Math.max(0, num(e.target.value)); });
+      });
+    });
+
+    /* protocol reset */
+    $("#protocol-reset").addEventListener("click", function(){
+      Store.update(function(s){ s.protocol = PROTOCOL_STEPS.map(function(){ return false; }); });
+      toast("protocol reset");
+    });
+
+    pomCatchUp();
+    Store.emit();
+  }
+
+  if(document.readyState === "complete") init();
+  else window.addEventListener("load", init);
 })();
 </script>
