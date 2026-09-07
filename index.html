@@ -40,7 +40,7 @@
   button{font-family:inherit}
   ::selection{background:rgba(245,158,11,.32)}
 
-  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{
+  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[contenteditable]:focus-visible{
     outline:2px solid var(--sys);outline-offset:2px;
   }
   input[type=number]::-webkit-outer-spin-button,
@@ -66,9 +66,7 @@
   }
   .nav__item span:first-child{width:18px;text-align:center;font-size:13px}
   .nav__item:hover{background:var(--surface);color:var(--text)}
-  .nav__item.active{
-    background:var(--surface);color:var(--text);border-left-color:var(--sys);
-  }
+  .nav__item.active{background:var(--surface);color:var(--text);border-left-color:var(--sys)}
   .nav__foot{
     margin-top:auto;padding:10px 8px 4px;font-family:var(--mono);
     font-size:10px;letter-spacing:.06em;color:var(--text-3);
@@ -85,13 +83,11 @@
   .tab__head h1{margin:0;font-size:17px;letter-spacing:.01em}
   .tab__head p{margin:4px 0 0;font-size:12px;color:var(--text-3);font-family:var(--mono)}
 
-  /* ---------- generic bits ---------- */
-  .lbl{
-    font-size:10px;font-family:var(--mono);letter-spacing:.1em;
-    text-transform:uppercase;color:var(--text-3);
-  }
+  /* ---------- generic ---------- */
+  .lbl{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
   .card{background:var(--surface);border:1px solid var(--border);padding:16px}
   .row{display:flex;gap:10px;flex-wrap:wrap}
+  .between{justify-content:space-between;align-items:center}
   .btn{
     font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     background:transparent;color:var(--text-2);border:1px solid var(--border-2);
@@ -114,11 +110,10 @@
     border:1px solid var(--border-2);padding:4px 4px 4px 16px;margin-bottom:8px;
   }
   .cmd__caret{font-family:var(--mono);color:var(--sys);font-size:16px}
-  .cmd input{
-    flex:1;background:transparent;border:0;padding:16px 4px;font-size:15px;
-  }
+  .cmd input{flex:1;background:transparent;border:0;padding:16px 4px;font-size:15px}
   .cmd input:focus{outline:0}
-  .cmd .btn--go{align-self:stretch;padding-inline:20px}
+  .cmd .btn{align-self:stretch}
+  .cmd .btn--go{padding-inline:20px}
   .cmd__hint{
     margin:0 0 22px;font-family:var(--mono);font-size:11px;color:var(--text-3);
     display:flex;gap:16px;flex-wrap:wrap;
@@ -134,10 +129,7 @@
     font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-2);
   }
   .column__count{color:var(--text-3)}
-  .column__body{
-    min-height:120px;padding:11px;display:flex;flex-direction:column;gap:9px;
-    transition:background .15s ease-in-out;
-  }
+  .column__body{min-height:120px;padding:11px;display:flex;flex-direction:column;gap:9px;transition:background .15s ease-in-out}
   .column__body.drop{background:rgba(245,158,11,.08);outline:1px dashed var(--sys);outline-offset:-5px}
 
   .task{
@@ -155,27 +147,18 @@
   .task__text{font-size:13px;line-height:1.45;word-break:break-word}
   .task__meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .task__actions{display:flex;gap:2px}
-  .task__btn{
-    background:transparent;border:0;color:var(--text-3);font-family:var(--mono);
-    font-size:13px;line-height:1;cursor:pointer;padding:3px 6px;
-  }
+  .task__btn{background:transparent;border:0;color:var(--text-3);font-family:var(--mono);font-size:13px;line-height:1;cursor:pointer;padding:3px 6px}
   .task__btn:hover{color:var(--text)}
   .task__btn--del:hover{color:var(--bad)}
 
-  .tag{
-    font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-    padding:3px 7px;border:1px solid transparent;white-space:nowrap;
-  }
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border:1px solid transparent;white-space:nowrap}
   .tag--Engineering{color:var(--eng);border-color:color-mix(in srgb,var(--eng) 45%,transparent);background:color-mix(in srgb,var(--eng) 13%,transparent)}
   .tag--Athletics{color:var(--ath);border-color:color-mix(in srgb,var(--ath) 45%,transparent);background:color-mix(in srgb,var(--ath) 13%,transparent)}
   .tag--Wealth{color:var(--wealth);border-color:color-mix(in srgb,var(--wealth) 45%,transparent);background:color-mix(in srgb,var(--wealth) 13%,transparent)}
   .tag--Downtime{color:var(--down);border-color:color-mix(in srgb,var(--down) 45%,transparent);background:color-mix(in srgb,var(--down) 13%,transparent)}
 
   /* ---------- pomodoro ---------- */
-  .pom{
-    padding:12px 13px;border-bottom:1px solid var(--border);
-    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  }
+  .pom{padding:12px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .pom__time{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:.04em;font-variant-numeric:tabular-nums}
   .pom__time.done{color:var(--good)}
   .pom__ctrls{display:flex;gap:5px}
@@ -187,11 +170,38 @@
   .pom__btn:hover{color:var(--text);border-color:var(--text-3)}
   .pom__sessions{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em}
 
-  /* ---------- lab ---------- */
-  .lab-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start}
-  #scratch{width:100%;min-height:420px;resize:vertical;line-height:1.7;background:var(--surface-2)}
-  .lab-side{display:flex;flex-direction:column;gap:16px}
-  .proj-grid{display:grid;gap:10px}
+  /* ---------- idea board (mini-miro) ---------- */
+  .board-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  #board-wrap{border:1px solid var(--border);background:var(--surface-2);height:520px;overflow:auto;position:relative}
+  #board-canvas{
+    position:relative;width:2200px;height:1500px;
+    background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);
+    background-size:26px 26px;
+  }
+  .note{
+    position:absolute;width:212px;min-height:92px;color:#1c1917;
+    border:1px solid rgba(0,0,0,.28);box-shadow:0 8px 18px rgba(0,0,0,.4);
+    display:flex;flex-direction:column;
+  }
+  .note--yellow{background:#fde047}
+  .note--blue{background:#7dd3fc}
+  .note--green{background:#86efac}
+  .note--pink{background:#f0abfc}
+  .note__bar{display:flex;align-items:center;justify-content:space-between;padding:5px 6px;cursor:grab;touch-action:none}
+  .note__bar:active{cursor:grabbing}
+  .note__swatch{width:14px;height:14px;padding:0;border:1px solid rgba(0,0,0,.4);background:rgba(255,255,255,.35);cursor:pointer}
+  .note__actions{display:flex;gap:1px}
+  .note__btn{background:transparent;border:0;font-family:var(--mono);font-size:13px;line-height:1;color:rgba(0,0,0,.55);cursor:pointer;padding:2px 6px}
+  .note__btn:hover{color:#000}
+  .note__body{
+    flex:1;padding:6px 9px 11px;font-family:var(--sans);font-size:12.5px;line-height:1.42;
+    outline:0;white-space:pre-wrap;overflow-wrap:anywhere;
+  }
+  .note__body:focus{box-shadow:inset 0 0 0 2px rgba(0,0,0,.4)}
+  .board-hint{font-family:var(--mono);font-size:11px;color:var(--text-3);margin:8px 0 0}
+
+  /* ---------- lab: projects ---------- */
+  .proj-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
   .proj-card{background:var(--card);border:1px solid var(--border-2);padding:13px;display:flex;flex-direction:column;gap:9px}
   .proj-card h4{margin:0;font-size:13px;font-family:var(--mono);letter-spacing:.04em}
   .proj-card .row{gap:8px;align-items:center}
@@ -220,20 +230,14 @@
   .train{display:flex;flex-direction:column;gap:12px}
   .train select{width:100%}
   .train__log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-  .train__log li{
-    display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;
-    color:var(--text-2);border-bottom:1px solid var(--border);padding-bottom:6px;
-  }
+  .train__log li{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--text-2);border-bottom:1px solid var(--border);padding-bottom:6px}
   .train__log li span:last-child{color:var(--text-3)}
 
   /* ---------- vault ---------- */
   .vault{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:520px}
   .vault label{display:flex;flex-direction:column;gap:6px}
   .vault input{text-align:right;font-size:15px;padding:11px 12px}
-  .networth{
-    margin-top:22px;padding:20px;background:var(--card);border:1px solid var(--border-2);
-    display:flex;flex-direction:column;gap:6px;max-width:520px;
-  }
+  .networth{margin-top:22px;padding:20px;background:var(--card);border:1px solid var(--border-2);display:flex;flex-direction:column;gap:6px;max-width:520px}
   .networth .lbl{color:var(--text-3)}
   .networth b{font-family:var(--mono);font-size:30px;font-weight:700;color:var(--wealth);font-variant-numeric:tabular-nums}
   .networth .thb{font-family:var(--mono);font-size:12px;color:var(--text-3)}
@@ -248,20 +252,15 @@
   .protocol li{display:flex}
   .protocol label{
     display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;cursor:pointer;
-    border:1px solid var(--border);border-bottom:0;font-size:12.5px;
-    transition:background .15s ease-in-out;
+    border:1px solid var(--border);border-bottom:0;font-size:12.5px;transition:background .15s ease-in-out;
   }
   .protocol li:last-child label{border-bottom:1px solid var(--border)}
   .protocol label:hover{background:var(--surface)}
   .protocol input{width:15px;height:15px;accent-color:var(--sys);flex:0 0 auto}
   .protocol label.done{color:var(--text-3);text-decoration:line-through}
   .protocol__meta{font-family:var(--mono);font-size:11px;color:var(--text-3);margin-top:12px}
-
   .media-group{margin-bottom:16px}
-  .media-group h4{
-    margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--text-3);
-  }
+  .media-group h4{margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
   .media-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .media-card{
     display:flex;flex-direction:column;gap:5px;padding:14px;text-decoration:none;
@@ -271,15 +270,12 @@
   .media-card:hover{transform:translateY(-1px);border-color:var(--sys)}
   .media-card b{font-size:13px}
   .media-card span{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.04em}
-  .media-card span::before{content:"▶ "}
+  .media-card span::before{content:"\25B6  "}
 
   /* ---------- radar ---------- */
   .hm{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:560px;margin-bottom:10px}
   .hm-cell{display:flex;flex-direction:column;align-items:center;gap:7px}
-  .hm-cell .box{
-    width:100%;aspect-ratio:1/1;border:1px solid var(--border);background:var(--hm0);
-    transition:background .3s ease-in-out;
-  }
+  .hm-cell .box{width:100%;aspect-ratio:1/1;border:1px solid var(--border);background:var(--hm0);transition:background .3s ease-in-out}
   .hm-cell[data-level="1"] .box{background:var(--hm1)}
   .hm-cell[data-level="2"] .box{background:var(--hm2)}
   .hm-cell[data-level="3"] .box{background:var(--hm3)}
@@ -293,16 +289,25 @@
   .legend i:nth-child(4){background:var(--hm2)}
   .legend i:nth-child(5){background:var(--hm3)}
   .legend i:nth-child(6){background:var(--hm4)}
-
   .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin-bottom:28px}
   .stat{background:var(--card);border:1px solid var(--border-2);padding:14px}
   .stat b{display:block;font-family:var(--mono);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
   .stat span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
-
   .load{display:flex;height:14px;max-width:560px;border:1px solid var(--border)}
   .load > i{display:block;height:100%;transition:width .3s ease-in-out}
   .load-key{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--text-3)}
   .load-key i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:middle}
+
+  /* ---------- modal (help) ---------- */
+  .modal{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px}
+  .modal__card{width:min(560px,100%);max-height:82vh;overflow:auto;background:var(--surface);border:1px solid var(--border-2)}
+  .modal__head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  .modal__head button{background:0;border:0;color:var(--text-2);font-size:18px;cursor:pointer;line-height:1}
+  .help-body{padding:4px 14px 14px;display:flex;flex-direction:column}
+  .help-row{display:grid;grid-template-columns:190px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+  .help-row:last-child{border-bottom:0}
+  .help-row code{font-family:var(--mono);color:var(--sys);font-size:11px}
+  .help-row span{color:var(--text-2)}
 
   /* ---------- toast ---------- */
   .toast{
@@ -316,19 +321,16 @@
   @media (max-width:900px){
     body{overflow:auto}
     .os{grid-template-columns:1fr;height:auto}
-    .nav{
-      flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);
-      position:sticky;top:0;z-index:50;
-    }
-    .nav__brand{display:none}
+    .nav{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+    .nav__brand,.nav__foot{display:none}
     .nav__item{border-left:0;border-bottom:2px solid transparent;white-space:nowrap}
     .nav__item.active{border-left:0;border-bottom-color:var(--sys)}
-    .nav__foot{display:none}
     .workspace{padding:18px 16px 60px}
     .board{grid-template-columns:1fr}
-    .lab-grid,.gym-grid,.drive-grid{grid-template-columns:1fr}
+    .gym-grid,.drive-grid{grid-template-columns:1fr}
     .stat-grid{grid-template-columns:1fr 1fr}
     .vault{grid-template-columns:1fr}
+    #board-wrap{height:440px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -357,13 +359,15 @@
       <div class="cmd">
         <span class="cmd__caret">&gt;_</span>
         <input type="text" id="cmd-input" autocomplete="off" spellcheck="false"
-               placeholder="/eng Fix Jenkins CI   ·   +40p +30c   ·   /log Hyrox   ·   or just type a task">
+               placeholder="/eng Fix Jenkins CI   ·   +40p +30c   ·   /mv jenkins doing   ·   ? for help">
         <button class="btn btn--go" id="cmd-run">Run</button>
+        <button class="btn" id="cmd-help" title="Command reference" aria-label="Command reference">?</button>
       </div>
       <p class="cmd__hint">
-        <span><code>/eng</code> <code>/ath</code> <code>/wealth</code> <code>/down</code> &nbsp;new task by domain</span>
-        <span><code>+40p</code> <code>+30c</code> <code>+15f</code> &nbsp;log macros (g)</span>
-        <span><code>/log Hyrox</code> &nbsp;log training</span>
+        <span><code>/eng</code> <code>/ath</code> <code>/wealth</code> <code>/down</code> new task</span>
+        <span><code>/done</code> <code>/mv</code> <code>/rm</code> <code>/clear done</code></span>
+        <span><code>+40p</code> <code>/goal</code> <code>/w</code> <code>/log</code></span>
+        <span><code>/pom</code> <code>/focus</code> <code>/note</code> <code>?</code></span>
       </p>
 
       <div class="board">
@@ -395,25 +399,22 @@
     <section class="tab" id="tab-lab">
       <div class="tab__head">
         <h1>&#128187; Engineering &amp; Career &mdash; The Lab</h1>
-        <p>architecture notes, lesson plans, backlog capture</p>
+        <p>a mini board for architecture, lesson plans, and backlog capture</p>
       </div>
 
-      <div class="lab-grid">
-        <div>
-          <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span class="lbl">Smart Scratchpad</span>
-            <button class="btn btn--go" id="parse-btn">Parse &ldquo;[ ]&rdquo; &rarr; Inbox</button>
-          </div>
-          <textarea id="scratch" spellcheck="false"
-            placeholder="Dump architecture, lesson plans, half-thoughts. Lines like  [ ] do the thing  become Engineering tasks."></textarea>
+      <div class="board-tools">
+        <span class="lbl">Idea Board</span>
+        <div class="row">
+          <button class="btn" id="note-add">+ Note</button>
+          <button class="btn btn--go" id="parse-btn">Promote &ldquo;[ ]&rdquo; notes &rarr; Inbox</button>
         </div>
+      </div>
+      <div id="board-wrap"><div id="board-canvas"></div></div>
+      <p class="board-hint">double-click canvas to add &middot; drag the top bar to move &middot; click a note to edit &middot; &#10548; promotes to the Kanban inbox</p>
 
-        <div class="lab-side">
-          <div>
-            <span class="lbl">Project Status</span>
-            <div class="proj-grid" id="proj-grid" style="margin-top:8px"></div>
-          </div>
-        </div>
+      <div style="margin-top:24px">
+        <span class="lbl">Project Status</span>
+        <div class="proj-grid" id="proj-grid" style="margin-top:8px"></div>
       </div>
     </section>
 
@@ -431,26 +432,17 @@
             <div class="macro macro--p">
               <div class="macro__top"><span>Protein</span><b><span data-macro-cur="protein">0</span> / <span data-macro-goal="protein">0</span> g</b></div>
               <div class="macro__bar"><i data-macro-fill="protein"></i></div>
-              <div class="macro__edit">
-                today <input type="number" id="m-cur-protein" min="0" step="1">
-                goal <input type="number" id="m-goal-protein" min="0" step="1">
-              </div>
+              <div class="macro__edit">today <input type="number" id="m-cur-protein" min="0" step="1"> goal <input type="number" id="m-goal-protein" min="0" step="1"></div>
             </div>
             <div class="macro macro--c">
               <div class="macro__top"><span>Carbs</span><b><span data-macro-cur="carb">0</span> / <span data-macro-goal="carb">0</span> g</b></div>
               <div class="macro__bar"><i data-macro-fill="carb"></i></div>
-              <div class="macro__edit">
-                today <input type="number" id="m-cur-carb" min="0" step="1">
-                goal <input type="number" id="m-goal-carb" min="0" step="1">
-              </div>
+              <div class="macro__edit">today <input type="number" id="m-cur-carb" min="0" step="1"> goal <input type="number" id="m-goal-carb" min="0" step="1"></div>
             </div>
             <div class="macro macro--f">
               <div class="macro__top"><span>Fats</span><b><span data-macro-cur="fat">0</span> / <span data-macro-goal="fat">0</span> g</b></div>
               <div class="macro__bar"><i data-macro-fill="fat"></i></div>
-              <div class="macro__edit">
-                today <input type="number" id="m-cur-fat" min="0" step="1">
-                goal <input type="number" id="m-goal-fat" min="0" step="1">
-              </div>
+              <div class="macro__edit">today <input type="number" id="m-cur-fat" min="0" step="1"> goal <input type="number" id="m-goal-fat" min="0" step="1"></div>
             </div>
           </div>
         </div>
@@ -464,15 +456,11 @@
               <span class="lock">&#128274; locked</span>
             </div>
           </div>
-
           <div class="card">
             <span class="lbl">Training Log</span>
             <div class="train" style="margin-top:10px">
               <select id="train-type">
-                <option>Hyrox</option>
-                <option>CrossFit</option>
-                <option>Weightlifting</option>
-                <option>Running</option>
+                <option>Hyrox</option><option>CrossFit</option><option>Weightlifting</option><option>Running</option>
               </select>
               <button class="btn btn--go" id="train-log-btn">Log today</button>
               <ul class="train__log" id="train-log"></ul>
@@ -533,34 +521,22 @@
             <div class="media-group">
               <h4>Deep Work</h4>
               <div class="media-grid">
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=lofi+coding+beats">
-                   <b>Lo-Fi Coding Beats</b><span>YouTube search</span></a>
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=cyberpunk+ambient+music+mix">
-                   <b>Cyberpunk Ambient</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=lofi+coding+beats"><b>Lo-Fi Coding Beats</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=cyberpunk+ambient+music+mix"><b>Cyberpunk Ambient</b><span>YouTube search</span></a>
               </div>
             </div>
             <div class="media-group">
               <h4>Athletic Discipline</h4>
               <div class="media-grid">
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=david+goggins+jocko+willink+motivation">
-                   <b>Goggins / Jocko</b><span>YouTube search</span></a>
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=hyrox+race+day+hype">
-                   <b>Hyrox Race Hype</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=david+goggins+jocko+willink+motivation"><b>Goggins / Jocko</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=hyrox+race+day+hype"><b>Hyrox Race Hype</b><span>YouTube search</span></a>
               </div>
             </div>
             <div class="media-group">
               <h4>Cinematic Focus</h4>
               <div class="media-grid">
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=hans+zimmer+interstellar+full+score">
-                   <b>Interstellar Score</b><span>YouTube search</span></a>
-                <a class="media-card" target="_blank" rel="noopener noreferrer"
-                   href="https://www.youtube.com/results?search_query=hans+zimmer+deep+focus+mix">
-                   <b>Zimmer Deep Focus</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=hans+zimmer+interstellar+full+score"><b>Interstellar Score</b><span>YouTube search</span></a>
+                <a class="media-card" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=hans+zimmer+deep+focus+mix"><b>Zimmer Deep Focus</b><span>YouTube search</span></a>
               </div>
             </div>
           </div>
@@ -599,6 +575,13 @@
   </main>
 </div>
 
+<div class="modal" id="help" hidden>
+  <div class="modal__card">
+    <div class="modal__head"><b>Command reference</b><button type="button" id="help-close" aria-label="Close">&times;</button></div>
+    <div class="help-body" id="help-body"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -606,29 +589,27 @@
   "use strict";
 
   /* ======================================================================
-   *  Firstz OS  —  single-file Life OS dashboard
-   *  vanilla HTML + CSS + ES6, offline, localStorage-backed
+   *  Firstz OS — single-file Life OS. Vanilla HTML/CSS/ES6, offline,
+   *  every mutation persisted to localStorage.
    * ==================================================================== */
 
   var DOMAINS  = ["Engineering","Athletics","Wealth","Downtime"];
   var STATUSES = ["todo","doing","done"];
   var WORKOUTS = ["Hyrox","CrossFit","Weightlifting","Running"];
   var DAYS     = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var COLORS   = ["yellow","blue","green","pink"];
   var POM_LEN  = 25 * 60;
   var THB_RATE = 32.5;
 
   var $  = function(s,r){ return (r||document).querySelector(s); };
   var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
-  var uid = function(){ return "t-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,7); };
+  var uid = function(){ return "id-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,7); };
   var clamp = function(n,lo,hi){ return Math.max(lo, Math.min(hi, n)); };
   var num = function(v){ var n = parseFloat(v); return isFinite(n) ? n : 0; };
   var pad2 = function(n){ return (n<10?"0":"") + n; };
   var dateKey = function(d){ return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate()); };
   var addDays = function(d,n){ var x = new Date(d); x.setDate(x.getDate()+n); return x; };
 
-  /* ----------------------------------------------------------------------
-   *  State store
-   * -------------------------------------------------------------------- */
   var PROTOCOL_STEPS = [
     "Step away from the MacBook",
     "Drink 500 ml of water",
@@ -637,6 +618,11 @@
     "Say the one thing that's blocking you out loud",
     "Cut today's remaining scope in half"
   ];
+
+  /* ----------------------------------------------------------------------
+   *  Seed
+   * -------------------------------------------------------------------- */
+  function mk(text, domain, status){ return { id:uid(), text:text, domain:domain, status:status }; }
 
   function seed(){
     var hist = {};
@@ -654,84 +640,94 @@
         mk("AUDScan: collect 200-note sample dataset", "Engineering", "done"),
         mk("CrossFit AMRAP 20", "Athletics", "done")
       ],
-      scratchpad:
-        "AUDScan — architecture\n" +
-        "- RN camera -> frame capture -> TF.js MobileNet features -> small classifier head\n" +
-        "- cache verified note hashes locally, sync when online\n" +
-        "[ ] Benchmark inference latency on a mid-tier Android\n" +
-        "[ ] Write a fallback path for low-light frames\n\n" +
-        "CodeKids / N'Pattern\n" +
-        "- Turtle: spiral, then a star loop, then free draw\n" +
-        "[ ] Prepare 3 warm-up exercises\n\n" +
-        "Muze — PO prep\n" +
-        "- Read the current sprint board, list open questions\n" +
-        "[ ] Book intro 1:1s with the engineering leads\n",
+      board: [
+        { id:uid(), text:"AUDScan — architecture\nRN camera → TF.js MobileNet → classifier head\ncache verified hashes locally", x:40,  y:40,  color:"yellow" },
+        { id:uid(), text:"[ ] Benchmark inference latency on a mid-tier Android", x:300, y:60,  color:"blue" },
+        { id:uid(), text:"[ ] Low-light frame fallback path", x:300, y:210, color:"blue" },
+        { id:uid(), text:"CodeKids / N'Pattern\nTurtle: spiral → star loop → free draw", x:40, y:250, color:"green" },
+        { id:uid(), text:"Muze — PO prep\nread the sprint board, list open questions", x:40, y:430, color:"pink" }
+      ],
       projects: [
         { name:"AUDScan Pipeline", status:"In Progress", progress:55, note:"Model integration into RN camera" },
         { name:"Muze PO Prep",     status:"On Track",    progress:30, note:"Onboarding + backlog review" }
       ],
-      macros: {
-        goal:    { protein:180, carb:240, fat:70 },
-        current: { protein:120, carb:150, fat:45 }
-      },
+      macros: { goal:{ protein:180, carb:240, fat:70 }, current:{ protein:120, carb:150, fat:45 } },
       training: {
         today: "Hyrox",
         log: [
-          { date: dateKey(new Date()),            type:"Hyrox" },
+          { date: dateKey(new Date()),             type:"Hyrox" },
           { date: dateKey(addDays(new Date(),-1)), type:"CrossFit" },
           { date: dateKey(addDays(new Date(),-2)), type:"Weightlifting" }
         ]
       },
       wealth: { ustech:4200, sp500:6800, gold:1500, crypto:900 },
-      protocol: [false,false,false,false,false,false],
+      protocol: PROTOCOL_STEPS.map(function(){ return false; }),
       velocityHistory: hist,
       pomodoro: { remaining: POM_LEN, running:false, sessions:0, lastResume:0 }
     };
   }
-  function mk(text, domain, status){ return { id:uid(), text:text, domain:domain, status:status }; }
 
+  /* ----------------------------------------------------------------------
+   *  Store — single source of truth
+   * -------------------------------------------------------------------- */
   var Store = {
     KEY: "firstz-os.v2",
     state: null,
     subs: [],
     load: function(){
-      try{
-        var raw = localStorage.getItem(this.KEY);
-        if(raw){ this.state = JSON.parse(raw); }
-      }catch(e){ this.state = null; }
+      try{ var raw = localStorage.getItem(this.KEY); if(raw) this.state = JSON.parse(raw); }
+      catch(e){ this.state = null; }
       if(!this.state || typeof this.state !== "object") this.state = seed();
       this.normalize();
       this.save();
     },
     normalize: function(){
-      var s = this.state;
+      var s = this.state, base = seed();
+
       if(!Array.isArray(s.tasks)) s.tasks = [];
       s.tasks = s.tasks
         .filter(function(t){ return t && t.id != null && typeof t.text === "string"; })
         .map(function(t){
           return {
-            id: String(t.id),
-            text: t.text,
+            id: String(t.id), text: t.text,
             domain: DOMAINS.indexOf(t.domain) >= 0 ? t.domain : "Engineering",
             status: STATUSES.indexOf(t.status) >= 0 ? t.status : "todo"
           };
         });
-      if(typeof s.scratchpad !== "string") s.scratchpad = "";
-      if(!Array.isArray(s.projects)) s.projects = seed().projects;
-      if(!s.macros || !s.macros.goal || !s.macros.current) s.macros = seed().macros;
+
+      /* board — migrate an old scratchpad string into one note if needed */
+      if(!Array.isArray(s.board)){
+        if(typeof s.scratchpad === "string" && s.scratchpad.trim())
+          s.board = [{ id:uid(), text:s.scratchpad, x:40, y:40, color:"yellow" }];
+        else
+          s.board = base.board;
+      }
+      delete s.scratchpad;
+      s.board = s.board
+        .filter(function(n){ return n && n.id != null; })
+        .map(function(n){
+          return {
+            id:String(n.id),
+            text: typeof n.text === "string" ? n.text : "",
+            x: Math.max(0, num(n.x)), y: Math.max(0, num(n.y)),
+            color: COLORS.indexOf(n.color) >= 0 ? n.color : "yellow"
+          };
+        });
+
+      if(!Array.isArray(s.projects)) s.projects = base.projects;
+      if(!s.macros || !s.macros.goal || !s.macros.current) s.macros = base.macros;
       ["protein","carb","fat"].forEach(function(k){
         s.macros.goal[k] = num(s.macros.goal[k]);
         s.macros.current[k] = num(s.macros.current[k]);
       });
-      if(!s.training || !Array.isArray(s.training.log)) s.training = seed().training;
+      if(!s.training || !Array.isArray(s.training.log)) s.training = base.training;
       if(WORKOUTS.indexOf(s.training.today) < 0) s.training.today = "Hyrox";
-      if(!s.wealth) s.wealth = seed().wealth;
+      if(!s.wealth) s.wealth = base.wealth;
       ["ustech","sp500","gold","crypto"].forEach(function(k){ s.wealth[k] = num(s.wealth[k]); });
-      if(!Array.isArray(s.protocol) || s.protocol.length !== PROTOCOL_STEPS.length){
+      if(!Array.isArray(s.protocol) || s.protocol.length !== PROTOCOL_STEPS.length)
         s.protocol = PROTOCOL_STEPS.map(function(){ return false; });
-      }
       if(!s.velocityHistory || typeof s.velocityHistory !== "object") s.velocityHistory = {};
-      if(!s.pomodoro || typeof s.pomodoro !== "object") s.pomodoro = seed().pomodoro;
+      if(!s.pomodoro || typeof s.pomodoro !== "object") s.pomodoro = base.pomodoro;
       s.pomodoro.remaining = clamp(num(s.pomodoro.remaining) || POM_LEN, 0, POM_LEN);
       s.pomodoro.sessions = num(s.pomodoro.sessions);
       s.pomodoro.running = !!s.pomodoro.running;
@@ -740,25 +736,25 @@
       try{ localStorage.setItem(this.KEY, JSON.stringify(this.state)); }catch(e){}
     },
     subscribe: function(fn){ this.subs.push(fn); },
-    /* every mutation flows through here → immediate persistence + re-render */
-    update: function(mutator){
-      mutator(this.state);
-      this.save();
-      this.emit();
-    },
-    emit: function(){
-      var s = this.state;
-      this.subs.forEach(function(fn){ fn(s); });
-    }
+    update: function(mutator){ mutator(this.state); this.save(); this.emit(); },
+    emit: function(){ var s = this.state; this.subs.forEach(function(fn){ fn(s); }); }
   };
 
   /* ----------------------------------------------------------------------
    *  Task helpers
    * -------------------------------------------------------------------- */
+  function bump(s, n){
+    var k = dateKey(new Date());
+    s.velocityHistory[k] = Math.max(0, (s.velocityHistory[k] || 0) + n);
+  }
   function addTask(text, domain){
-    text = (text || "").trim();
-    if(!text) return;
+    text = (text || "").trim(); if(!text) return;
     Store.update(function(s){ s.tasks.unshift(mk(text, domain, "todo")); });
+  }
+  function addTaskDone(text){
+    text = (text || "").trim(); if(!text) return;
+    Store.update(function(s){ s.tasks.unshift(mk(text, "Engineering", "done")); bump(s, 1); });
+    toast("shipped");
   }
   function deleteTask(id){
     Store.update(function(s){ s.tasks = s.tasks.filter(function(t){ return t.id !== id; }); });
@@ -767,40 +763,55 @@
     Store.update(function(s){
       var task = null, i;
       for(i=0;i<s.tasks.length;i++){ if(s.tasks[i].id === id){ task = s.tasks[i]; break; } }
-      if(!task || task.status === target) {
-        if(task){ s.tasks = [task].concat(s.tasks.filter(function(t){ return t.id !== id; })); }
-        return;
+      if(!task){ return; }
+      if(task.status !== target){
+        var wasDone = task.status === "done";
+        task.status = target;
+        if(target === "done" && !wasDone) bump(s, 1);
+        if(wasDone && target !== "done") bump(s, -1);
       }
-      var wasDone = task.status === "done";
-      task.status = target;
-      if(target === "done" && !wasDone) bump(s, 1);
-      if(wasDone && target !== "done") bump(s, -1);
       s.tasks = [task].concat(s.tasks.filter(function(t){ return t.id !== id; }));
     });
   }
-  function bump(s, n){
-    var k = dateKey(new Date());
-    s.velocityHistory[k] = Math.max(0, (s.velocityHistory[k] || 0) + n);
+  function findTask(q){
+    q = q.toLowerCase();
+    return Store.state.tasks.filter(function(t){ return t.text.toLowerCase().indexOf(q) >= 0; })[0] || null;
   }
 
   /* ----------------------------------------------------------------------
-   *  Command line parser
+   *  Command line
    * -------------------------------------------------------------------- */
   var MACRO_TOKEN = /^([+-]\d+(?:\.\d+)?)([pcf])$/i;
-  var DOMAIN_CMD  = /^\/(eng|ath|wealth|down|dt|task)\s+(.+)$/i;
-  var LOG_CMD     = /^\/log\s+(hyrox|crossfit|weightlifting|running)\s*$/i;
+  var COL_ALIAS   = { todo:"todo", inbox:"todo", doing:"doing", active:"doing", done:"done", shipped:"done" };
+  var TAB_ALIAS   = {
+    cmd:"cmd", command:"cmd", center:"cmd", home:"cmd",
+    lab:"lab", eng:"lab", engineering:"lab", career:"lab", board:"lab",
+    gym:"gym", ath:"gym", athletic:"gym", athletics:"gym",
+    vault:"vault", wealth:"vault", assets:"vault", money:"vault",
+    drive:"drive", recovery:"drive", reset:"drive",
+    radar:"radar", analytics:"radar", stats:"radar"
+  };
+  var ASSET_ALIAS = {
+    tech:"ustech", ustech:"ustech", us:"ustech",
+    sp:"sp500", sp500:"sp500", snp:"sp500", spx:"sp500",
+    gold:"gold", xau:"gold",
+    crypto:"crypto", btc:"crypto", eth:"crypto"
+  };
 
   function runCommand(raw){
     var t = (raw || "").trim();
     if(!t) return;
+    var m;
+
+    if(t === "?" || /^\/help$/i.test(t)){ openHelp(); return; }
 
     var parts = t.split(/\s+/);
     if(parts.length && parts.every(function(p){ return MACRO_TOKEN.test(p); })){
       Store.update(function(s){
         parts.forEach(function(p){
-          var m = p.match(MACRO_TOKEN);
-          var key = { p:"protein", c:"carb", f:"fat" }[m[2].toLowerCase()];
-          s.macros.current[key] = Math.max(0, s.macros.current[key] + parseFloat(m[1]));
+          var mm = p.match(MACRO_TOKEN);
+          var key = { p:"protein", c:"carb", f:"fat" }[mm[2].toLowerCase()];
+          s.macros.current[key] = Math.max(0, s.macros.current[key] + parseFloat(mm[1]));
         });
       });
       hydrateMacros();
@@ -808,19 +819,62 @@
       return;
     }
 
-    var lg = t.match(LOG_CMD);
-    if(lg){
-      var type = WORKOUTS.filter(function(w){ return w.toLowerCase() === lg[1].toLowerCase(); })[0];
+    if(m = t.match(/^\/pom\s+(start|pause|reset)\s*$/i)){ pomCommand(m[1].toLowerCase()); return; }
+    if(m = t.match(/^\/focus\s+(.+)$/i)){
+      var key = TAB_ALIAS[m[1].toLowerCase().replace(/[^a-z]/g,"")];
+      if(key){ switchTab(key); toast("→ " + key); } else toast("unknown tab: " + m[1]);
+      return;
+    }
+    if(m = t.match(/^\/done\s+(.+)$/i)){ addTaskDone(m[1]); return; }
+    if(m = t.match(/^\/mv\s+(.+)\s+(todo|doing|done|inbox|active|shipped)\s*$/i)){
+      var hit = findTask(m[1].trim());
+      if(!hit){ toast("no card matches “" + m[1].trim() + "”"); return; }
+      moveTask(hit.id, COL_ALIAS[m[2].toLowerCase()]);
+      toast("moved → " + COL_ALIAS[m[2].toLowerCase()]);
+      return;
+    }
+    if(m = t.match(/^\/rm\s+(.+)$/i)){
+      var r = findTask(m[1].trim());
+      if(!r){ toast("no card matches “" + m[1].trim() + "”"); return; }
+      deleteTask(r.id);
+      toast("deleted “" + r.text.slice(0,32) + "”");
+      return;
+    }
+    if(/^\/clear\s+done\s*$/i.test(t)){
+      Store.update(function(s){ s.tasks = s.tasks.filter(function(x){ return x.status !== "done"; }); });
+      toast("DONE column cleared");
+      return;
+    }
+    if(m = t.match(/^\/goal\s+([pcf])\s+(\d+(?:\.\d+)?)\s*$/i)){
+      var gk = { p:"protein", c:"carb", f:"fat" }[m[1].toLowerCase()];
+      var gv = Math.max(0, parseFloat(m[2]));
+      Store.update(function(s){ s.macros.goal[gk] = gv; });
+      hydrateMacros();
+      toast(gk + " goal → " + gv + "g");
+      return;
+    }
+    if(m = t.match(/^\/w\s+([a-z0-9]+)\s+(\d+(?:\.\d+)?)\s*$/i)){
+      var ak = ASSET_ALIAS[m[1].toLowerCase()];
+      if(!ak){ toast("unknown asset: " + m[1]); return; }
+      var av = Math.max(0, parseFloat(m[2]));
+      Store.update(function(s){ s.wealth[ak] = av; });
+      var inp = document.getElementById("w-" + ak);
+      if(inp && document.activeElement !== inp) inp.value = av;
+      toast(ak + " → " + av.toLocaleString());
+      return;
+    }
+    if(/^\/bf\b/i.test(t)){ toast("body fat is locked at 25.0%"); return; }
+    if(m = t.match(/^\/log\s+(hyrox|crossfit|weightlifting|running)\s*$/i)){
+      var type = WORKOUTS.filter(function(w){ return w.toLowerCase() === m[1].toLowerCase(); })[0];
       logTraining(type);
       toast("logged " + type);
       return;
     }
-
-    var dc = t.match(DOMAIN_CMD);
-    if(dc){
+    if(m = t.match(/^\/note\s+(.+)$/i)){ addNoteCentered(m[1].trim()); toast("note added to board"); return; }
+    if(m = t.match(/^\/(eng|ath|wealth|down|dt|task)\s+(.+)$/i)){
       var map = { eng:"Engineering", ath:"Athletics", wealth:"Wealth", down:"Downtime", dt:"Downtime", task:"Engineering" };
-      addTask(dc[2], map[dc[1].toLowerCase()]);
-      toast(map[dc[1].toLowerCase()] + " task queued");
+      addTask(m[2], map[m[1].toLowerCase()]);
+      toast(map[m[1].toLowerCase()] + " task queued");
       return;
     }
 
@@ -828,30 +882,183 @@
     toast("task queued");
   }
 
+  var HELP = [
+    ["/eng · /ath · /wealth · /down &lt;text&gt;", "new task tagged by domain"],
+    ["&lt;text&gt;", "bare text → new Engineering task"],
+    ["/done &lt;text&gt;", "new task straight into DONE"],
+    ["/mv &lt;text&gt; &lt;col&gt;", "move first matching card (todo · doing · done)"],
+    ["/rm &lt;text&gt;", "delete first matching card"],
+    ["/clear done", "empty the DONE column"],
+    ["+40p +30c +15f", "add grams to today's macros"],
+    ["/goal p|c|f &lt;n&gt;", "set a macro goal"],
+    ["/w tech|sp|gold|crypto &lt;n&gt;", "set an asset balance"],
+    ["/log Hyrox|CrossFit|…", "log today's training modality"],
+    ["/pom start|pause|reset", "drive the Pomodoro timer"],
+    ["/focus &lt;tab&gt;", "jump to a workspace tab"],
+    ["/note &lt;text&gt;", "drop a sticky on the Idea board"],
+    ["/help  or  ?", "open this reference"]
+  ];
+  function openHelp(){
+    var body = $("#help-body");
+    if(!body.childElementCount){
+      HELP.forEach(function(row){
+        var d = document.createElement("div");
+        d.className = "help-row";
+        d.innerHTML = "<code>" + row[0] + "</code><span>" + row[1] + "</span>";
+        body.appendChild(d);
+      });
+    }
+    $("#help").hidden = false;
+  }
+  function closeHelp(){ $("#help").hidden = true; }
+
   /* ----------------------------------------------------------------------
-   *  Scratchpad parser
+   *  Idea board (mini-miro)
    * -------------------------------------------------------------------- */
-  function parseScratch(){
-    var ta = $("#scratch");
-    var lines = ta.value.split("\n");
-    var fresh = [];
-    var out = lines.map(function(line){
-      var m = line.match(/^(\s*)\[\s?\]\s+(.+?)\s*$/);
-      if(m){ fresh.push(mk(m[2].trim(), "Engineering", "todo")); return m[1] + "[x] " + m[2]; }
-      return line;
+  var boardSig = null;
+
+  function makeNote(n){
+    var el = document.createElement("div");
+    el.className = "note note--" + n.color;
+    el.dataset.id = n.id;
+    el.style.left = n.x + "px";
+    el.style.top  = n.y + "px";
+
+    var bar = document.createElement("div");
+    bar.className = "note__bar";
+
+    var sw = document.createElement("button");
+    sw.className = "note__swatch"; sw.type = "button";
+    sw.title = "Cycle colour"; sw.setAttribute("aria-label", "Cycle colour");
+
+    var acts = document.createElement("div");
+    acts.className = "note__actions";
+    var prom = document.createElement("button");
+    prom.className = "note__btn"; prom.type = "button"; prom.textContent = "⤴";
+    prom.title = "Promote to task"; prom.setAttribute("aria-label", "Promote to task");
+    var del = document.createElement("button");
+    del.className = "note__btn"; del.type = "button"; del.textContent = "×";
+    del.title = "Delete note"; del.setAttribute("aria-label", "Delete note");
+    acts.appendChild(prom); acts.appendChild(del);
+    bar.appendChild(sw); bar.appendChild(acts);
+
+    var body = document.createElement("div");
+    body.className = "note__body";
+    body.contentEditable = "true";
+    body.spellcheck = false;
+    body.textContent = n.text;
+
+    el.appendChild(bar);
+    el.appendChild(body);
+
+    body.addEventListener("input", function(){
+      var note = Store.state.board.filter(function(b){ return b.id === n.id; })[0];
+      if(note){ note.text = body.innerText; Store.save(); }
     });
-    if(!fresh.length){ toast("no “[ ]” lines found"); return; }
-    var text = out.join("\n");
+    del.addEventListener("click", function(){
+      Store.update(function(s){ s.board = s.board.filter(function(b){ return b.id !== n.id; }); });
+      toast("note deleted");
+    });
+    prom.addEventListener("click", function(){
+      var note = Store.state.board.filter(function(b){ return b.id === n.id; })[0];
+      var txt = (note ? note.text : "").replace(/^\s*\[[ xX]?\]\s*/, "").trim();
+      if(!txt){ toast("note is empty"); return; }
+      addTask(txt, "Engineering");
+      toast("promoted → inbox");
+    });
+    sw.addEventListener("click", function(e){
+      e.stopPropagation();
+      Store.update(function(s){
+        var note = s.board.filter(function(b){ return b.id === n.id; })[0];
+        if(note) note.color = COLORS[(COLORS.indexOf(note.color) + 1) % COLORS.length];
+      });
+    });
+
+    attachNoteDrag(el, n.id);
+    return el;
+  }
+
+  function attachNoteDrag(el, id){
+    var bar = el.querySelector(".note__bar");
+    bar.addEventListener("pointerdown", function(e){
+      if(e.target.closest("button")) return;
+      e.preventDefault();
+      var sx = e.clientX, sy = e.clientY;
+      var ox = parseFloat(el.style.left) || 0, oy = parseFloat(el.style.top) || 0;
+      try{ bar.setPointerCapture(e.pointerId); }catch(err){}
+      el.style.zIndex = "20";
+      function move(ev){
+        el.style.left = Math.max(0, ox + ev.clientX - sx) + "px";
+        el.style.top  = Math.max(0, oy + ev.clientY - sy) + "px";
+      }
+      function up(){
+        try{ bar.releasePointerCapture(e.pointerId); }catch(err){}
+        bar.removeEventListener("pointermove", move);
+        bar.removeEventListener("pointerup", up);
+        el.style.zIndex = "";
+        var note = Store.state.board.filter(function(b){ return b.id === id; })[0];
+        if(note){ note.x = parseFloat(el.style.left) || 0; note.y = parseFloat(el.style.top) || 0; Store.save(); }
+      }
+      bar.addEventListener("pointermove", move);
+      bar.addEventListener("pointerup", up);
+    });
+  }
+
+  function addNoteAt(x, y, text){
+    var id = uid();
     Store.update(function(s){
-      s.tasks = fresh.concat(s.tasks);
-      s.scratchpad = text;
+      s.board.push({ id:id, text:text || "", x:Math.max(0,Math.round(x)), y:Math.max(0,Math.round(y)), color:COLORS[s.board.length % COLORS.length] });
     });
-    ta.value = text;
-    toast(fresh.length + " task" + (fresh.length > 1 ? "s" : "") + " → inbox");
+    var body = document.querySelector('.note[data-id="' + id + '"] .note__body');
+    if(body){ body.focus();
+      var r = document.createRange(); r.selectNodeContents(body); r.collapse(false);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+  }
+  function addNoteCentered(text){
+    var wrap = $("#board-wrap");
+    if($("#tab-lab").classList.contains("active") === false) switchTab("lab");
+    addNoteAt(wrap.scrollLeft + wrap.clientWidth/2 - 106, wrap.scrollTop + wrap.clientHeight/2 - 46, text);
+  }
+
+  function parseNotes(){
+    var count = 0;
+    Store.update(function(s){
+      var fresh = [];
+      s.board.forEach(function(n){
+        if(/^\s*\[\s?\]\s+/.test(n.text)){
+          fresh.push(mk(n.text.replace(/^\s*\[\s?\]\s+/, "").split("\n")[0].trim(), "Engineering", "todo"));
+          n.text = n.text.replace(/^(\s*)\[\s?\]/, "$1[x]");
+          count++;
+        }
+      });
+      if(fresh.length) s.tasks = fresh.concat(s.tasks);
+    });
+    toast(count ? (count + " note" + (count > 1 ? "s" : "") + " → inbox") : "no “[ ]” notes found");
+  }
+
+  function renderBoard(s){
+    var canvas = $("#board-canvas");
+    var sig = s.board.map(function(n){ return n.id; }).join("|");
+    if(sig === boardSig && canvas.childElementCount === s.board.length){
+      s.board.forEach(function(n){
+        var el = canvas.querySelector('.note[data-id="' + n.id + '"]');
+        if(!el) return;
+        el.className = "note note--" + n.color;
+        el.style.left = n.x + "px";
+        el.style.top  = n.y + "px";
+        var body = el.querySelector(".note__body");
+        if(document.activeElement !== body && body.textContent !== n.text) body.textContent = n.text;
+      });
+      return;
+    }
+    boardSig = sig;
+    canvas.innerHTML = "";
+    s.board.forEach(function(n){ canvas.appendChild(makeNote(n)); });
   }
 
   /* ----------------------------------------------------------------------
-   *  Training
+   *  Training / Pomodoro
    * -------------------------------------------------------------------- */
   function logTraining(type){
     var today = dateKey(new Date());
@@ -863,21 +1070,31 @@
     });
   }
 
-  /* ----------------------------------------------------------------------
-   *  Pomodoro
-   * -------------------------------------------------------------------- */
   var pomLoop = null;
   function pomStartLoop(){ if(!pomLoop) pomLoop = setInterval(pomTick, 1000); }
   function pomStopLoop(){ clearInterval(pomLoop); pomLoop = null; }
   function pomTick(){
     Store.update(function(s){
       var p = s.pomodoro;
-      if(!p.running){ return; }
+      if(!p.running) return;
       p.remaining = Math.max(0, p.remaining - 1);
       p.lastResume = Date.now();
       if(p.remaining === 0){ p.running = false; p.sessions += 1; }
     });
     if(!Store.state.pomodoro.running) pomStopLoop();
+  }
+  function pomCommand(action){
+    if(action === "start"){
+      Store.update(function(s){ var p = s.pomodoro; if(p.remaining === 0) p.remaining = POM_LEN; p.running = true; p.lastResume = Date.now(); });
+      pomStartLoop();
+    } else if(action === "pause"){
+      Store.update(function(s){ s.pomodoro.running = false; });
+      pomStopLoop();
+    } else {
+      Store.update(function(s){ s.pomodoro.running = false; s.pomodoro.remaining = POM_LEN; });
+      pomStopLoop();
+    }
+    toast("pomodoro " + action);
   }
   function pomCatchUp(){
     var p = Store.state.pomodoro;
@@ -896,57 +1113,41 @@
   }
 
   /* ----------------------------------------------------------------------
-   *  Drag & drop  (rebuilt from state on every drop → no dupes / no loss)
+   *  Drag & drop — Kanban
    * -------------------------------------------------------------------- */
   var draggedId = null;
 
   function makeCard(t){
     var el = document.createElement("div");
     el.className = "task dom-" + t.domain;
-    el.id = t.id;
-    el.dataset.id = t.id;
+    el.id = t.id; el.dataset.id = t.id;
     el.setAttribute("draggable", "true");
 
     var text = document.createElement("div");
-    text.className = "task__text";
-    text.textContent = t.text;
+    text.className = "task__text"; text.textContent = t.text;
 
     var meta = document.createElement("div");
     meta.className = "task__meta";
-
     var tag = document.createElement("span");
-    tag.className = "tag tag--" + t.domain;
-    tag.textContent = t.domain;
-
+    tag.className = "tag tag--" + t.domain; tag.textContent = t.domain;
     var actions = document.createElement("div");
     actions.className = "task__actions";
 
     if(t.status !== "done"){
       var fwd = document.createElement("button");
-      fwd.className = "task__btn";
-      fwd.type = "button";
-      fwd.textContent = "▸";
-      fwd.title = "Advance";
-      fwd.setAttribute("aria-label", "Advance task");
-      fwd.addEventListener("click", function(){
-        moveTask(t.id, t.status === "todo" ? "doing" : "done");
-      });
+      fwd.className = "task__btn"; fwd.type = "button"; fwd.textContent = "▸";
+      fwd.title = "Advance"; fwd.setAttribute("aria-label", "Advance task");
+      fwd.addEventListener("click", function(){ moveTask(t.id, t.status === "todo" ? "doing" : "done"); });
       actions.appendChild(fwd);
     }
-
     var del = document.createElement("button");
-    del.className = "task__btn task__btn--del";
-    del.type = "button";
-    del.textContent = "×";
-    del.title = "Delete";
-    del.setAttribute("aria-label", "Delete task");
+    del.className = "task__btn task__btn--del"; del.type = "button"; del.textContent = "×";
+    del.title = "Delete"; del.setAttribute("aria-label", "Delete task");
     del.addEventListener("click", function(){ deleteTask(t.id); toast("task deleted"); });
     actions.appendChild(del);
 
-    meta.appendChild(tag);
-    meta.appendChild(actions);
-    el.appendChild(text);
-    el.appendChild(meta);
+    meta.appendChild(tag); meta.appendChild(actions);
+    el.appendChild(text); el.appendChild(meta);
 
     el.addEventListener("dragstart", function(e){
       draggedId = t.id;
@@ -954,20 +1155,13 @@
       try{ e.dataTransfer.setData("text/plain", t.id); }catch(err){}
       el.classList.add("dragging");
     });
-    el.addEventListener("dragend", function(){
-      el.classList.remove("dragging");
-      draggedId = null;
-    });
+    el.addEventListener("dragend", function(){ el.classList.remove("dragging"); draggedId = null; });
     return el;
   }
 
   function wireColumns(){
     $$(".column__body").forEach(function(body){
-      body.addEventListener("dragover", function(e){
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "move";
-        body.classList.add("drop");
-      });
+      body.addEventListener("dragover", function(e){ e.preventDefault(); e.dataTransfer.dropEffect = "move"; body.classList.add("drop"); });
       body.addEventListener("dragenter", function(e){ e.preventDefault(); body.classList.add("drop"); });
       body.addEventListener("dragleave", function(e){ if(e.target === body) body.classList.remove("drop"); });
       body.addEventListener("drop", function(e){
@@ -982,7 +1176,7 @@
   }
 
   /* ----------------------------------------------------------------------
-   *  Render layer  (idempotent, driven from state; never touches focused inputs)
+   *  Render layer
    * -------------------------------------------------------------------- */
   function renderKanban(s){
     STATUSES.forEach(function(st){
@@ -993,17 +1187,14 @@
       document.querySelector('[data-count="' + st + '"]').textContent = list.length;
     });
   }
-
   function renderPomodoro(s){
     var p = s.pomodoro;
-    var mm = Math.floor(p.remaining / 60), ss = p.remaining % 60;
     var el = $("#pom-time");
-    el.textContent = pad2(mm) + ":" + pad2(ss);
+    el.textContent = pad2(Math.floor(p.remaining / 60)) + ":" + pad2(p.remaining % 60);
     el.classList.toggle("done", p.remaining === 0);
     $("#pom-sessions").textContent = p.sessions + " session" + (p.sessions === 1 ? "" : "s");
     $("#pom-start").textContent = p.running ? "Running" : "Start";
   }
-
   function renderProjects(s){
     var host = $("#proj-grid");
     if(host.childElementCount !== s.projects.length){
@@ -1024,13 +1215,10 @@
         host.appendChild(card);
       });
       host.querySelectorAll("[data-pi]").forEach(function(inp){
-        var handler = function(){
+        inp.addEventListener(inp.tagName === "SELECT" ? "change" : "input", function(){
           var i = +inp.dataset.pi, k = inp.dataset.pk;
-          Store.update(function(st){
-            st.projects[i][k] = (k === "progress") ? clamp(num(inp.value), 0, 100) : inp.value;
-          });
-        };
-        inp.addEventListener(inp.tagName === "SELECT" ? "change" : "input", handler);
+          Store.update(function(st){ st.projects[i][k] = (k === "progress") ? clamp(num(inp.value), 0, 100) : inp.value; });
+        });
       });
     }
     s.projects.forEach(function(pr, idx){
@@ -1045,7 +1233,6 @@
       card.querySelector('[data-pbar="' + idx + '"]').style.width = clamp(pr.progress, 0, 100) + "%";
     });
   }
-
   function renderMacros(s){
     ["protein","carb","fat"].forEach(function(k){
       var cur = s.macros.current[k], goal = s.macros.goal[k] || 1;
@@ -1054,7 +1241,6 @@
       document.querySelector('[data-macro-fill="' + k + '"]').style.width = clamp((cur / goal) * 100, 0, 100) + "%";
     });
   }
-
   function renderTraining(s){
     var ul = $("#train-log");
     ul.innerHTML = "";
@@ -1066,23 +1252,19 @@
       ul.appendChild(li);
     });
   }
-
   function renderWealth(s){
     var w = s.wealth;
     var total = w.ustech + w.sp500 + w.gold + w.crypto;
     $("#nw-usd").textContent = "$" + total.toLocaleString(undefined, { maximumFractionDigits:0 });
     $("#nw-thb").textContent = "≈ ฿" + (total * THB_RATE).toLocaleString(undefined, { maximumFractionDigits:0 });
-    var alloc = $("#alloc");
-    alloc.innerHTML = "";
-    var segs = [["ustech","var(--eng)"],["sp500","var(--sys)"],["gold","var(--wealth)"],["crypto","var(--down)"]];
-    segs.forEach(function(seg){
+    var alloc = $("#alloc"); alloc.innerHTML = "";
+    [["ustech","var(--eng)"],["sp500","var(--sys)"],["gold","var(--wealth)"],["crypto","var(--down)"]].forEach(function(seg){
       var i = document.createElement("i");
       i.style.width = (total ? (w[seg[0]] / total) * 100 : 0) + "%";
       i.style.background = seg[1];
       alloc.appendChild(i);
     });
   }
-
   function renderProtocol(s){
     var ul = $("#protocol");
     if(ul.childElementCount !== PROTOCOL_STEPS.length){
@@ -1091,17 +1273,11 @@
         var li = document.createElement("li");
         var label = document.createElement("label");
         var box = document.createElement("input");
-        box.type = "checkbox";
-        box.dataset.step = idx;
-        box.addEventListener("change", function(){
-          Store.update(function(st){ st.protocol[idx] = box.checked; });
-        });
-        var span = document.createElement("span");
-        span.textContent = step;
-        label.appendChild(box);
-        label.appendChild(span);
-        li.appendChild(label);
-        ul.appendChild(li);
+        box.type = "checkbox"; box.dataset.step = idx;
+        box.addEventListener("change", function(){ Store.update(function(st){ st.protocol[idx] = box.checked; }); });
+        var span = document.createElement("span"); span.textContent = step;
+        label.appendChild(box); label.appendChild(span);
+        li.appendChild(label); ul.appendChild(li);
       });
     }
     var done = 0;
@@ -1112,20 +1288,17 @@
     });
     $("#protocol-meta").textContent = done + " / " + PROTOCOL_STEPS.length + " cleared";
   }
-
   function renderAnalytics(s){
     var days = [];
     for(var i = 6; i >= 0; i--) days.push(addDays(new Date(), -i));
     var counts = days.map(function(d){ return s.velocityHistory[dateKey(d)] || 0; });
 
-    var hm = $("#hm");
-    hm.innerHTML = "";
+    var hm = $("#hm"); hm.innerHTML = "";
     days.forEach(function(d, idx){
       var c = counts[idx];
       var lvl = c === 0 ? 0 : c === 1 ? 1 : c <= 3 ? 2 : c <= 5 ? 3 : 4;
       var cell = document.createElement("div");
-      cell.className = "hm-cell";
-      cell.dataset.level = lvl;
+      cell.className = "hm-cell"; cell.dataset.level = lvl;
       cell.title = DAYS[d.getDay()] + " " + d.getDate() + " · " + c + " shipped";
       var dd = document.createElement("span"); dd.className = "d"; dd.textContent = DAYS[d.getDay()][0];
       var bx = document.createElement("div"); bx.className = "box";
@@ -1143,8 +1316,7 @@
     $("#s-streak").textContent = streak;
     $("#s-avg").textContent = (week / 7).toFixed(1);
 
-    var load = $("#load");
-    load.innerHTML = "";
+    var load = $("#load"); load.innerHTML = "";
     var byDom = { Engineering:0, Athletics:0, Wealth:0, Downtime:0 };
     s.tasks.forEach(function(t){ byDom[t.domain]++; });
     var tot = s.tasks.length || 1;
@@ -1156,9 +1328,9 @@
     });
   }
 
-  /* single subscriber → keeps every derived view in sync */
   function renderAll(s){
     renderKanban(s);
+    renderBoard(s);
     renderPomodoro(s);
     renderProjects(s);
     renderMacros(s);
@@ -1169,46 +1341,37 @@
   }
 
   /* ----------------------------------------------------------------------
-   *  Hydrate form controls from state  (run once, and after import/reset)
+   *  Hydrate form controls (once, plus after external mutations)
    * -------------------------------------------------------------------- */
   function hydrateMacros(){
     var s = Store.state;
     [["protein","m-cur-protein","m-goal-protein"],
      ["carb","m-cur-carb","m-goal-carb"],
      ["fat","m-cur-fat","m-goal-fat"]].forEach(function(row){
-      var cur = document.getElementById(row[1]);
-      var goal = document.getElementById(row[2]);
+      var cur = document.getElementById(row[1]), goal = document.getElementById(row[2]);
       if(document.activeElement !== cur)  cur.value  = s.macros.current[row[0]];
       if(document.activeElement !== goal) goal.value = s.macros.goal[row[0]];
     });
   }
   function hydrate(){
     var s = Store.state;
-    $("#scratch").value = s.scratchpad;
     hydrateMacros();
     $("#train-type").value = s.training.today;
-    ["ustech","sp500","gold","crypto"].forEach(function(k){
-      $("#w-" + k).value = s.wealth[k];
-    });
+    ["ustech","sp500","gold","crypto"].forEach(function(k){ $("#w-" + k).value = s.wealth[k]; });
   }
 
   /* ----------------------------------------------------------------------
-   *  Tabs
+   *  Tabs / toast
    * -------------------------------------------------------------------- */
   function switchTab(name){
     $$(".nav__item").forEach(function(b){ b.classList.toggle("active", b.dataset.tab === name); });
     $$(".tab").forEach(function(t){ t.classList.toggle("active", t.id === "tab-" + name); });
     try{ localStorage.setItem("firstz-os.tab", name); }catch(e){}
   }
-
-  /* ----------------------------------------------------------------------
-   *  Toast
-   * -------------------------------------------------------------------- */
   var toastT;
   function toast(msg){
     var el = $("#toast");
-    el.textContent = msg;
-    el.hidden = false;
+    el.textContent = msg; el.hidden = false;
     clearTimeout(toastT);
     toastT = setTimeout(function(){ el.hidden = true; }, 1800);
   }
@@ -1219,49 +1382,35 @@
   function init(){
     Store.load();
     Store.subscribe(renderAll);
-
     hydrate();
     wireColumns();
 
-    /* nav */
-    $$(".nav__item").forEach(function(b){
-      b.addEventListener("click", function(){ switchTab(b.dataset.tab); });
-    });
-    try{
-      var saved = localStorage.getItem("firstz-os.tab");
-      if(saved) switchTab(saved);
-    }catch(e){}
+    $$(".nav__item").forEach(function(b){ b.addEventListener("click", function(){ switchTab(b.dataset.tab); }); });
+    try{ var saved = localStorage.getItem("firstz-os.tab"); if(saved) switchTab(saved); }catch(e){}
 
     /* command line */
     var cmd = $("#cmd-input");
     function fire(){ if(cmd.value.trim()){ runCommand(cmd.value); cmd.value = ""; } }
     cmd.addEventListener("keydown", function(e){ if(e.key === "Enter"){ e.preventDefault(); fire(); } });
     $("#cmd-run").addEventListener("click", fire);
+    $("#cmd-help").addEventListener("click", openHelp);
+    $("#help-close").addEventListener("click", closeHelp);
+    $("#help").addEventListener("mousedown", function(e){ if(e.target === $("#help")) closeHelp(); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeHelp(); });
 
     /* pomodoro */
-    $("#pom-start").addEventListener("click", function(){
-      Store.update(function(s){
-        var p = s.pomodoro;
-        if(p.remaining === 0) p.remaining = POM_LEN;
-        p.running = true;
-        p.lastResume = Date.now();
-      });
-      pomStartLoop();
-    });
-    $("#pom-pause").addEventListener("click", function(){
-      Store.update(function(s){ s.pomodoro.running = false; });
-      pomStopLoop();
-    });
-    $("#pom-reset").addEventListener("click", function(){
-      Store.update(function(s){ s.pomodoro.running = false; s.pomodoro.remaining = POM_LEN; });
-      pomStopLoop();
-    });
+    $("#pom-start").addEventListener("click", function(){ pomCommand("start"); });
+    $("#pom-pause").addEventListener("click", function(){ pomCommand("pause"); });
+    $("#pom-reset").addEventListener("click", function(){ pomCommand("reset"); });
 
-    /* scratchpad */
-    $("#scratch").addEventListener("input", function(){
-      Store.update(function(s){ s.scratchpad = $("#scratch").value; });
+    /* idea board */
+    $("#board-canvas").addEventListener("dblclick", function(e){
+      if(e.target !== e.currentTarget) return;
+      var r = e.currentTarget.getBoundingClientRect();
+      addNoteAt(e.clientX - r.left - 106, e.clientY - r.top - 20, "");
     });
-    $("#parse-btn").addEventListener("click", parseScratch);
+    $("#note-add").addEventListener("click", function(){ addNoteCentered(""); });
+    $("#parse-btn").addEventListener("click", parseNotes);
 
     /* macros */
     [["protein","m-cur-protein","m-goal-protein"],
@@ -1276,22 +1425,15 @@
     });
 
     /* training */
-    $("#train-type").addEventListener("change", function(e){
-      Store.update(function(s){ s.training.today = e.target.value; });
-    });
-    $("#train-log-btn").addEventListener("click", function(){
-      logTraining($("#train-type").value);
-      toast("logged " + $("#train-type").value);
-    });
+    $("#train-type").addEventListener("change", function(e){ Store.update(function(s){ s.training.today = e.target.value; }); });
+    $("#train-log-btn").addEventListener("click", function(){ logTraining($("#train-type").value); toast("logged " + $("#train-type").value); });
 
     /* wealth */
     ["ustech","sp500","gold","crypto"].forEach(function(k){
-      $("#w-" + k).addEventListener("input", function(e){
-        Store.update(function(s){ s.wealth[k] = Math.max(0, num(e.target.value)); });
-      });
+      $("#w-" + k).addEventListener("input", function(e){ Store.update(function(s){ s.wealth[k] = Math.max(0, num(e.target.value)); }); });
     });
 
-    /* protocol reset */
+    /* protocol */
     $("#protocol-reset").addEventListener("click", function(){
       Store.update(function(s){ s.protocol = PROTOCOL_STEPS.map(function(){ return false; }); });
       toast("protocol reset");
