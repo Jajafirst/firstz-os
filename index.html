@@ -48,15 +48,8 @@
 
   /* ---------- shell ---------- */
   .os{height:100vh;display:grid;grid-template-columns:212px 1fr}
-
-  .nav{
-    background:var(--surface-2);border-right:1px solid var(--border);
-    display:flex;flex-direction:column;gap:2px;padding:14px 10px;overflow-y:auto;
-  }
-  .nav__brand{
-    font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.18em;
-    text-transform:uppercase;padding:6px 8px 14px;color:var(--text);
-  }
+  .nav{background:var(--surface-2);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:2px;padding:14px 10px;overflow-y:auto}
+  .nav__brand{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:6px 8px 14px;color:var(--text)}
   .nav__brand b{color:var(--sys)}
   .nav__item{
     display:flex;align-items:center;gap:9px;width:100%;text-align:left;
@@ -67,18 +60,13 @@
   .nav__item span:first-child{width:18px;text-align:center;font-size:13px}
   .nav__item:hover{background:var(--surface);color:var(--text)}
   .nav__item.active{background:var(--surface);color:var(--text);border-left-color:var(--sys)}
-  .nav__foot{
-    margin-top:auto;padding:10px 8px 4px;font-family:var(--mono);
-    font-size:10px;letter-spacing:.06em;color:var(--text-3);
-  }
+  .nav__foot{margin-top:auto;padding:10px 8px 4px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--text-3)}
   .nav__foot .dot{color:var(--good)}
-
   .workspace{overflow-y:auto;padding:22px 26px 40px}
 
   .tab{display:none}
   .tab.active{display:block;animation:tabIn .15s ease-in-out}
   @keyframes tabIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-
   .tab__head{margin-bottom:18px}
   .tab__head h1{margin:0;font-size:17px;letter-spacing:.01em}
   .tab__head p{margin:4px 0 0;font-size:12px;color:var(--text-3);font-family:var(--mono)}
@@ -87,7 +75,6 @@
   .lbl{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
   .card{background:var(--surface);border:1px solid var(--border);padding:16px}
   .row{display:flex;gap:10px;flex-wrap:wrap}
-  .between{justify-content:space-between;align-items:center}
   .btn{
     font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     background:transparent;color:var(--text-2);border:1px solid var(--border-2);
@@ -96,6 +83,9 @@
   .btn:hover{color:var(--text);border-color:var(--text-3)}
   .btn--go{background:var(--sys);color:#0b0b0c;border-color:var(--sys);font-weight:700}
   .btn--go:hover{filter:brightness(1.08)}
+  .sec{margin-bottom:26px}
+  .sec > .lbl{display:block;margin-bottom:8px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
 
   input,select,textarea{
     background:var(--surface-2);border:1px solid var(--border);color:var(--text);
@@ -105,33 +95,22 @@
   select{cursor:pointer}
 
   /* ---------- command line ---------- */
-  .cmd{
-    display:flex;align-items:center;gap:12px;background:var(--surface);
-    border:1px solid var(--border-2);padding:4px 4px 4px 16px;margin-bottom:8px;
-  }
+  .cmd{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border-2);padding:4px 4px 4px 16px;margin-bottom:8px}
   .cmd__caret{font-family:var(--mono);color:var(--sys);font-size:16px}
   .cmd input{flex:1;background:transparent;border:0;padding:16px 4px;font-size:15px}
   .cmd input:focus{outline:0}
   .cmd .btn{align-self:stretch}
   .cmd .btn--go{padding-inline:20px}
-  .cmd__hint{
-    margin:0 0 22px;font-family:var(--mono);font-size:11px;color:var(--text-3);
-    display:flex;gap:16px;flex-wrap:wrap;
-  }
+  .cmd__hint{margin:0 0 22px;font-family:var(--mono);font-size:11px;color:var(--text-3);display:flex;gap:16px;flex-wrap:wrap}
   .cmd__hint code{background:var(--surface);border:1px solid var(--border);padding:2px 6px;color:var(--text-2)}
 
   /* ---------- kanban ---------- */
   .board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
   .column{background:var(--surface);border:1px solid var(--border)}
-  .column__head{
-    display:flex;align-items:center;justify-content:space-between;
-    padding:11px 13px;border-bottom:1px solid var(--border);
-    font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-2);
-  }
+  .column__head{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--text-2)}
   .column__count{color:var(--text-3)}
   .column__body{min-height:120px;padding:11px;display:flex;flex-direction:column;gap:9px;transition:background .15s ease-in-out}
   .column__body.drop{background:rgba(245,158,11,.08);outline:1px dashed var(--sys);outline-offset:-5px}
-
   .task{
     background:var(--card);border:1px solid var(--border-2);border-left:3px solid var(--border-2);
     padding:11px;display:flex;flex-direction:column;gap:10px;cursor:grab;
@@ -150,7 +129,6 @@
   .task__btn{background:transparent;border:0;color:var(--text-3);font-family:var(--mono);font-size:13px;line-height:1;cursor:pointer;padding:3px 6px}
   .task__btn:hover{color:var(--text)}
   .task__btn--del:hover{color:var(--bad)}
-
   .tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border:1px solid transparent;white-space:nowrap}
   .tag--Engineering{color:var(--eng);border-color:color-mix(in srgb,var(--eng) 45%,transparent);background:color-mix(in srgb,var(--eng) 13%,transparent)}
   .tag--Athletics{color:var(--ath);border-color:color-mix(in srgb,var(--ath) 45%,transparent);background:color-mix(in srgb,var(--ath) 13%,transparent)}
@@ -162,27 +140,15 @@
   .pom__time{font-family:var(--mono);font-size:26px;font-weight:700;letter-spacing:.04em;font-variant-numeric:tabular-nums}
   .pom__time.done{color:var(--good)}
   .pom__ctrls{display:flex;gap:5px}
-  .pom__btn{
-    background:transparent;border:1px solid var(--border-2);color:var(--text-2);
-    font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-    padding:6px 9px;cursor:pointer;transition:color .15s,border-color .15s;
-  }
+  .pom__btn{background:transparent;border:1px solid var(--border-2);color:var(--text-2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;cursor:pointer;transition:color .15s,border-color .15s}
   .pom__btn:hover{color:var(--text);border-color:var(--text-3)}
   .pom__sessions{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.08em}
 
-  /* ---------- idea board (mini-miro) ---------- */
+  /* ---------- idea board ---------- */
   .board-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
   #board-wrap{border:1px solid var(--border);background:var(--surface-2);height:520px;overflow:auto;position:relative}
-  #board-canvas{
-    position:relative;width:2200px;height:1500px;
-    background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);
-    background-size:26px 26px;
-  }
-  .note{
-    position:absolute;width:212px;min-height:92px;color:#1c1917;
-    border:1px solid rgba(0,0,0,.28);box-shadow:0 8px 18px rgba(0,0,0,.4);
-    display:flex;flex-direction:column;
-  }
+  #board-canvas{position:relative;width:2200px;height:1500px;background-image:radial-gradient(circle,var(--border) 1px,transparent 1px);background-size:26px 26px}
+  .note{position:absolute;width:212px;min-height:92px;color:#1c1917;border:1px solid rgba(0,0,0,.28);box-shadow:0 8px 18px rgba(0,0,0,.4);display:flex;flex-direction:column}
   .note--yellow{background:#fde047}
   .note--blue{background:#7dd3fc}
   .note--green{background:#86efac}
@@ -193,10 +159,7 @@
   .note__actions{display:flex;gap:1px}
   .note__btn{background:transparent;border:0;font-family:var(--mono);font-size:13px;line-height:1;color:rgba(0,0,0,.55);cursor:pointer;padding:2px 6px}
   .note__btn:hover{color:#000}
-  .note__body{
-    flex:1;padding:6px 9px 11px;font-family:var(--sans);font-size:12.5px;line-height:1.42;
-    outline:0;white-space:pre-wrap;overflow-wrap:anywhere;
-  }
+  .note__body{flex:1;padding:6px 9px 11px;font-family:var(--sans);font-size:12.5px;line-height:1.42;outline:0;white-space:pre-wrap;overflow-wrap:anywhere}
   .note__body:focus{box-shadow:inset 0 0 0 2px rgba(0,0,0,.4)}
   .board-hint{font-family:var(--mono);font-size:11px;color:var(--text-3);margin:8px 0 0}
 
@@ -211,23 +174,48 @@
   .bar{height:6px;background:var(--surface-2);border:1px solid var(--border);overflow:hidden}
   .bar > i{display:block;height:100%;background:var(--eng);transition:width .3s ease-in-out}
 
-  /* ---------- gym ---------- */
-  .gym-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start}
-  .macro{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+  /* ---------- athletic engine ---------- */
+  .kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}
+  .kpi > div{background:var(--card);border:1px solid var(--border-2);padding:13px}
+  .kpi .lbl{color:var(--text-3)}
+  .kpi b{display:block;margin-top:7px;font-family:var(--mono);font-size:18px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+  .cardio-field{display:flex;flex-direction:column;gap:6px;max-width:260px;margin-bottom:24px}
+
+  .mx-wrap{overflow-x:auto}
+  .gtbl{width:100%;border:1px solid var(--border);border-collapse:collapse;font-size:12px}
+  .gtbl th{background:var(--surface-2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);text-align:left;padding:8px 10px;border:1px solid var(--border);white-space:nowrap}
+  .gtbl td{border:1px solid var(--border);padding:0}
+  .gtbl td input{width:100%;min-width:70px;border:0;background:transparent;color:var(--text);font-family:var(--mono);font-size:12px;padding:7px 9px}
+  .gtbl td input:focus{outline:2px solid var(--sys);outline-offset:-2px;background:var(--surface-2)}
+  .gtbl td.num input{text-align:right}
+  .gtbl tr.total td{background:var(--surface-2);font-family:var(--mono);font-weight:700;color:var(--text);padding:8px 10px}
+  .gtbl tr.total td:first-child{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+  .gtbl .rowdel{width:28px;text-align:center}
+  .gtbl .rowdel button,.gtbl .push button{background:0;border:0;color:var(--text-3);cursor:pointer;font-family:var(--mono);font-size:13px;padding:6px 8px}
+  .gtbl .rowdel button:hover{color:var(--bad)}
+  .gtbl .push{width:34px;text-align:center}
+  .gtbl .push button:hover{color:var(--text)}
+  .gtbl td.today-col{background:rgba(245,158,11,.09)}
+  .gtbl tr.total td.today-col{background:rgba(245,158,11,.14)}
+  .tbl-add{margin-top:8px}
+
+  .macro-lite{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
   .macro__top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px}
-  .macro__top b{font-size:14px}
-  .macro__bar{height:12px;background:var(--surface-2);border:1px solid var(--border)}
-  .macro__bar > i{display:block;height:100%;transition:width .3s ease-in-out}
-  .macro--p .macro__bar > i{background:var(--ath)}
-  .macro--c .macro__bar > i{background:var(--sys)}
-  .macro--f .macro__bar > i{background:var(--down)}
-  .macro__edit{display:flex;gap:6px;align-items:center;font-family:var(--mono);font-size:10px;color:var(--text-3)}
-  .macro__edit input{width:70px;padding:5px 7px;font-size:11px;text-align:right}
+  .macro__top b{font-size:13px}
+  .macro__bar{height:11px;background:var(--surface-2);border:1px solid var(--border)}
+  .macro__bar > i{display:block;height:100%;background:var(--text-3);transition:width .3s ease-in-out}
+  .macro-lite.p .macro__bar > i{background:var(--ath)}
+  .macro-lite.c .macro__bar > i{background:var(--wealth)}
+  .macro-lite.f .macro__bar > i{background:var(--down)}
+  .macro-lite input{width:96px;padding:5px 7px;font-size:11px;text-align:right;align-self:flex-end}
   .bio{display:flex;align-items:baseline;gap:10px;padding:18px;background:var(--card);border:1px solid var(--border-2)}
   .bio b{font-family:var(--mono);font-size:34px;font-weight:700;color:var(--ath);line-height:1}
   .bio span{font-family:var(--mono);font-size:11px;color:var(--text-3);letter-spacing:.06em}
   .bio .lock{margin-left:auto;font-size:11px;color:var(--text-3)}
-  .train{display:flex;flex-direction:column;gap:12px}
+  .fuel{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .fuel label{display:flex;flex-direction:column;gap:5px}
+  .fuel input{width:100%;font-size:12px;padding:8px 9px}
+  .train{display:flex;flex-direction:column;gap:12px;max-width:360px}
   .train select{width:100%}
   .train__log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
   .train__log li{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--text-2);border-bottom:1px solid var(--border);padding-bottom:6px}
@@ -250,10 +238,7 @@
   .drive-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}
   .protocol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
   .protocol li{display:flex}
-  .protocol label{
-    display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;cursor:pointer;
-    border:1px solid var(--border);border-bottom:0;font-size:12.5px;transition:background .15s ease-in-out;
-  }
+  .protocol label{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;cursor:pointer;border:1px solid var(--border);border-bottom:0;font-size:12.5px;transition:background .15s ease-in-out}
   .protocol li:last-child label{border-bottom:1px solid var(--border)}
   .protocol label:hover{background:var(--surface)}
   .protocol input{width:15px;height:15px;accent-color:var(--sys);flex:0 0 auto}
@@ -262,11 +247,7 @@
   .media-group{margin-bottom:16px}
   .media-group h4{margin:0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
   .media-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .media-card{
-    display:flex;flex-direction:column;gap:5px;padding:14px;text-decoration:none;
-    background:var(--card);border:1px solid var(--border-2);color:var(--text);
-    transition:transform .15s ease-in-out,border-color .15s ease-in-out;
-  }
+  .media-card{display:flex;flex-direction:column;gap:5px;padding:14px;text-decoration:none;background:var(--card);border:1px solid var(--border-2);color:var(--text);transition:transform .15s ease-in-out,border-color .15s ease-in-out}
   .media-card:hover{transform:translateY(-1px);border-color:var(--sys)}
   .media-card b{font-size:13px}
   .media-card span{font-family:var(--mono);font-size:10px;color:var(--text-3);letter-spacing:.04em}
@@ -298,42 +279,19 @@
   .load-key{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--text-3)}
   .load-key i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:middle}
 
-  /* ---------- weekly program ---------- */
-  .prog-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-  .prog-week{font-family:var(--mono);font-size:11px;color:var(--text-2)}
-  .prog__meta{font-family:var(--mono);font-size:10px;color:var(--text-3);margin:8px 0 0}
-  #prog-paste{margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap}
-  #prog-paste textarea{flex:1;min-width:240px;min-height:92px;resize:vertical;line-height:1.6}
-  .prog{display:flex;flex-direction:column;border:1px solid var(--border)}
-  .prog-row{display:grid;grid-template-columns:84px 134px 1fr auto;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--border)}
-  .prog-row:last-child{border-bottom:0}
-  .prog-row.today{background:rgba(245,158,11,.07)}
-  .prog-row.rest{opacity:.6}
-  .prog-day{font-family:var(--mono);font-size:11px;color:var(--text-2)}
-  .prog-day span{display:block;color:var(--text-3);font-size:10px}
-  .prog-row select{padding:6px 8px;font-size:11px;width:100%}
-  .prog-row input[type=text]{padding:6px 8px;font-size:12px;width:100%}
-  .prog-mini{background:transparent;border:1px solid var(--border-2);color:var(--text-3);font-family:var(--mono);font-size:12px;line-height:1;cursor:pointer;padding:5px 9px}
-  .prog-mini:hover{color:var(--text);border-color:var(--text-3)}
-
   /* ---------- modal (help) ---------- */
   .modal{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px}
-  .modal__card{width:min(560px,100%);max-height:82vh;overflow:auto;background:var(--surface);border:1px solid var(--border-2)}
+  .modal__card{width:min(580px,100%);max-height:82vh;overflow:auto;background:var(--surface);border:1px solid var(--border-2)}
   .modal__head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
   .modal__head button{background:0;border:0;color:var(--text-2);font-size:18px;cursor:pointer;line-height:1}
   .help-body{padding:4px 14px 14px;display:flex;flex-direction:column}
-  .help-row{display:grid;grid-template-columns:190px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
+  .help-row{display:grid;grid-template-columns:210px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px}
   .help-row:last-child{border-bottom:0}
   .help-row code{font-family:var(--mono);color:var(--sys);font-size:11px}
   .help-row span{color:var(--text-2)}
 
   /* ---------- toast ---------- */
-  .toast{
-    position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;
-    background:var(--card);border:1px solid var(--border-2);color:var(--text);
-    font-family:var(--mono);font-size:11px;letter-spacing:.03em;padding:10px 15px;
-    box-shadow:0 12px 30px rgba(0,0,0,.5);
-  }
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;background:var(--card);border:1px solid var(--border-2);color:var(--text);font-family:var(--mono);font-size:11px;letter-spacing:.03em;padding:10px 15px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
@@ -345,12 +303,12 @@
     .nav__item.active{border-left:0;border-bottom-color:var(--sys)}
     .workspace{padding:18px 16px 60px}
     .board{grid-template-columns:1fr}
-    .gym-grid,.drive-grid{grid-template-columns:1fr}
+    .drive-grid,.two{grid-template-columns:1fr}
+    .kpi{grid-template-columns:1fr 1fr}
+    .fuel{grid-template-columns:1fr 1fr}
     .stat-grid{grid-template-columns:1fr 1fr}
     .vault{grid-template-columns:1fr}
     #board-wrap{height:440px}
-    .prog-row{grid-template-columns:1fr;gap:6px}
-    .prog-day span{display:inline;margin-left:6px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -371,10 +329,7 @@
 
     <!-- ============ TAB 1 : COMMAND CENTER ============ -->
     <section class="tab active" id="tab-cmd">
-      <div class="tab__head">
-        <h1>&#9889; Command Center</h1>
-        <p>parse it, queue it, ship it</p>
-      </div>
+      <div class="tab__head"><h1>&#9889; Command Center</h1><p>parse it, queue it, ship it</p></div>
 
       <div class="cmd">
         <span class="cmd__caret">&gt;_</span>
@@ -386,7 +341,7 @@
       <p class="cmd__hint">
         <span><code>/eng</code> <code>/ath</code> <code>/wealth</code> <code>/down</code> new task</span>
         <span><code>/done</code> <code>/mv</code> <code>/rm</code> <code>/clear done</code></span>
-        <span><code>+40p</code> <code>/goal</code> <code>/w</code> <code>/log</code></span>
+        <span><code>+40p</code> <code>/w</code> <code>/log</code> <code>/mx</code></span>
         <span><code>/pom</code> <code>/focus</code> <code>/note</code> <code>?</code></span>
       </p>
 
@@ -417,10 +372,7 @@
 
     <!-- ============ TAB 2 : ENGINEERING / LAB ============ -->
     <section class="tab" id="tab-lab">
-      <div class="tab__head">
-        <h1>&#128187; Engineering &amp; Career &mdash; The Lab</h1>
-        <p>a mini board for architecture, lesson plans, and backlog capture</p>
-      </div>
+      <div class="tab__head"><h1>&#128187; Engineering &amp; Career &mdash; The Lab</h1><p>a mini board for architecture, lesson plans, and backlog capture</p></div>
 
       <div class="board-tools">
         <span class="lbl">Idea Board</span>
@@ -440,35 +392,97 @@
 
     <!-- ============ TAB 3 : ATHLETIC ENGINE ============ -->
     <section class="tab" id="tab-gym">
-      <div class="tab__head">
-        <h1>&#127947; Athletic Engine &mdash; The Gym</h1>
-        <p>hybrid conditioning &middot; fuel &middot; biometrics</p>
+      <div class="tab__head"><h1>&#127947; Athletic Engine &mdash; Hybrid Performance Dashboard</h1><p>weekly training matrix &middot; nutrition &amp; fueling &middot; benchmarks</p></div>
+
+      <div class="kpi">
+        <div><span class="lbl">Weekly Sessions</span><b id="k-sessions">0</b></div>
+        <div><span class="lbl">Daily Calories</span><b id="k-kcal">0</b></div>
+        <div><span class="lbl">Daily Protein</span><b id="k-protein">0</b></div>
+        <div><span class="lbl">Daily Water</span><b id="k-water">&mdash;</b></div>
+        <div><span class="lbl">Weekly Cardio</span><b id="k-cardio">&mdash;</b></div>
+      </div>
+      <label class="cardio-field"><span class="lbl">Weekly cardio volume</span><input type="text" id="cardio-vol"></label>
+
+      <div class="sec">
+        <span class="lbl">Weekly Training Matrix</span>
+        <div class="mx-wrap">
+          <table class="gtbl">
+            <thead><tr><th>Discipline</th><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th><th></th></tr></thead>
+            <tbody id="mx-body"></tbody>
+            <tfoot>
+              <tr class="total"><td>Daily Sessions</td><td data-ds="0">0</td><td data-ds="1">0</td><td data-ds="2">0</td><td data-ds="3">0</td><td data-ds="4">0</td><td data-ds="5">0</td><td data-ds="6">0</td><td></td></tr>
+              <tr class="total"><td>&rarr; Kanban</td>
+                <td class="push"><button data-pushday="0" title="Push Sunday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="1" title="Push Monday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="2" title="Push Tuesday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="3" title="Push Wednesday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="4" title="Push Thursday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="5" title="Push Friday to inbox">&#9656;</button></td>
+                <td class="push"><button data-pushday="6" title="Push Saturday to inbox">&#9656;</button></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <button class="btn tbl-add" id="mx-add">+ Discipline</button>
       </div>
 
-      <div class="gym-grid">
-        <div class="card">
-          <span class="lbl">Macro Tracker &mdash; today vs goal</span>
-          <div style="margin-top:16px">
-            <div class="macro macro--p">
-              <div class="macro__top"><span>Protein</span><b><span data-macro-cur="protein">0</span> / <span data-macro-goal="protein">0</span> g</b></div>
-              <div class="macro__bar"><i data-macro-fill="protein"></i></div>
-              <div class="macro__edit">today <input type="number" id="m-cur-protein" min="0" step="1"> goal <input type="number" id="m-goal-protein" min="0" step="1"></div>
-            </div>
-            <div class="macro macro--c">
-              <div class="macro__top"><span>Carbs</span><b><span data-macro-cur="carb">0</span> / <span data-macro-goal="carb">0</span> g</b></div>
-              <div class="macro__bar"><i data-macro-fill="carb"></i></div>
-              <div class="macro__edit">today <input type="number" id="m-cur-carb" min="0" step="1"> goal <input type="number" id="m-goal-carb" min="0" step="1"></div>
-            </div>
-            <div class="macro macro--f">
-              <div class="macro__top"><span>Fats</span><b><span data-macro-cur="fat">0</span> / <span data-macro-goal="fat">0</span> g</b></div>
-              <div class="macro__bar"><i data-macro-fill="fat"></i></div>
-              <div class="macro__edit">today <input type="number" id="m-cur-fat" min="0" step="1"> goal <input type="number" id="m-goal-fat" min="0" step="1"></div>
+      <div class="two">
+        <div class="sec">
+          <span class="lbl">Session Type Reference</span>
+          <table class="gtbl">
+            <thead><tr><th>Session Type</th><th>Zone &amp; Target</th><th></th></tr></thead>
+            <tbody id="stype-body"></tbody>
+          </table>
+          <button class="btn tbl-add" id="stype-add">+ Row</button>
+        </div>
+        <div class="sec">
+          <span class="lbl">Benchmarks &mdash; PB vs Target</span>
+          <table class="gtbl">
+            <thead><tr><th>Benchmark / Event</th><th>Current PB</th><th>Target Goal</th><th></th></tr></thead>
+            <tbody id="bench-body"></tbody>
+          </table>
+          <button class="btn tbl-add" id="bench-add">+ Row</button>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="sec">
+          <span class="lbl">Nutrition &mdash; Meals &amp; Daily Total</span>
+          <table class="gtbl">
+            <thead><tr><th>Meal / Item</th><th>kcal</th><th>Protein</th><th>Carbs</th><th>Fat</th><th></th></tr></thead>
+            <tbody id="meal-body"></tbody>
+            <tfoot><tr class="total"><td>Daily Total</td><td data-mt="kcal">0</td><td data-mt="protein">0</td><td data-mt="carb">0</td><td data-mt="fat">0</td><td></td></tr></tfoot>
+          </table>
+          <button class="btn tbl-add" id="meal-add">+ Meal</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div class="sec" style="margin-bottom:0">
+            <span class="lbl">Today&rsquo;s Intake vs Plan</span>
+            <div style="margin-top:12px">
+              <div class="macro-lite k">
+                <div class="macro__top"><span>Calories</span><b data-intake-num="kcal">0</b></div>
+                <div class="macro__bar"><i data-intake-fill="kcal"></i></div>
+                <input type="number" id="in-kcal" min="0" step="10" aria-label="Calories intake">
+              </div>
+              <div class="macro-lite p">
+                <div class="macro__top"><span>Protein</span><b data-intake-num="protein">0</b></div>
+                <div class="macro__bar"><i data-intake-fill="protein"></i></div>
+                <input type="number" id="in-protein" min="0" step="1" aria-label="Protein intake">
+              </div>
+              <div class="macro-lite c">
+                <div class="macro__top"><span>Carbs</span><b data-intake-num="carb">0</b></div>
+                <div class="macro__bar"><i data-intake-fill="carb"></i></div>
+                <input type="number" id="in-carb" min="0" step="1" aria-label="Carbs intake">
+              </div>
+              <div class="macro-lite f">
+                <div class="macro__top"><span>Fat</span><b data-intake-num="fat">0</b></div>
+                <div class="macro__bar"><i data-intake-fill="fat"></i></div>
+                <input type="number" id="in-fat" min="0" step="1" aria-label="Fat intake">
+              </div>
             </div>
           </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:16px">
-          <div>
+          <div class="sec" style="margin-bottom:0">
             <span class="lbl">Bio-Metrics</span>
             <div class="bio" style="margin-top:8px">
               <b>25.0<span style="font-size:16px">%</span></b>
@@ -476,43 +490,33 @@
               <span class="lock">&#128274; locked</span>
             </div>
           </div>
-          <div class="card">
-            <span class="lbl">Training Log</span>
-            <div class="train" style="margin-top:10px">
-              <select id="train-type">
-                <option>Hyrox</option><option>CrossFit</option><option>Weightlifting</option><option>Running</option>
-              </select>
-              <button class="btn btn--go" id="train-log-btn">Log today</button>
-              <ul class="train__log" id="train-log"></ul>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div style="margin-top:24px">
-        <div class="prog-head">
-          <span class="lbl">Weekly Program</span>
-          <div class="row">
-            <span class="prog-week" id="prog-week">&mdash;</span>
-            <button class="btn" id="prog-paste-toggle">Paste week</button>
-            <button class="btn" id="prog-newweek">Start new week</button>
-          </div>
+      <div class="sec">
+        <span class="lbl">Fueling Protocol</span>
+        <div class="fuel">
+          <label><span class="lbl">Pre-Workout</span><input type="text" id="fu-pre"></label>
+          <label><span class="lbl">Morning Focus</span><input type="text" id="fu-morning"></label>
+          <label><span class="lbl">Electrolytes</span><input type="text" id="fu-electrolytes"></label>
+          <label><span class="lbl">Intra-Workout</span><input type="text" id="fu-intra"></label>
+          <label><span class="lbl">Daily Water</span><input type="text" id="fu-water"></label>
         </div>
-        <div id="prog-paste" hidden>
-          <textarea id="prog-paste-text" spellcheck="false" placeholder="Mon: rest &mdash; mobility&#10;Tue: Hyrox sim, 8 stations, 1 km run between&#10;Wed: back squat 5x5 @ 80%"></textarea>
-          <button class="btn btn--go" id="prog-paste-apply">Split into days</button>
+      </div>
+
+      <div class="sec" style="margin-bottom:0">
+        <span class="lbl">Training Log</span>
+        <div class="train" style="margin-top:10px">
+          <select id="train-type"><option>Hyrox</option><option>CrossFit</option><option>Weightlifting</option><option>Running</option></select>
+          <button class="btn btn--go" id="train-log-btn">Log today</button>
+          <ul class="train__log" id="train-log"></ul>
         </div>
-        <div class="prog" id="prog"></div>
-        <p class="prog__meta" id="prog-archive"></p>
       </div>
     </section>
 
     <!-- ============ TAB 4 : WEALTH & ASSETS ============ -->
     <section class="tab" id="tab-vault">
-      <div class="tab__head">
-        <h1>&#127974; Wealth &amp; Assets &mdash; The Vault</h1>
-        <p>current balances &middot; USD &middot; &#3647; at 32.5/$</p>
-      </div>
+      <div class="tab__head"><h1>&#127974; Wealth &amp; Assets &mdash; The Vault</h1><p>current balances &middot; USD &middot; &#3647; at 32.5/$</p></div>
 
       <span class="lbl">Portfolio &mdash; current balance (USD)</span>
       <div class="vault" style="margin-top:10px">
@@ -539,10 +543,7 @@
 
     <!-- ============ TAB 5 : DRIVE & RECOVERY ============ -->
     <section class="tab" id="tab-drive">
-      <div class="tab__head">
-        <h1>&#128267; Drive &amp; Recovery &mdash; The Reset Protocol</h1>
-        <p>when the tank hits zero, run the checklist</p>
-      </div>
+      <div class="tab__head"><h1>&#128267; Drive &amp; Recovery &mdash; The Reset Protocol</h1><p>when the tank hits zero, run the checklist</p></div>
 
       <div class="drive-grid">
         <div>
@@ -551,7 +552,6 @@
           <p class="protocol__meta" id="protocol-meta">0 / 0 cleared</p>
           <button class="btn" id="protocol-reset" style="margin-top:10px">Reset protocol</button>
         </div>
-
         <div>
           <span class="lbl">Focus &amp; Drive &mdash; media</span>
           <div style="margin-top:10px">
@@ -583,10 +583,7 @@
 
     <!-- ============ TAB 6 : ANALYTICS ============ -->
     <section class="tab" id="tab-radar">
-      <div class="tab__head">
-        <h1>&#128202; Analytics &mdash; The Radar</h1>
-        <p>throughput over the last 7 days</p>
-      </div>
+      <div class="tab__head"><h1>&#128202; Analytics &mdash; The Radar</h1><p>throughput over the last 7 days</p></div>
 
       <span class="lbl">Velocity heatmap &mdash; tasks moved to DONE</span>
       <div class="hm" id="hm" style="margin-top:12px"></div>
@@ -634,8 +631,8 @@
   var STATUSES = ["todo","doing","done"];
   var WORKOUTS = ["Hyrox","CrossFit","Weightlifting","Running"];
   var DAYS     = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  var DOW7     = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
   var COLORS   = ["yellow","blue","green","pink"];
-  var MODALITIES = ["Rest","Hyrox","CrossFit","Weightlifting","Running","Conditioning","Mobility"];
   var POM_LEN  = 25 * 60;
   var THB_RATE = 32.5;
 
@@ -647,14 +644,6 @@
   var pad2 = function(n){ return (n<10?"0":"") + n; };
   var dateKey = function(d){ return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate()); };
   var addDays = function(d,n){ var x = new Date(d); x.setDate(x.getDate()+n); return x; };
-  var dateOnly = function(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
-  var mondayOf = function(d){ var x = dateOnly(d), wd = x.getDay(); return addDays(x, wd === 0 ? -6 : 1 - wd); };
-  var parseKey = function(k){ var p = String(k || "").split("-"); return new Date(+p[0] || 2000, (+p[1] || 1) - 1, +p[2] || 1); };
-  var MON3 = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  var fmtD = function(d){ return d.getDate() + " " + MON3[d.getMonth()]; };
-  var DOW3 = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
-  var DOW_IDX = { mon:0, tue:1, wed:2, thu:3, fri:4, sat:5, sun:6 };
-  function blankWeek(){ var a = []; for(var i=0;i<7;i++) a.push({ modality:"Rest", note:"" }); return a; }
 
   var PROTOCOL_STEPS = [
     "Step away from the MacBook",
@@ -697,7 +686,38 @@
         { name:"AUDScan Pipeline", status:"In Progress", progress:55, note:"Model integration into RN camera" },
         { name:"Muze PO Prep",     status:"On Track",    progress:30, note:"Onboarding + backlog review" }
       ],
-      macros: { goal:{ protein:180, carb:240, fat:70 }, current:{ protein:120, carb:150, fat:45 } },
+      athletic: {
+        disciplines: ["Hyrox","CrossFit","Running","Private Strength","Mobility & Other"],
+        matrix: [
+          ["Race Prep","Strength","Race Prep","","","Engine",""],
+          ["","Program","Program","Program","","Program",""],
+          ["Long Run","","","Walking","Intervals","","Easy Run"],
+          ["","Push","","Pull","Legs","",""],
+          ["","","","","Cycling / Mobility","","Basic Practice"]
+        ],
+        sessionTypes: [
+          { type:"Long Run",  target:"Zone 2 • 90 mins" },
+          { type:"Easy Run",  target:"Zone 2 • 45 mins" },
+          { type:"Walking",   target:"Active Recovery • 45 mins" },
+          { type:"Intervals", target:"400m x 20 • Zone 4" }
+        ],
+        meals: [
+          { name:"Meal 1", kcal:300, protein:32, carb:15, fat:11 },
+          { name:"Meal 2", kcal:530, protein:60, carb:35, fat:11 },
+          { name:"Meal 3", kcal:530, protein:60, carb:35, fat:11 },
+          { name:"Snack",  kcal:100, protein:0,  carb:0,  fat:0 }
+        ],
+        fueling: { pre:"Monster Energy", morning:"Coffee", electrolytes:"Gatorade", intra:"Xtend BCAA", water:"3.5 – 4.0 L / day" },
+        benchmarks: [
+          { name:"5K Time Trial",  pb:"26:37",    target:"24:30" },
+          { name:"10K Time Trial", pb:"56:22",    target:"55:30" },
+          { name:"Deadlift (1RM)", pb:"80 kg",    target:"120 kg" },
+          { name:"Back Squat (1RM)", pb:"60 kg",  target:"100 kg" },
+          { name:"Hyrox",          pb:"Sub 1:35", target:"3:15" }
+        ],
+        cardioVolume: "4 Runs • 35 km",
+        intake: { kcal:1200, protein:120, carb:150, fat:45 }
+      },
       training: {
         today: "Hyrox",
         log: [
@@ -708,26 +728,13 @@
       },
       wealth: { ustech:4200, sp500:6800, gold:1500, crypto:900 },
       protocol: PROTOCOL_STEPS.map(function(){ return false; }),
-      program: {
-        weekStart: dateKey(mondayOf(new Date())),
-        days: [
-          { modality:"Rest",          note:"Mobility 15 min + easy walk" },
-          { modality:"Hyrox",         note:"Hyrox sim: 8 stations, 1 km run between" },
-          { modality:"Weightlifting", note:"Back squat 5x5 @ 80%, RDL 4x8" },
-          { modality:"Running",       note:"5 x 800 m @ threshold, 90s float" },
-          { modality:"CrossFit",      note:"AMRAP 20: row / burpee / wall ball" },
-          { modality:"Conditioning",  note:"Sled push + wall balls, 6 rounds" },
-          { modality:"Rest",          note:"Full rest or 20 min zone-2 spin" }
-        ],
-        archive: []
-      },
       velocityHistory: hist,
       pomodoro: { remaining: POM_LEN, running:false, sessions:0, lastResume:0 }
     };
   }
 
   /* ----------------------------------------------------------------------
-   *  Store — single source of truth
+   *  Store
    * -------------------------------------------------------------------- */
   var Store = {
     KEY: "firstz-os.v2",
@@ -754,7 +761,6 @@
           };
         });
 
-      /* board — migrate an old scratchpad string into one note if needed */
       if(!Array.isArray(s.board)){
         if(typeof s.scratchpad === "string" && s.scratchpad.trim())
           s.board = [{ id:uid(), text:s.scratchpad, x:40, y:40, color:"yellow" }];
@@ -774,50 +780,58 @@
         });
 
       if(!Array.isArray(s.projects)) s.projects = base.projects;
-      if(!s.macros || !s.macros.goal || !s.macros.current) s.macros = base.macros;
-      ["protein","carb","fat"].forEach(function(k){
-        s.macros.goal[k] = num(s.macros.goal[k]);
-        s.macros.current[k] = num(s.macros.current[k]);
+
+      /* ---- athletic (supersedes the old macros + program keys) ---- */
+      var A = base.athletic;
+      if(!s.athletic || typeof s.athletic !== "object") s.athletic = A;
+      var a = s.athletic;
+      if(!Array.isArray(a.disciplines) || !a.disciplines.length) a.disciplines = A.disciplines.slice();
+      a.disciplines = a.disciplines.map(String);
+      if(!Array.isArray(a.matrix)) a.matrix = A.matrix;
+      a.matrix = a.disciplines.map(function(_, i){
+        var row = Array.isArray(a.matrix[i]) ? a.matrix[i] : [];
+        var out = []; for(var d=0; d<7; d++) out.push(typeof row[d] === "string" ? row[d] : "");
+        return out;
       });
+      if(!Array.isArray(a.sessionTypes)) a.sessionTypes = A.sessionTypes;
+      a.sessionTypes = a.sessionTypes.map(function(r){ return { type:String(r && r.type || ""), target:String(r && r.target || "") }; });
+      if(!Array.isArray(a.benchmarks)) a.benchmarks = A.benchmarks;
+      a.benchmarks = a.benchmarks.map(function(r){ return { name:String(r && r.name || ""), pb:String(r && r.pb || ""), target:String(r && r.target || "") }; });
+      if(!Array.isArray(a.meals) || !a.meals.length) a.meals = A.meals;
+      a.meals = a.meals.map(function(m){ return { name:String(m && m.name || "Item"), kcal:num(m && m.kcal), protein:num(m && m.protein), carb:num(m && m.carb), fat:num(m && m.fat) }; });
+      if(!a.fueling || typeof a.fueling !== "object") a.fueling = {};
+      ["pre","morning","electrolytes","intra","water"].forEach(function(k){ a.fueling[k] = String(a.fueling[k] != null ? a.fueling[k] : A.fueling[k]); });
+      if(typeof a.cardioVolume !== "string") a.cardioVolume = A.cardioVolume;
+      if(!a.intake || typeof a.intake !== "object") a.intake = { kcal:0, protein:0, carb:0, fat:0 };
+      if(s.macros && s.macros.current){
+        ["protein","carb","fat"].forEach(function(k){ if(!a.intake[k]) a.intake[k] = num(s.macros.current[k]); });
+      }
+      ["kcal","protein","carb","fat"].forEach(function(k){ a.intake[k] = Math.max(0, num(a.intake[k])); });
+      delete s.macros;
+      delete s.program;
+
       if(!s.training || !Array.isArray(s.training.log)) s.training = base.training;
       if(WORKOUTS.indexOf(s.training.today) < 0) s.training.today = "Hyrox";
       if(!s.wealth) s.wealth = base.wealth;
       ["ustech","sp500","gold","crypto"].forEach(function(k){ s.wealth[k] = num(s.wealth[k]); });
       if(!Array.isArray(s.protocol) || s.protocol.length !== PROTOCOL_STEPS.length)
         s.protocol = PROTOCOL_STEPS.map(function(){ return false; });
-
-      if(!s.program || !Array.isArray(s.program.days)) s.program = base.program;
-      if(!s.program.weekStart) s.program.weekStart = dateKey(mondayOf(new Date()));
-      if(s.program.days.length !== 7) s.program.days = blankWeek();
-      s.program.days = s.program.days.map(function(d){
-        return {
-          modality: (d && MODALITIES.indexOf(d.modality) >= 0) ? d.modality : "Rest",
-          note: (d && typeof d.note === "string") ? d.note : ""
-        };
-      });
-      if(!Array.isArray(s.program.archive)) s.program.archive = [];
-
       if(!s.velocityHistory || typeof s.velocityHistory !== "object") s.velocityHistory = {};
       if(!s.pomodoro || typeof s.pomodoro !== "object") s.pomodoro = base.pomodoro;
       s.pomodoro.remaining = clamp(num(s.pomodoro.remaining) || POM_LEN, 0, POM_LEN);
       s.pomodoro.sessions = num(s.pomodoro.sessions);
       s.pomodoro.running = !!s.pomodoro.running;
     },
-    save: function(){
-      try{ localStorage.setItem(this.KEY, JSON.stringify(this.state)); }catch(e){}
-    },
+    save: function(){ try{ localStorage.setItem(this.KEY, JSON.stringify(this.state)); }catch(e){} },
     subscribe: function(fn){ this.subs.push(fn); },
     update: function(mutator){ mutator(this.state); this.save(); this.emit(); },
     emit: function(){ var s = this.state; this.subs.forEach(function(fn){ fn(s); }); }
   };
 
   /* ----------------------------------------------------------------------
-   *  Task helpers
+   *  Tasks
    * -------------------------------------------------------------------- */
-  function bump(s, n){
-    var k = dateKey(new Date());
-    s.velocityHistory[k] = Math.max(0, (s.velocityHistory[k] || 0) + n);
-  }
+  function bump(s, n){ var k = dateKey(new Date()); s.velocityHistory[k] = Math.max(0, (s.velocityHistory[k] || 0) + n); }
   function addTask(text, domain){
     text = (text || "").trim(); if(!text) return;
     Store.update(function(s){ s.tasks.unshift(mk(text, domain, "todo")); });
@@ -827,9 +841,7 @@
     Store.update(function(s){ s.tasks.unshift(mk(text, "Engineering", "done")); bump(s, 1); });
     toast("shipped");
   }
-  function deleteTask(id){
-    Store.update(function(s){ s.tasks = s.tasks.filter(function(t){ return t.id !== id; }); });
-  }
+  function deleteTask(id){ Store.update(function(s){ s.tasks = s.tasks.filter(function(t){ return t.id !== id; }); }); }
   function moveTask(id, target){
     Store.update(function(s){
       var task = null, i;
@@ -852,7 +864,8 @@
   /* ----------------------------------------------------------------------
    *  Command line
    * -------------------------------------------------------------------- */
-  var MACRO_TOKEN = /^([+-]\d+(?:\.\d+)?)([pcf])$/i;
+  var MACRO_TOKEN = /^([+-]\d+(?:\.\d+)?)([pcfk])$/i;
+  var MACRO_KEY   = { p:"protein", c:"carb", f:"fat", k:"kcal" };
   var COL_ALIAS   = { todo:"todo", inbox:"todo", doing:"doing", active:"doing", done:"done", shipped:"done" };
   var TAB_ALIAS   = {
     cmd:"cmd", command:"cmd", center:"cmd", home:"cmd",
@@ -881,12 +894,11 @@
       Store.update(function(s){
         parts.forEach(function(p){
           var mm = p.match(MACRO_TOKEN);
-          var key = { p:"protein", c:"carb", f:"fat" }[mm[2].toLowerCase()];
-          s.macros.current[key] = Math.max(0, s.macros.current[key] + parseFloat(mm[1]));
+          var key = MACRO_KEY[mm[2].toLowerCase()];
+          s.athletic.intake[key] = Math.max(0, s.athletic.intake[key] + parseFloat(mm[1]));
         });
       });
-      hydrateMacros();
-      toast("macros updated");
+      toast("intake updated");
       return;
     }
 
@@ -916,14 +928,6 @@
       toast("DONE column cleared");
       return;
     }
-    if(m = t.match(/^\/goal\s+([pcf])\s+(\d+(?:\.\d+)?)\s*$/i)){
-      var gk = { p:"protein", c:"carb", f:"fat" }[m[1].toLowerCase()];
-      var gv = Math.max(0, parseFloat(m[2]));
-      Store.update(function(s){ s.macros.goal[gk] = gv; });
-      hydrateMacros();
-      toast(gk + " goal → " + gv + "g");
-      return;
-    }
     if(m = t.match(/^\/w\s+([a-z0-9]+)\s+(\d+(?:\.\d+)?)\s*$/i)){
       var ak = ASSET_ALIAS[m[1].toLowerCase()];
       if(!ak){ toast("unknown asset: " + m[1]); return; }
@@ -941,11 +945,14 @@
       toast("logged " + type);
       return;
     }
-    if(m = t.match(/^\/plan\s+(mon|tue|wed|thu|fri|sat|sun)[a-z]*\s+(.+)$/i)){
-      var di = DOW_IDX[m[1].toLowerCase().slice(0,3)];
-      var body = m[2].trim();
-      Store.update(function(s){ s.program.days[di] = { modality: detectModality(body), note: body }; });
-      toast(DOW3[di] + " program set");
+    if(m = t.match(/^\/mx\s+(sun|mon|tue|wed|thu|fri|sat)\s+(.+?)\s*=\s*(.*)$/i)){
+      var day = DOW7.indexOf(m[1].toUpperCase());
+      var q = m[2].trim().toLowerCase(), val = m[3].trim();
+      var di = -1;
+      Store.state.athletic.disciplines.forEach(function(d, ix){ if(di < 0 && d.toLowerCase().indexOf(q) >= 0) di = ix; });
+      if(di < 0){ toast("no discipline matches “" + m[2].trim() + "”"); return; }
+      Store.update(function(s){ s.athletic.matrix[di][day] = val; });
+      toast(Store.state.athletic.disciplines[di] + " · " + m[1].toUpperCase() + " set");
       return;
     }
     if(m = t.match(/^\/note\s+(.+)$/i)){ addNoteCentered(m[1].trim()); toast("note added to board"); return; }
@@ -967,11 +974,10 @@
     ["/mv &lt;text&gt; &lt;col&gt;", "move first matching card (todo · doing · done)"],
     ["/rm &lt;text&gt;", "delete first matching card"],
     ["/clear done", "empty the DONE column"],
-    ["+40p +30c +15f", "add grams to today's macros"],
-    ["/goal p|c|f &lt;n&gt;", "set a macro goal"],
+    ["+40p +30c +15f +500k", "add to today's intake (protein/carb/fat/kcal)"],
     ["/w tech|sp|gold|crypto &lt;n&gt;", "set an asset balance"],
     ["/log Hyrox|CrossFit|…", "log today's training modality"],
-    ["/plan mon|tue|… &lt;text&gt;", "set a day in the Weekly Program"],
+    ["/mx &lt;day&gt; &lt;discipline&gt; = &lt;text&gt;", "set a cell in the training matrix"],
     ["/pom start|pause|reset", "drive the Pomodoro timer"],
     ["/focus &lt;tab&gt;", "jump to a workspace tab"],
     ["/note &lt;text&gt;", "drop a sticky on the Idea board"],
@@ -992,7 +998,7 @@
   function closeHelp(){ $("#help").hidden = true; }
 
   /* ----------------------------------------------------------------------
-   *  Idea board (mini-miro)
+   *  Idea board
    * -------------------------------------------------------------------- */
   var boardSig = null;
 
@@ -1005,30 +1011,23 @@
 
     var bar = document.createElement("div");
     bar.className = "note__bar";
-
     var sw = document.createElement("button");
-    sw.className = "note__swatch"; sw.type = "button";
-    sw.title = "Cycle colour"; sw.setAttribute("aria-label", "Cycle colour");
-
+    sw.className = "note__swatch"; sw.type = "button"; sw.title = "Cycle colour"; sw.setAttribute("aria-label", "Cycle colour");
     var acts = document.createElement("div");
     acts.className = "note__actions";
     var prom = document.createElement("button");
-    prom.className = "note__btn"; prom.type = "button"; prom.textContent = "⤴";
-    prom.title = "Promote to task"; prom.setAttribute("aria-label", "Promote to task");
+    prom.className = "note__btn"; prom.type = "button"; prom.textContent = "⤴"; prom.title = "Promote to task"; prom.setAttribute("aria-label", "Promote to task");
     var del = document.createElement("button");
-    del.className = "note__btn"; del.type = "button"; del.textContent = "×";
-    del.title = "Delete note"; del.setAttribute("aria-label", "Delete note");
+    del.className = "note__btn"; del.type = "button"; del.textContent = "×"; del.title = "Delete note"; del.setAttribute("aria-label", "Delete note");
     acts.appendChild(prom); acts.appendChild(del);
     bar.appendChild(sw); bar.appendChild(acts);
 
     var body = document.createElement("div");
     body.className = "note__body";
-    body.contentEditable = "true";
-    body.spellcheck = false;
+    body.contentEditable = "true"; body.spellcheck = false;
     body.textContent = n.text;
 
-    el.appendChild(bar);
-    el.appendChild(body);
+    el.appendChild(bar); el.appendChild(body);
 
     body.addEventListener("input", function(){
       var note = Store.state.board.filter(function(b){ return b.id === n.id; })[0];
@@ -1089,17 +1088,17 @@
       s.board.push({ id:id, text:text || "", x:Math.max(0,Math.round(x)), y:Math.max(0,Math.round(y)), color:COLORS[s.board.length % COLORS.length] });
     });
     var body = document.querySelector('.note[data-id="' + id + '"] .note__body');
-    if(body){ body.focus();
+    if(body){
+      body.focus();
       var r = document.createRange(); r.selectNodeContents(body); r.collapse(false);
       var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
     }
   }
   function addNoteCentered(text){
+    if(!$("#tab-lab").classList.contains("active")) switchTab("lab");
     var wrap = $("#board-wrap");
-    if($("#tab-lab").classList.contains("active") === false) switchTab("lab");
     addNoteAt(wrap.scrollLeft + wrap.clientWidth/2 - 106, wrap.scrollTop + wrap.clientHeight/2 - 46, text);
   }
-
   function parseNotes(){
     var count = 0;
     Store.update(function(s){
@@ -1115,7 +1114,6 @@
     });
     toast(count ? (count + " note" + (count > 1 ? "s" : "") + " → inbox") : "no “[ ]” notes found");
   }
-
   function renderBoard(s){
     var canvas = $("#board-canvas");
     var sig = s.board.map(function(n){ return n.id; }).join("|");
@@ -1134,6 +1132,153 @@
     boardSig = sig;
     canvas.innerHTML = "";
     s.board.forEach(function(n){ canvas.appendChild(makeNote(n)); });
+  }
+
+  /* ----------------------------------------------------------------------
+   *  Athletic Engine
+   * -------------------------------------------------------------------- */
+  function mealTotals(a){
+    var t = { kcal:0, protein:0, carb:0, fat:0 };
+    a.meals.forEach(function(m){ t.kcal += num(m.kcal); t.protein += num(m.protein); t.carb += num(m.carb); t.fat += num(m.fat); });
+    return t;
+  }
+  function dailySessions(a){
+    var d = [0,0,0,0,0,0,0];
+    a.matrix.forEach(function(row){ row.forEach(function(c, day){ if(String(c || "").trim()) d[day]++; }); });
+    return d;
+  }
+  function pushMatrixDay(day){
+    var a = Store.state.athletic;
+    var fresh = [];
+    a.disciplines.forEach(function(disc, di){
+      var cell = String(a.matrix[di][day] || "").trim();
+      if(cell) fresh.push(mk(DOW7[day] + " · " + disc + ": " + cell, "Athletics", "todo"));
+    });
+    if(!fresh.length){ toast(DOW7[day] + " is empty"); return; }
+    Store.update(function(s){ s.tasks = fresh.concat(s.tasks); });
+    toast(fresh.length + " session" + (fresh.length > 1 ? "s" : "") + " → inbox");
+  }
+
+  function buildMatrix(s){
+    var a = s.athletic, host = $("#mx-body"), ti = new Date().getDay();
+    host.innerHTML = "";
+    a.disciplines.forEach(function(disc, di){
+      var tr = document.createElement("tr");
+      var cells = "";
+      for(var day=0; day<7; day++) cells += '<td class="' + (day === ti ? "today-col" : "") + '"><input data-di="' + di + '" data-day="' + day + '"></td>';
+      tr.innerHTML =
+        '<td><input data-di="' + di + '" data-dk="name"></td>' + cells +
+        '<td class="rowdel"><button data-drow="' + di + '" title="Delete discipline">×</button></td>';
+      host.appendChild(tr);
+      tr.querySelector('[data-dk="name"]').value = disc;
+      for(var d2=0; d2<7; d2++) tr.querySelector('[data-day="' + d2 + '"]').value = a.matrix[di][d2] || "";
+    });
+    host.querySelectorAll('input[data-day]').forEach(function(inp){
+      inp.addEventListener("input", function(){
+        var di = +inp.dataset.di, day = +inp.dataset.day;
+        Store.update(function(st){ st.athletic.matrix[di][day] = inp.value; });
+      });
+    });
+    host.querySelectorAll('input[data-dk="name"]').forEach(function(inp){
+      inp.addEventListener("input", function(){
+        var di = +inp.dataset.di;
+        Store.update(function(st){ st.athletic.disciplines[di] = inp.value; });
+      });
+    });
+    host.querySelectorAll("[data-drow]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var di = +b.dataset.drow;
+        Store.update(function(st){ st.athletic.disciplines.splice(di, 1); st.athletic.matrix.splice(di, 1); });
+        toast("discipline removed");
+      });
+    });
+    // mark today's footer columns
+    $$('#tab-gym tfoot td').forEach(function(td){ td.classList.remove("today-col"); });
+    $$('#tab-gym tfoot tr').forEach(function(tr){
+      var cells = tr.children;
+      if(cells[ti + 1]) cells[ti + 1].classList.add("today-col");
+    });
+  }
+
+  function buildSimpleTable(hostId, rows, cols, path){
+    var host = $(hostId);
+    host.innerHTML = "";
+    rows.forEach(function(row, i){
+      var tr = document.createElement("tr");
+      tr.innerHTML = cols.map(function(c){
+        return '<td class="' + (c.num ? "num" : "") + '"><input data-i="' + i + '" data-k="' + c.k + '" placeholder="' + c.ph + '"' + (c.num ? ' inputmode="numeric"' : '') + '></td>';
+      }).join("") + '<td class="rowdel"><button data-del="' + i + '">×</button></td>';
+      host.appendChild(tr);
+      cols.forEach(function(c){ tr.querySelector('[data-k="' + c.k + '"]').value = (row[c.k] != null ? row[c.k] : ""); });
+    });
+    host.querySelectorAll("input[data-k]").forEach(function(inp){
+      inp.addEventListener("input", function(){
+        var i = +inp.dataset.i, k = inp.dataset.k;
+        var isNum = cols.filter(function(c){ return c.k === k; })[0].num;
+        Store.update(function(s){ path(s)[i][k] = isNum ? Math.max(0, num(inp.value)) : inp.value; });
+      });
+    });
+    host.querySelectorAll("[data-del]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var i = +b.dataset.del;
+        Store.update(function(s){ path(s).splice(i, 1); });
+      });
+    });
+  }
+
+  function updateComputed(s){
+    var a = s.athletic;
+    var mt = mealTotals(a), ds = dailySessions(a);
+    var ws = ds.reduce(function(x, y){ return x + y; }, 0);
+
+    $("#k-sessions").textContent = ws + " Sessions";
+    $("#k-kcal").textContent = Math.round(mt.kcal).toLocaleString() + " kcal";
+    $("#k-protein").textContent = Math.round(mt.protein) + " g";
+    $("#k-water").textContent = a.fueling.water || "—";
+    $("#k-cardio").textContent = a.cardioVolume || "—";
+
+    ds.forEach(function(c, day){ var el = document.querySelector('[data-ds="' + day + '"]'); if(el) el.textContent = c; });
+
+    var mtset = function(k, v){
+      var el = document.querySelector('[data-mt="' + k + '"]');
+      if(el) el.textContent = (k === "kcal") ? Math.round(v).toLocaleString() : (Math.round(v) + " g");
+    };
+    mtset("kcal", mt.kcal); mtset("protein", mt.protein); mtset("carb", mt.carb); mtset("fat", mt.fat);
+
+    [["kcal", mt.kcal], ["protein", mt.protein], ["carb", mt.carb], ["fat", mt.fat]].forEach(function(p){
+      var k = p[0], goal = p[1] || 1, cur = num(a.intake[k]);
+      var fill = document.querySelector('[data-intake-fill="' + k + '"]');
+      var nm = document.querySelector('[data-intake-num="' + k + '"]');
+      if(fill) fill.style.width = clamp((cur / goal) * 100, 0, 100) + "%";
+      if(nm) nm.textContent = Math.round(cur) + " / " + Math.round(p[1]) + (k === "kcal" ? "" : " g");
+    });
+  }
+
+  function syncAthleticInputs(s){
+    var a = s.athletic;
+    var set = function(id, val){ var el = document.getElementById(id); if(el && document.activeElement !== el) el.value = val; };
+    set("fu-pre", a.fueling.pre); set("fu-morning", a.fueling.morning); set("fu-electrolytes", a.fueling.electrolytes);
+    set("fu-intra", a.fueling.intra); set("fu-water", a.fueling.water); set("cardio-vol", a.cardioVolume);
+    ["kcal","protein","carb","fat"].forEach(function(k){ set("in-" + k, a.intake[k]); });
+  }
+
+  function renderAthletic(s){
+    var ae = document.activeElement;
+    var editingTable = ae && ae.closest && ae.closest("#mx-body, #stype-body, #bench-body, #meal-body");
+    if(!editingTable){
+      buildMatrix(s);
+      buildSimpleTable("#stype-body", s.athletic.sessionTypes,
+        [{ k:"type", ph:"session type" }, { k:"target", ph:"zone & target" }],
+        function(st){ return st.athletic.sessionTypes; });
+      buildSimpleTable("#bench-body", s.athletic.benchmarks,
+        [{ k:"name", ph:"benchmark" }, { k:"pb", ph:"current PB" }, { k:"target", ph:"target" }],
+        function(st){ return st.athletic.benchmarks; });
+      buildSimpleTable("#meal-body", s.athletic.meals,
+        [{ k:"name", ph:"meal" }, { k:"kcal", ph:"0", num:true }, { k:"protein", ph:"0", num:true }, { k:"carb", ph:"0", num:true }, { k:"fat", ph:"0", num:true }],
+        function(st){ return st.athletic.meals; });
+    }
+    syncAthleticInputs(s);
+    updateComputed(s);
   }
 
   /* ----------------------------------------------------------------------
@@ -1214,14 +1359,12 @@
 
     if(t.status !== "done"){
       var fwd = document.createElement("button");
-      fwd.className = "task__btn"; fwd.type = "button"; fwd.textContent = "▸";
-      fwd.title = "Advance"; fwd.setAttribute("aria-label", "Advance task");
+      fwd.className = "task__btn"; fwd.type = "button"; fwd.textContent = "▸"; fwd.title = "Advance"; fwd.setAttribute("aria-label", "Advance task");
       fwd.addEventListener("click", function(){ moveTask(t.id, t.status === "todo" ? "doing" : "done"); });
       actions.appendChild(fwd);
     }
     var del = document.createElement("button");
-    del.className = "task__btn task__btn--del"; del.type = "button"; del.textContent = "×";
-    del.title = "Delete"; del.setAttribute("aria-label", "Delete task");
+    del.className = "task__btn task__btn--del"; del.type = "button"; del.textContent = "×"; del.title = "Delete"; del.setAttribute("aria-label", "Delete task");
     del.addEventListener("click", function(){ deleteTask(t.id); toast("task deleted"); });
     actions.appendChild(del);
 
@@ -1303,21 +1446,11 @@
     s.projects.forEach(function(pr, idx){
       var card = host.children[idx];
       card.querySelector("h4").textContent = pr.name;
-      var sel = card.querySelector('[data-pk="status"]');
-      var np  = card.querySelector('[data-pk="progress"]');
-      var nt  = card.querySelector('[data-pk="note"]');
+      var sel = card.querySelector('[data-pk="status"]'), np = card.querySelector('[data-pk="progress"]'), nt = card.querySelector('[data-pk="note"]');
       if(document.activeElement !== sel) sel.value = pr.status;
       if(document.activeElement !== np)  np.value  = pr.progress;
       if(document.activeElement !== nt)  nt.value  = pr.note;
       card.querySelector('[data-pbar="' + idx + '"]').style.width = clamp(pr.progress, 0, 100) + "%";
-    });
-  }
-  function renderMacros(s){
-    ["protein","carb","fat"].forEach(function(k){
-      var cur = s.macros.current[k], goal = s.macros.goal[k] || 1;
-      document.querySelector('[data-macro-cur="' + k + '"]').textContent = Math.round(cur);
-      document.querySelector('[data-macro-goal="' + k + '"]').textContent = Math.round(s.macros.goal[k]);
-      document.querySelector('[data-macro-fill="' + k + '"]').style.width = clamp((cur / goal) * 100, 0, 100) + "%";
     });
   }
   function renderTraining(s){
@@ -1386,7 +1519,7 @@
       hm.appendChild(cell);
     });
 
-    var week = counts.reduce(function(a,b){ return a + b; }, 0);
+    var week = counts.reduce(function(a, b){ return a + b; }, 0);
     var peakIdx = counts.indexOf(Math.max.apply(null, counts));
     var streak = 0;
     for(var j = counts.length - 1; j >= 0; j--){ if(counts[j] > 0) streak++; else break; }
@@ -1407,148 +1540,26 @@
     });
   }
 
-  /* ----------------------------------------------------------------------
-   *  Weekly Program
-   * -------------------------------------------------------------------- */
-  function programStart(){ return parseKey(Store.state.program.weekStart); }
-  function todayInWeek(){
-    var diff = Math.round((dateOnly(new Date()) - programStart()) / 86400000);
-    return (diff >= 0 && diff < 7) ? diff : -1;
-  }
-  function detectModality(text){
-    var low = String(text).toLowerCase();
-    var hit = MODALITIES.filter(function(mod){ return mod !== "Rest" && low.indexOf(mod.toLowerCase()) >= 0; })[0];
-    if(hit) return hit;
-    if(/\brest\b|\bday off\b|\boff\b/.test(low)) return "Rest";
-    return String(text).trim() ? "Conditioning" : "Rest";
-  }
-  function pushDay(i){
-    var d = Store.state.program.days[i];
-    var label = DOW3[i];
-    var txt = label + ": " + (d.modality !== "Rest" ? d.modality + " — " : "") + (d.note || d.modality);
-    addTask(txt, "Athletics");
-    toast(label + " → Kanban inbox");
-  }
-  function logDay(i){
-    var d = Store.state.program.days[i];
-    var dstr = dateKey(addDays(programStart(), i));
-    Store.update(function(s){
-      if(WORKOUTS.indexOf(d.modality) >= 0) s.training.today = d.modality;
-      s.training.log = s.training.log.filter(function(e){ return e.date !== dstr; });
-      s.training.log.unshift({ date: dstr, type: d.modality });
-      s.training.log = s.training.log.slice(0, 8);
-    });
-    toast("logged " + d.modality + " · " + dstr);
-  }
-  function newWeek(){
-    if(!window.confirm("Archive this week and start a fresh plan?")) return;
-    Store.update(function(s){
-      var cur = s.program;
-      var used = cur.days.some(function(d){ return d.note.trim() || d.modality !== "Rest"; });
-      if(used) s.program.archive = [{ weekStart: cur.weekStart, days: cur.days }].concat(cur.archive || []).slice(0, 8);
-      s.program.weekStart = dateKey(addDays(parseKey(cur.weekStart), 7));
-      s.program.days = blankWeek();
-    });
-    toast("new week started");
-  }
-  function applyPaste(){
-    var text = $("#prog-paste-text").value;
-    var got = 0;
-    Store.update(function(s){
-      text.split(/\r?\n/).forEach(function(line){
-        var m = line.match(/^\s*(mon|tue|wed|thu|fri|sat|sun)[a-z]*\s*[:\-–]\s*(.+)$/i);
-        if(!m) return;
-        var i = DOW_IDX[m[1].toLowerCase().slice(0, 3)];
-        var rest = m[2].trim();
-        s.program.days[i] = { modality: detectModality(rest), note: rest };
-        got++;
-      });
-    });
-    toast(got ? (got + " day" + (got > 1 ? "s" : "") + " set") : "no day lines found — use “Tue: …”");
-    if(got){ $("#prog-paste").hidden = true; $("#prog-paste-text").value = ""; }
-  }
-  function renderProgram(s){
-    var host = $("#prog");
-    var start = programStart();
-    $("#prog-week").textContent = "Week of " + fmtD(start) + " → " + fmtD(addDays(start, 6));
-    $("#prog-archive").textContent = s.program.archive.length
-      ? (s.program.archive.length + " past week" + (s.program.archive.length > 1 ? "s" : "") + " archived") : "";
-
-    if(host.childElementCount !== 7){
-      host.innerHTML = "";
-      DOW3.forEach(function(lbl, i){
-        var row = document.createElement("div");
-        row.className = "prog-row";
-        row.innerHTML =
-          '<div class="prog-day">' + lbl + '<span data-d="' + i + '"></span></div>' +
-          '<select data-di="' + i + '" data-dk="modality">' +
-            MODALITIES.map(function(o){ return '<option>' + o + '</option>'; }).join('') +
-          '</select>' +
-          '<input type="text" data-di="' + i + '" data-dk="note" placeholder="session notes">' +
-          '<div class="row" style="gap:2px;flex-wrap:nowrap">' +
-            '<button class="prog-mini" data-push="' + i + '" title="Send to Kanban" aria-label="Send to Kanban">▸</button>' +
-            '<button class="prog-mini" data-log="' + i + '" title="Log as done" aria-label="Log as done">✓</button>' +
-          '</div>';
-        host.appendChild(row);
-      });
-      host.querySelectorAll("[data-di]").forEach(function(inp){
-        inp.addEventListener(inp.tagName === "SELECT" ? "change" : "input", function(){
-          var i = +inp.dataset.di, k = inp.dataset.dk;
-          Store.update(function(st){ st.program.days[i][k] = inp.value; });
-        });
-      });
-      host.querySelectorAll("[data-push]").forEach(function(b){ b.addEventListener("click", function(){ pushDay(+b.dataset.push); }); });
-      host.querySelectorAll("[data-log]").forEach(function(b){ b.addEventListener("click", function(){ logDay(+b.dataset.log); }); });
-    }
-
-    var ti = todayInWeek();
-    s.program.days.forEach(function(d, i){
-      var row = host.children[i];
-      row.querySelector('[data-d="' + i + '"]').textContent = fmtD(addDays(start, i));
-      var sel = row.querySelector("select"), nt = row.querySelector("input");
-      if(document.activeElement !== sel) sel.value = d.modality;
-      if(document.activeElement !== nt) nt.value = d.note;
-      row.classList.toggle("today", i === ti);
-      row.classList.toggle("rest", d.modality === "Rest");
-    });
-  }
-
   function renderAll(s){
     renderKanban(s);
     renderBoard(s);
     renderPomodoro(s);
     renderProjects(s);
-    renderMacros(s);
+    renderAthletic(s);
     renderTraining(s);
-    renderProgram(s);
     renderWealth(s);
     renderProtocol(s);
     renderAnalytics(s);
   }
 
   /* ----------------------------------------------------------------------
-   *  Hydrate form controls (once, plus after external mutations)
+   *  Hydrate + tabs + toast
    * -------------------------------------------------------------------- */
-  function hydrateMacros(){
-    var s = Store.state;
-    [["protein","m-cur-protein","m-goal-protein"],
-     ["carb","m-cur-carb","m-goal-carb"],
-     ["fat","m-cur-fat","m-goal-fat"]].forEach(function(row){
-      var cur = document.getElementById(row[1]), goal = document.getElementById(row[2]);
-      if(document.activeElement !== cur)  cur.value  = s.macros.current[row[0]];
-      if(document.activeElement !== goal) goal.value = s.macros.goal[row[0]];
-    });
-  }
   function hydrate(){
     var s = Store.state;
-    hydrateMacros();
     $("#train-type").value = s.training.today;
     ["ustech","sp500","gold","crypto"].forEach(function(k){ $("#w-" + k).value = s.wealth[k]; });
   }
-
-  /* ----------------------------------------------------------------------
-   *  Tabs / toast
-   * -------------------------------------------------------------------- */
   function switchTab(name){
     $$(".nav__item").forEach(function(b){ b.classList.toggle("active", b.dataset.tab === name); });
     $$(".tab").forEach(function(t){ t.classList.toggle("active", t.id === "tab-" + name); });
@@ -1598,26 +1609,26 @@
     $("#note-add").addEventListener("click", function(){ addNoteCentered(""); });
     $("#parse-btn").addEventListener("click", parseNotes);
 
-    /* macros */
-    [["protein","m-cur-protein","m-goal-protein"],
-     ["carb","m-cur-carb","m-goal-carb"],
-     ["fat","m-cur-fat","m-goal-fat"]].forEach(function(row){
-      document.getElementById(row[1]).addEventListener("input", function(e){
-        Store.update(function(s){ s.macros.current[row[0]] = Math.max(0, num(e.target.value)); });
-      });
-      document.getElementById(row[2]).addEventListener("input", function(e){
-        Store.update(function(s){ s.macros.goal[row[0]] = Math.max(0, num(e.target.value)); });
-      });
+    /* athletic engine */
+    $("#mx-add").addEventListener("click", function(){
+      Store.update(function(s){ s.athletic.disciplines.push("New discipline"); s.athletic.matrix.push(["","","","","","",""]); });
+    });
+    $("#stype-add").addEventListener("click", function(){ Store.update(function(s){ s.athletic.sessionTypes.push({ type:"", target:"" }); }); });
+    $("#bench-add").addEventListener("click", function(){ Store.update(function(s){ s.athletic.benchmarks.push({ name:"", pb:"", target:"" }); }); });
+    $("#meal-add").addEventListener("click", function(){ Store.update(function(s){ s.athletic.meals.push({ name:"Item", kcal:0, protein:0, carb:0, fat:0 }); }); });
+    $$("[data-pushday]").forEach(function(b){ b.addEventListener("click", function(){ pushMatrixDay(+b.dataset.pushday); }); });
+
+    ["pre","morning","electrolytes","intra","water"].forEach(function(k){
+      $("#fu-" + k).addEventListener("input", function(e){ Store.update(function(s){ s.athletic.fueling[k] = e.target.value; }); });
+    });
+    $("#cardio-vol").addEventListener("input", function(e){ Store.update(function(s){ s.athletic.cardioVolume = e.target.value; }); });
+    ["kcal","protein","carb","fat"].forEach(function(k){
+      $("#in-" + k).addEventListener("input", function(e){ Store.update(function(s){ s.athletic.intake[k] = Math.max(0, num(e.target.value)); }); });
     });
 
     /* training */
     $("#train-type").addEventListener("change", function(e){ Store.update(function(s){ s.training.today = e.target.value; }); });
     $("#train-log-btn").addEventListener("click", function(){ logTraining($("#train-type").value); toast("logged " + $("#train-type").value); });
-
-    /* weekly program */
-    $("#prog-paste-toggle").addEventListener("click", function(){ var p = $("#prog-paste"); p.hidden = !p.hidden; if(!p.hidden) $("#prog-paste-text").focus(); });
-    $("#prog-paste-apply").addEventListener("click", applyPaste);
-    $("#prog-newweek").addEventListener("click", newWeek);
 
     /* wealth */
     ["ustech","sp500","gold","crypto"].forEach(function(k){
