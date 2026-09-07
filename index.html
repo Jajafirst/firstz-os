@@ -298,6 +298,24 @@
   .load-key{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--text-3)}
   .load-key i{display:inline-block;width:9px;height:9px;margin-right:5px;vertical-align:middle}
 
+  /* ---------- weekly program ---------- */
+  .prog-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  .prog-week{font-family:var(--mono);font-size:11px;color:var(--text-2)}
+  .prog__meta{font-family:var(--mono);font-size:10px;color:var(--text-3);margin:8px 0 0}
+  #prog-paste{margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap}
+  #prog-paste textarea{flex:1;min-width:240px;min-height:92px;resize:vertical;line-height:1.6}
+  .prog{display:flex;flex-direction:column;border:1px solid var(--border)}
+  .prog-row{display:grid;grid-template-columns:84px 134px 1fr auto;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--border)}
+  .prog-row:last-child{border-bottom:0}
+  .prog-row.today{background:rgba(245,158,11,.07)}
+  .prog-row.rest{opacity:.6}
+  .prog-day{font-family:var(--mono);font-size:11px;color:var(--text-2)}
+  .prog-day span{display:block;color:var(--text-3);font-size:10px}
+  .prog-row select{padding:6px 8px;font-size:11px;width:100%}
+  .prog-row input[type=text]{padding:6px 8px;font-size:12px;width:100%}
+  .prog-mini{background:transparent;border:1px solid var(--border-2);color:var(--text-3);font-family:var(--mono);font-size:12px;line-height:1;cursor:pointer;padding:5px 9px}
+  .prog-mini:hover{color:var(--text);border-color:var(--text-3)}
+
   /* ---------- modal (help) ---------- */
   .modal{position:fixed;inset:0;z-index:150;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.72);padding:20px}
   .modal__card{width:min(560px,100%);max-height:82vh;overflow:auto;background:var(--surface);border:1px solid var(--border-2)}
@@ -331,6 +349,8 @@
     .stat-grid{grid-template-columns:1fr 1fr}
     .vault{grid-template-columns:1fr}
     #board-wrap{height:440px}
+    .prog-row{grid-template-columns:1fr;gap:6px}
+    .prog-day span{display:inline;margin-left:6px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -468,6 +488,23 @@
           </div>
         </div>
       </div>
+
+      <div style="margin-top:24px">
+        <div class="prog-head">
+          <span class="lbl">Weekly Program</span>
+          <div class="row">
+            <span class="prog-week" id="prog-week">&mdash;</span>
+            <button class="btn" id="prog-paste-toggle">Paste week</button>
+            <button class="btn" id="prog-newweek">Start new week</button>
+          </div>
+        </div>
+        <div id="prog-paste" hidden>
+          <textarea id="prog-paste-text" spellcheck="false" placeholder="Mon: rest &mdash; mobility&#10;Tue: Hyrox sim, 8 stations, 1 km run between&#10;Wed: back squat 5x5 @ 80%"></textarea>
+          <button class="btn btn--go" id="prog-paste-apply">Split into days</button>
+        </div>
+        <div class="prog" id="prog"></div>
+        <p class="prog__meta" id="prog-archive"></p>
+      </div>
     </section>
 
     <!-- ============ TAB 4 : WEALTH & ASSETS ============ -->
@@ -598,6 +635,7 @@
   var WORKOUTS = ["Hyrox","CrossFit","Weightlifting","Running"];
   var DAYS     = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   var COLORS   = ["yellow","blue","green","pink"];
+  var MODALITIES = ["Rest","Hyrox","CrossFit","Weightlifting","Running","Conditioning","Mobility"];
   var POM_LEN  = 25 * 60;
   var THB_RATE = 32.5;
 
@@ -609,6 +647,14 @@
   var pad2 = function(n){ return (n<10?"0":"") + n; };
   var dateKey = function(d){ return d.getFullYear() + "-" + pad2(d.getMonth()+1) + "-" + pad2(d.getDate()); };
   var addDays = function(d,n){ var x = new Date(d); x.setDate(x.getDate()+n); return x; };
+  var dateOnly = function(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); };
+  var mondayOf = function(d){ var x = dateOnly(d), wd = x.getDay(); return addDays(x, wd === 0 ? -6 : 1 - wd); };
+  var parseKey = function(k){ var p = String(k || "").split("-"); return new Date(+p[0] || 2000, (+p[1] || 1) - 1, +p[2] || 1); };
+  var MON3 = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var fmtD = function(d){ return d.getDate() + " " + MON3[d.getMonth()]; };
+  var DOW3 = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  var DOW_IDX = { mon:0, tue:1, wed:2, thu:3, fri:4, sat:5, sun:6 };
+  function blankWeek(){ var a = []; for(var i=0;i<7;i++) a.push({ modality:"Rest", note:"" }); return a; }
 
   var PROTOCOL_STEPS = [
     "Step away from the MacBook",
@@ -662,6 +708,19 @@
       },
       wealth: { ustech:4200, sp500:6800, gold:1500, crypto:900 },
       protocol: PROTOCOL_STEPS.map(function(){ return false; }),
+      program: {
+        weekStart: dateKey(mondayOf(new Date())),
+        days: [
+          { modality:"Rest",          note:"Mobility 15 min + easy walk" },
+          { modality:"Hyrox",         note:"Hyrox sim: 8 stations, 1 km run between" },
+          { modality:"Weightlifting", note:"Back squat 5x5 @ 80%, RDL 4x8" },
+          { modality:"Running",       note:"5 x 800 m @ threshold, 90s float" },
+          { modality:"CrossFit",      note:"AMRAP 20: row / burpee / wall ball" },
+          { modality:"Conditioning",  note:"Sled push + wall balls, 6 rounds" },
+          { modality:"Rest",          note:"Full rest or 20 min zone-2 spin" }
+        ],
+        archive: []
+      },
       velocityHistory: hist,
       pomodoro: { remaining: POM_LEN, running:false, sessions:0, lastResume:0 }
     };
@@ -726,6 +785,18 @@
       ["ustech","sp500","gold","crypto"].forEach(function(k){ s.wealth[k] = num(s.wealth[k]); });
       if(!Array.isArray(s.protocol) || s.protocol.length !== PROTOCOL_STEPS.length)
         s.protocol = PROTOCOL_STEPS.map(function(){ return false; });
+
+      if(!s.program || !Array.isArray(s.program.days)) s.program = base.program;
+      if(!s.program.weekStart) s.program.weekStart = dateKey(mondayOf(new Date()));
+      if(s.program.days.length !== 7) s.program.days = blankWeek();
+      s.program.days = s.program.days.map(function(d){
+        return {
+          modality: (d && MODALITIES.indexOf(d.modality) >= 0) ? d.modality : "Rest",
+          note: (d && typeof d.note === "string") ? d.note : ""
+        };
+      });
+      if(!Array.isArray(s.program.archive)) s.program.archive = [];
+
       if(!s.velocityHistory || typeof s.velocityHistory !== "object") s.velocityHistory = {};
       if(!s.pomodoro || typeof s.pomodoro !== "object") s.pomodoro = base.pomodoro;
       s.pomodoro.remaining = clamp(num(s.pomodoro.remaining) || POM_LEN, 0, POM_LEN);
@@ -870,6 +941,13 @@
       toast("logged " + type);
       return;
     }
+    if(m = t.match(/^\/plan\s+(mon|tue|wed|thu|fri|sat|sun)[a-z]*\s+(.+)$/i)){
+      var di = DOW_IDX[m[1].toLowerCase().slice(0,3)];
+      var body = m[2].trim();
+      Store.update(function(s){ s.program.days[di] = { modality: detectModality(body), note: body }; });
+      toast(DOW3[di] + " program set");
+      return;
+    }
     if(m = t.match(/^\/note\s+(.+)$/i)){ addNoteCentered(m[1].trim()); toast("note added to board"); return; }
     if(m = t.match(/^\/(eng|ath|wealth|down|dt|task)\s+(.+)$/i)){
       var map = { eng:"Engineering", ath:"Athletics", wealth:"Wealth", down:"Downtime", dt:"Downtime", task:"Engineering" };
@@ -893,6 +971,7 @@
     ["/goal p|c|f &lt;n&gt;", "set a macro goal"],
     ["/w tech|sp|gold|crypto &lt;n&gt;", "set an asset balance"],
     ["/log Hyrox|CrossFit|…", "log today's training modality"],
+    ["/plan mon|tue|… &lt;text&gt;", "set a day in the Weekly Program"],
     ["/pom start|pause|reset", "drive the Pomodoro timer"],
     ["/focus &lt;tab&gt;", "jump to a workspace tab"],
     ["/note &lt;text&gt;", "drop a sticky on the Idea board"],
@@ -1328,6 +1407,112 @@
     });
   }
 
+  /* ----------------------------------------------------------------------
+   *  Weekly Program
+   * -------------------------------------------------------------------- */
+  function programStart(){ return parseKey(Store.state.program.weekStart); }
+  function todayInWeek(){
+    var diff = Math.round((dateOnly(new Date()) - programStart()) / 86400000);
+    return (diff >= 0 && diff < 7) ? diff : -1;
+  }
+  function detectModality(text){
+    var low = String(text).toLowerCase();
+    var hit = MODALITIES.filter(function(mod){ return mod !== "Rest" && low.indexOf(mod.toLowerCase()) >= 0; })[0];
+    if(hit) return hit;
+    if(/\brest\b|\bday off\b|\boff\b/.test(low)) return "Rest";
+    return String(text).trim() ? "Conditioning" : "Rest";
+  }
+  function pushDay(i){
+    var d = Store.state.program.days[i];
+    var label = DOW3[i];
+    var txt = label + ": " + (d.modality !== "Rest" ? d.modality + " — " : "") + (d.note || d.modality);
+    addTask(txt, "Athletics");
+    toast(label + " → Kanban inbox");
+  }
+  function logDay(i){
+    var d = Store.state.program.days[i];
+    var dstr = dateKey(addDays(programStart(), i));
+    Store.update(function(s){
+      if(WORKOUTS.indexOf(d.modality) >= 0) s.training.today = d.modality;
+      s.training.log = s.training.log.filter(function(e){ return e.date !== dstr; });
+      s.training.log.unshift({ date: dstr, type: d.modality });
+      s.training.log = s.training.log.slice(0, 8);
+    });
+    toast("logged " + d.modality + " · " + dstr);
+  }
+  function newWeek(){
+    if(!window.confirm("Archive this week and start a fresh plan?")) return;
+    Store.update(function(s){
+      var cur = s.program;
+      var used = cur.days.some(function(d){ return d.note.trim() || d.modality !== "Rest"; });
+      if(used) s.program.archive = [{ weekStart: cur.weekStart, days: cur.days }].concat(cur.archive || []).slice(0, 8);
+      s.program.weekStart = dateKey(addDays(parseKey(cur.weekStart), 7));
+      s.program.days = blankWeek();
+    });
+    toast("new week started");
+  }
+  function applyPaste(){
+    var text = $("#prog-paste-text").value;
+    var got = 0;
+    Store.update(function(s){
+      text.split(/\r?\n/).forEach(function(line){
+        var m = line.match(/^\s*(mon|tue|wed|thu|fri|sat|sun)[a-z]*\s*[:\-–]\s*(.+)$/i);
+        if(!m) return;
+        var i = DOW_IDX[m[1].toLowerCase().slice(0, 3)];
+        var rest = m[2].trim();
+        s.program.days[i] = { modality: detectModality(rest), note: rest };
+        got++;
+      });
+    });
+    toast(got ? (got + " day" + (got > 1 ? "s" : "") + " set") : "no day lines found — use “Tue: …”");
+    if(got){ $("#prog-paste").hidden = true; $("#prog-paste-text").value = ""; }
+  }
+  function renderProgram(s){
+    var host = $("#prog");
+    var start = programStart();
+    $("#prog-week").textContent = "Week of " + fmtD(start) + " → " + fmtD(addDays(start, 6));
+    $("#prog-archive").textContent = s.program.archive.length
+      ? (s.program.archive.length + " past week" + (s.program.archive.length > 1 ? "s" : "") + " archived") : "";
+
+    if(host.childElementCount !== 7){
+      host.innerHTML = "";
+      DOW3.forEach(function(lbl, i){
+        var row = document.createElement("div");
+        row.className = "prog-row";
+        row.innerHTML =
+          '<div class="prog-day">' + lbl + '<span data-d="' + i + '"></span></div>' +
+          '<select data-di="' + i + '" data-dk="modality">' +
+            MODALITIES.map(function(o){ return '<option>' + o + '</option>'; }).join('') +
+          '</select>' +
+          '<input type="text" data-di="' + i + '" data-dk="note" placeholder="session notes">' +
+          '<div class="row" style="gap:2px;flex-wrap:nowrap">' +
+            '<button class="prog-mini" data-push="' + i + '" title="Send to Kanban" aria-label="Send to Kanban">▸</button>' +
+            '<button class="prog-mini" data-log="' + i + '" title="Log as done" aria-label="Log as done">✓</button>' +
+          '</div>';
+        host.appendChild(row);
+      });
+      host.querySelectorAll("[data-di]").forEach(function(inp){
+        inp.addEventListener(inp.tagName === "SELECT" ? "change" : "input", function(){
+          var i = +inp.dataset.di, k = inp.dataset.dk;
+          Store.update(function(st){ st.program.days[i][k] = inp.value; });
+        });
+      });
+      host.querySelectorAll("[data-push]").forEach(function(b){ b.addEventListener("click", function(){ pushDay(+b.dataset.push); }); });
+      host.querySelectorAll("[data-log]").forEach(function(b){ b.addEventListener("click", function(){ logDay(+b.dataset.log); }); });
+    }
+
+    var ti = todayInWeek();
+    s.program.days.forEach(function(d, i){
+      var row = host.children[i];
+      row.querySelector('[data-d="' + i + '"]').textContent = fmtD(addDays(start, i));
+      var sel = row.querySelector("select"), nt = row.querySelector("input");
+      if(document.activeElement !== sel) sel.value = d.modality;
+      if(document.activeElement !== nt) nt.value = d.note;
+      row.classList.toggle("today", i === ti);
+      row.classList.toggle("rest", d.modality === "Rest");
+    });
+  }
+
   function renderAll(s){
     renderKanban(s);
     renderBoard(s);
@@ -1335,6 +1520,7 @@
     renderProjects(s);
     renderMacros(s);
     renderTraining(s);
+    renderProgram(s);
     renderWealth(s);
     renderProtocol(s);
     renderAnalytics(s);
@@ -1427,6 +1613,11 @@
     /* training */
     $("#train-type").addEventListener("change", function(e){ Store.update(function(s){ s.training.today = e.target.value; }); });
     $("#train-log-btn").addEventListener("click", function(){ logTraining($("#train-type").value); toast("logged " + $("#train-type").value); });
+
+    /* weekly program */
+    $("#prog-paste-toggle").addEventListener("click", function(){ var p = $("#prog-paste"); p.hidden = !p.hidden; if(!p.hidden) $("#prog-paste-text").focus(); });
+    $("#prog-paste-apply").addEventListener("click", applyPaste);
+    $("#prog-newweek").addEventListener("click", newWeek);
 
     /* wealth */
     ["ustech","sp500","gold","crypto"].forEach(function(k){
